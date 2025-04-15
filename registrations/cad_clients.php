@@ -104,7 +104,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         openModal("<?= htmlspecialchars($message_type) ?>");
         setTimeout(() => {
           closeModal();
-          
         }, 2250);
       </script>
     <?php endif; ?>
@@ -149,5 +148,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </div>
   <script src="../scripts/general.js"></script>
 </body>
-
 </html>
