@@ -16,6 +16,9 @@
     text-align: center;
     padding: 0 10px;     
     height: 55px;        
+    width: 100%;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
   }
   
   .dropdown-nav {
@@ -25,6 +28,9 @@
     width: 100%;         
     align-items: center;
     text-align: center;
+    flex-direction: row;
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
   
   .nav-item {
@@ -40,6 +46,11 @@
     padding: 8px;
   }
   
+  .nav-content:hover {
+    background-color: #fff;
+    border-radius: 6px;
+    color:rgba(37, 34, 34, 0.999);
+  }
 
   .logout {
     margin-left: auto; 
@@ -55,17 +66,19 @@
     background-color: rgba(37, 34, 34, 0.999);
     display: none;                
     position: absolute;    
-    text-align: center;       
+    text-align: left;       
     list-style: none;
     top: 100%;                    
     left: 0;
     color: #fff;
+    padding-top: 1px;
+    margin-top: 2px;
     border-radius: 6px;
     min-width: 100px;
     box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
     z-index: 1000;
   }
-  
+
   .dropdown-content li a {
     background-color: (37, 34, 34, 0.299);
     color: #fff;
@@ -85,8 +98,11 @@
     border-radius: 6px;
     background-color: #fff;
     color: rgba(37, 34, 34, 0.999);
+    transition: 0.3s;
   }
 
   #btnSair {
     color: red;
+    padding: 2px;
   }
+
