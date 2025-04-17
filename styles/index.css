@@ -5,12 +5,22 @@
   }
   
   body {
-    background-color: rgba(37, 34, 34, 0.908);
+    background: linear-gradient(to right, rgba(10, 20, 25, 0.95), 
+    rgba(20, 40, 50, 0.95));
+
     font-family: 'Rubik', sans-serif;
+  }
+
+  .general-nav {
+    overflow: visible;
   }
 
   #main-nav {
     background-color: rgba(37, 34, 34, 0.999);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    position: sticky;
+    top: 0;
     display: flex;       
     align-items: center; 
     text-align: center;
@@ -44,12 +54,14 @@
     color: #fff;
     display: block;
     padding: 8px;
+    border-radius: 6px;
   }
   
   .nav-content:hover {
     background-color: #fff;
     border-radius: 6px;
     color:rgba(37, 34, 34, 0.999);
+    transition: 0.3s;
   }
 
   .logout {
@@ -72,7 +84,6 @@
     left: 0;
     color: #fff;
     padding-top: 1px;
-    margin-top: 2px;
     border-radius: 6px;
     min-width: 100px;
     box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
@@ -104,5 +115,35 @@
   #btnSair {
     color: red;
     padding: 2px;
+  }
+
+  #left-nav {
+    box-shadow: 2px 1px 5px rgba(0, 0, 0, 0.2);
+    background-color: rgba(37, 34, 34, 0.700);
+    display: flex;
+    position: sticky;
+    width: 50px;
+    height: 94vh;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    padding-bottom: 10px;
+    z-index: 900;
+    justify-content: center;
+  }
+
+  #nav-stripes {
+    margin-top: 10px;
+    position: relative;
+    transition: 0.4s;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .color-1 {
+    fill: #fff;
+  }
+
+  .color-2 {
+    fill: #f8f8f8c5;
   }
 
