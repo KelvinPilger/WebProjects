@@ -36,6 +36,7 @@
   .nav-item {
     position: relative;  
     margin-right: 20px;
+    display: inline-block;
   }
   
   .nav-content {
@@ -43,7 +44,7 @@
     text-decoration: none;
     color: #fff;
     display: block;
-    padding: 8px;
+    padding: 4px;
   }
   
   .nav-content:hover {
@@ -72,7 +73,6 @@
     left: 0;
     color: #fff;
     padding-top: 1px;
-    margin-top: 2px;
     border-radius: 6px;
     min-width: 100px;
     box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
