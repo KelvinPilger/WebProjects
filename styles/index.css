@@ -27,15 +27,13 @@
     padding: 0 10px;     
     height: 55px;        
     width: 100%;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
   }
   
   .dropdown-nav {
     background-color: rgba(37, 34, 34, 0.999);
     list-style: none;    
     display: flex;       
-    width: 100%;         
+    width: 100vw;         
     align-items: center;
     text-align: center;
     flex-direction: row;
@@ -97,6 +95,7 @@
     padding: 8px;
     font-size: 14px;
     text-decoration: none;
+    border-color: black;
   }
   
   .nav-item.dropdown:hover .dropdown-content {
@@ -109,7 +108,7 @@
     border-radius: 6px;
     background-color: #fff;
     color: rgba(37, 34, 34, 0.999);
-    transition: 0.3s;
+    transition: 0.6s;
   }
 
   #btnSair {
@@ -119,31 +118,65 @@
 
   #left-nav {
     box-shadow: 2px 1px 5px rgba(0, 0, 0, 0.2);
-    background-color: rgba(37, 34, 34, 0.700);
+    background-color: rgba(49, 44, 44, 0.678);
     display: flex;
     position: sticky;
-    width: 50px;
+    width: 60px;
     height: 94vh;
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
     padding-bottom: 10px;
     z-index: 900;
-    justify-content: center;
+    transition: 0.5s;
   }
 
-  #nav-stripes {
-    margin-top: 10px;
+  .emitente {
     position: relative;
-    transition: 0.4s;
-    cursor: pointer;
-    user-select: none;
+    display: flex;
+    width: 250px;
+    height: 40px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 10px;
+    margin: 14px 2px;
+    text-align: left;
   }
 
-  .color-1 {
-    fill: #fff;
+  .imgEmitente {
+    width: 35px;
+    height: 35px;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 2px 1px 5px rgba(0, 0, 0, 0.8);
+    margin-right: 12px;
   }
 
-  .color-2 {
-    fill: #f8f8f8c5;
+  .lblEmitente {
+    font-size: 15px;
+    height: 35px;
+    opacity: 0;
+    transition: opacity 0.5s ease 0.33s;
+    visibility: hidden;
+    color: #fff;
+    position: relative;
+    text-wrap: wrap;
+  }
+
+  
+  #left-nav:hover{
+    width: 250px;
+  }
+
+  #left-nav:hover > .emitente {
+    margin: 15px 2px;
+    
+  }
+
+  #left-nav:hover > .emitente > .lblEmitente {
+    opacity: 1;
+    color: #fff;
+    visibility: visible;
+    position: relative;
   }
 
