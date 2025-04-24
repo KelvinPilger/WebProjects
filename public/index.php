@@ -1,5 +1,20 @@
-<?php 
-  require __DIR__ . '/../vendor/autoload.php';
+<?php
+
+  define('BASE_PATH', realpath(__DIR__ . '/..'));
+  require BASE_PATH . '/vendor/autoload.php';
+
+  use App\Controllers\ClientController;
+
+  $action = $_REQUEST['action'] ?? 'listar';
+  $ctrl   = new ClientController();
+
+  switch ($action) {
+    case 'create':  $ctrl->create();  break;
+    case 'store':   $ctrl->store();   break;
+    case 'delete':  $ctrl->delete();  break;
+    case 'listar':
+    default:        $ctrl->index();   break;
+  }
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +36,7 @@
         <li class="nav-item dropdown">
           <a href="#" class="nav-content">Listagens</a>
             <ul class="dropdown-content">
-              <li><a href="listings/list_clients.php">Clientes</a></li>
+            <li><a href="index.php?action=listar">Clientes</a></li>
               <li><a href="#">Produtos</a></li>
               <li><a href="#">Fornecedores</a></li>
               <li><a href="#">Recebimentos</a></li>
@@ -71,10 +86,7 @@
   </nav>
   </header>
   <main>
-
   </main>
   <footer>
-    
   </footer>
-  <script src="scripts/index.js"></script>
 </body>

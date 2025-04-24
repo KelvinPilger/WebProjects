@@ -1,3 +1,5 @@
+<?php if (!isset($clientes)) $clientes = []; ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -5,7 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Clientes (ServFácil)</title>
   <link rel="stylesheet" href="../../styles/client.css">
-  <script src="../scripts/general.js"></script>
 </head>
 <body>
   <h2>Clientes</h2>
@@ -22,12 +23,13 @@
   </tr>
 </thead>
 <tbody>
+  <?php foreach ($clientes as $cliente): ?>
     <tr>
-      <b><td></td></b>
-      <b><td></td></b>
-      <b><td></td></b>
-      <b><td></td></b>
-      <b><td></td>
+      <td><?= htmlspecialchars($cliente['id']) ?></td>
+      <td><?= htmlspecialchars($cliente['name']) ?></td>
+      <td><?= htmlspecialchars($cliente['bornDate']) ?></td>
+      <td><?= htmlspecialchars($cliente['inserted']) ?></td>
+      <td><?= htmlspecialchars($cliente['age']) ?></td>
       <td>
         <a class="btnVisualizar">
             <svg class="eyeSvg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 509.348 509.348" style="enable-background:new 0 0 509.348 509.348;" xml:space="preserve" width="512" height="512" fill="currentColor">
@@ -44,27 +46,29 @@
                 </g>
             </svg>
         </a>
-        <button class="btnExcluir">
-            <svg class="trashSvg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 511.991 511.991" style="enable-background:new 0 0 511.991 511.991;" xml:space="preserve" width="512" height="512" fill="currentColor">
-                <g>
-                  <path d="M286.161,255.867L505.745,36.283c8.185-8.474,7.951-21.98-0.523-30.165c-8.267-7.985-21.375-7.985-29.642,0   L255.995,225.702L36.411,6.118c-8.475-8.185-21.98-7.95-30.165,0.524c-7.985,8.267-7.985,21.374,0,29.641L225.83,255.867   L6.246,475.451c-8.328,8.331-8.328,21.835,0,30.165l0,0c8.331,8.328,21.835,8.328,30.165,0l219.584-219.584l219.584,219.584   c8.331,8.328,21.835,8.328,30.165,0l0,0c8.328-8.331,8.328-21.835,0-30.165L286.161,255.867z"/>
-                </g>
-            </svg>
-        </button>
+        <form method="POST" action="?action=listar" onsubmit="return confirm('Deseja realmenter excluir este cliente?');">
+          <input type="hidden" name="id" value="<?= $cliente['id'] ?? '' ?>">
+          <button class="btnExcluir">
+              <svg class="trashSvg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 511.991 511.991" style="enable-background:new 0 0 511.991 511.991;" xml:space="preserve" width="512" height="512" fill="currentColor">
+                  <g>
+                    <path d="M286.161,255.867L505.745,36.283c8.185-8.474,7.951-21.98-0.523-30.165c-8.267-7.985-21.375-7.985-29.642,0   L255.995,225.702L36.411,6.118c-8.475-8.185-21.98-7.95-30.165,0.524c-7.985,8.267-7.985,21.374,0,29.641L225.83,255.867   L6.246,475.451c-8.328,8.331-8.328,21.835,0,30.165l0,0c8.331,8.328,21.835,8.328,30.165,0l219.584-219.584l219.584,219.584   c8.331,8.328,21.835,8.328,30.165,0l0,0c8.328-8.331,8.328-21.835,0-30.165L286.161,255.867z"/>
+                  </g>
+              </svg>
+          </button>
+        </form>
       </td>
     </tr>
+  <?php endforeach; ?>
 </tbody>
     </table>
     <div class="adicionar-div">
-      <button class="btnAdicionar">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve" width="16" height="16">
-          <g>
-            <path d="M490.667,234.667H277.333V21.333C277.333,9.551,267.782,0,256,0c-11.782,0-21.333,9.551-21.333,21.333v213.333H21.333   C9.551,234.667,0,244.218,0,256c0,11.782,9.551,21.333,21.333,21.333h213.333v213.333c0,11.782,9.551,21.333,21.333,21.333   c11.782,0,21.333-9.551,21.333-21.333V277.333h213.333c11.782,0,21.333-9.551,21.333-21.333   C512,244.218,502.449,234.667,490.667,234.667z"/>
-          </g>
-          </svg>
-          Adicionar
-        </button>
-      </div>
+      <button type="button" class="btnAdicionar" onclick="window.location.href='?action=create'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Adicionar
+      </button>
+    </div>
   </div>
 </body>
 </html>
