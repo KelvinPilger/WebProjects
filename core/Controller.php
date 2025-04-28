@@ -11,7 +11,7 @@ class Controller {
     private $controller;
     private $namespace;
     private $folders = [
-        'app\controllers\crud', 
+        'app\controllers\main',
         'app\controllers\admin'
     ];
 
@@ -59,16 +59,21 @@ class Controller {
             $controller = $this->getControllerNotHome();
 
             if(!$this->controllerExist($controller)) {
-            throw new ControllerNotExistException("O controller repassado não é existente.");
+            throw new ControllerNotExistException("O controller repassado não é existente. {$controller}");
             }
 
         return $this->instantiateController();
     }
 
     private function getControllerNotHome() {
-        if(substr_count($this->uri, '/') > 1) {
-            list($controller) = array_values(array_filter(explode('/', $this->uri)));
-            return ucfirst($controller).'Controller';
+        
+        $segs = array_values(array_filter(
+            explode('/', $this->uri),
+            fn($s) => $s !== '' && $s !== 'index.php'
+        ));
+    
+        if (isset($segs[0])) {
+            return ucfirst($segs[0]) . 'Controller';
         }
 
         return ucfirst(ltrim($this->uri, '/')) . 'Controller';

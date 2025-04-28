@@ -7,8 +7,4 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'app\\classes\\Uri' => $baseDir . '/app/classes/Uri.php',
-    'app\\controllers\\crud\\ClientController' => $baseDir . '/app/controllers/crud/ClientController.php',
-    'app\\exceptions\\ControllerNotExistException' => $baseDir . '/app/exceptions/ControllerNotExistException.php',
-    'core\\Controller' => $baseDir . '/core/Controller.php',
 );
