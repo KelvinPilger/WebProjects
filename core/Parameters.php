@@ -13,32 +13,37 @@ class Parameters {
         $this->uri = Uri::uri();
     }
 
-    public function load(){
+    public function load(): \stdClass {
 
         $params = $this->getParameter();
-        return $params ?? (object)[
-            'parameter' => null,
-            'next'      => null,
-        ];
 
+        if($params === null) {
+            return $params ?? (object)[
+                'parameter' => null,
+                'next'      => null,
+            ];
+        }
+
+        return $params;
     }
 
     public function getParameter() {
 
-        $segments = array_values(array_filter(explode('/', $this->uri)));
+         $cleanPath = trim(preg_replace('#/+#','/',$this->uri), '/');
 
-        if (count($segments) > 2) {
-            $current = strip_tags($segments[2]);
-            $nextRaw = $this->getNextParameter($segments, 2);
-            $next    = $nextRaw !== null ? strip_tags($nextRaw) : null;
 
-            return (object)[
-                'parameter' => $current,
-                'next'      => $next,
-            ];
-        }
-
-        return null;
+         $segments = explode('/', $cleanPath);
+ 
+         if (count($segments) >= 3) {
+             return (object)[
+                 'parameter' => strip_tags($segments[2]),
+                 'next'      => isset($segments[3]) 
+                                   ? strip_tags($segments[3]) 
+                                   : null,
+             ];
+         }
+ 
+         return null;
     }
 
     public function getNextParameter($segments, $index) {

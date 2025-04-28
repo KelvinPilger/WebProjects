@@ -5,19 +5,17 @@ require __DIR__ . '/../vendor/autoload.php';
 use core\Controller;
 use core\Method;
 use core\Parameters;
+use app\Controllers\Main\ClientController;
 
 try{
 
-    $controller = new Controller;
-    $controller = $controller->load();
+    $controller = (new Controller())->load();
 
-    $method = new Method;
-    $method = $method->load($controller);
+    $method = (new Method())->load($controller);
 
-    $parameters = new Parameters;
-    $parameters = $parameters->load();
+    $params = (new Parameters())->load();
 
-    $controller->$method($parameters);
+    $controller->{$method}($params);
 
 } catch (\Exception $e) {
 
