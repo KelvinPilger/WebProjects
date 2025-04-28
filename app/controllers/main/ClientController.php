@@ -1,8 +1,8 @@
 <?php 
 
-namespace app\controllers\main;
-use app\Models\Client;
-use core\Controller;
+namespace App\Controllers\main;
+use app\models\Client;
+use Core\Controller;
 
 class ClientController extends Controller{
 
@@ -11,28 +11,33 @@ class ClientController extends Controller{
 
         $clients = $clientModel->findAll();
 
-        $this->renderView('/listings/clientList', [
-            'clients' => $clients
+        $this->renderView('listings/clientList', [
+            'clients' => $clients,
+            'style' => [
+                '/../../../public/assets/css/clientList.css'
+            ],
         ]);
     }
 
-    public function show($request) {
+    public function show($request): void {
         
-        $id = isset($request->next)
-            ? (int) $request->next
+        $id = isset($request->parameter)
+            ? (int) $request->parameter
             : 0;
 
         $clientModel = new Client();
 
         $client = $clientModel->searchById($id);
-        
-        $this->renderView('/listings/clientList', [
-            'clients' => $client
+		
+		$clients = $client ? [ $client ] : [];
+        if($clients !== []) {
+			$this->renderView('listings/clientList', [
+            'clients' => $clients,
+            'style' => [
+                '../../../../public/assets/css/clientList.css'
+            ],
         ]);
-    }
-
-    public function create() {
-        
+		}
     }
 
     public function store() {
@@ -42,6 +47,10 @@ class ClientController extends Controller{
     public function edit($id) {
 
     }
+	
+	public function remove($id) {
+		
+	}
 
 }
 

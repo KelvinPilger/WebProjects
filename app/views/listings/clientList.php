@@ -1,17 +1,31 @@
 <h2>Teste Render</h2>
-
-<?php if (!empty($clients)): ?>
-  <ul>
-    <?php foreach ($clients as $c): ?>
-      <ul>
-        <li><?= htmlspecialchars($c['name'] ?? 'N/A') ?></li>
-        <li><?= htmlspecialchars($c['cpf']) ?></li>
-        <li><?= htmlspecialchars($c['cnpj']) ?></li>
-        <li><?= htmlspecialchars($c['age'] ?? '') ?></li>
-        <li><?= htmlspecialchars($c['email'] ?? 'Sem e-mail') ?></li>
-      </ul>
-    <?php endforeach; ?>
-  </ul>
-<?php else: ?>
-  <p>Nenhum cliente encontrado.</p>
-<?php endif; ?>
+<div class="tableContainer">
+	<table class="myTable">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>CPF</th>
+				<th>CNPJ</th>
+				<th>Idade</th>
+				<th>E-mail</th>
+				<th>Data e Hora do Cadastro</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php if (!empty($clients)): ?>
+				<?php foreach ($clients as $c): ?>
+					<tr>
+					<td><?= htmlspecialchars($c['name'] ?? 'N/A') ?></td>
+					<td><?= htmlspecialchars($c['cpf']) ?></td>
+					<td><?= htmlspecialchars($c['cnpj']) ?></td>
+					<td><?= htmlspecialchars($c['age'] ?? '') ?></td>
+					<td><?= htmlspecialchars($c['email'] ?? 'Sem e-mail') ?></td>
+					<td><?= date('d/m/Y H:i:s', strtotime($c['inserted_at'])) ?></td>
+					</tr>
+				<?php endforeach; ?>
+			<?php else: ?>
+				<p>Nenhum cliente encontrado.</p>
+			<?php endif; ?>
+		</tbody>
+	</table>
+</div>

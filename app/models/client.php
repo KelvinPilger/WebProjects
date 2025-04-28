@@ -24,8 +24,13 @@ class Client {
     public function searchById($id): array {
         $pdo = Database::getConnection();
         $stmt = $pdo->prepare('SELECT * FROM clients where ID = :id');
-        $stmt->execute(['id' => $id]);
-        return $stmt->fetch();
+		$stmt->execute(['id' => $id]);
+		
+		$row = $stmt->fetch(PDO::FETCH_ASSOC) ?: null; 
+		
+		return $row !== false 
+        ? $row 
+        : [];
     }
 }
 ?>

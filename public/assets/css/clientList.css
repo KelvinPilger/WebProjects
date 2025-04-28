@@ -1,0 +1,50 @@
+ .tableContainer {
+    width: 95%;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow-x: auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+  }
+  
+  .myTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0px;
+  }
+  
+  .myTable thead {
+    background-color: #3f51b5;
+    color: #fff;
+  }
+  
+  .myTable th {
+    padding: 12px 15px;
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  .myTable td {
+    padding: 10px 15px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+  }
+  
+  .myTable tbody tr:nth-child(even) {
+    background-color: #f7f7f7;
+  }
+  
+  .myTable tbody tr:hover {
+    background-color: #eaeaea;
+  }
+  
+   .myTable tbody tr:nth-child(even) {
+    background-color: #f7f7f7;
+  }
+  
+  .myTable tbody tr:hover {
+    background-color: #eaeaea;
+  }

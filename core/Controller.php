@@ -87,7 +87,7 @@ class Controller {
         extract($params, EXTR_SKIP);
 
         ob_start();
-        require __DIR__ . '/../app/views' . $view . '.php';
+        require __DIR__ . '/../app/views/' . $view . '.php';
         $content = ob_get_clean();
 
         require __DIR__ . '/../app/views/layout.php';
