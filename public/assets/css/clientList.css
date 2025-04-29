@@ -1,3 +1,22 @@
+ .clientsTitle {
+  width: 95%;
+  max-width: 1200px;
+  padding: 0px 6px;
+  max-height: 50px;
+  margin: 0px auto;
+  overflow-x: auto;
+ }
+
+ .clientsTitle > h1 {
+  font-family: 'Rubik', sans-serif;
+  padding: 4px 4px 4px 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  font-size: 16px;
+  margin: 0 auto;
+  overflow-x: auto;
+ }
+
  .tableContainer {
     width: 95%;
     max-width: 1200px;
@@ -5,8 +24,8 @@
     overflow-x: auto;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 10px;
+    font-family: 'Rubik', sans-serif;
   }
   
   .myTable {
@@ -16,7 +35,7 @@
   }
   
   .myTable thead {
-    background-color: #3f51b5;
+    background-color: #181717db;
     color: #fff;
   }
   
@@ -47,4 +66,14 @@
   
   .myTable tbody tr:hover {
     background-color: #eaeaea;
+  }
+
+  .btnIncluir {
+    text-decoration: none;
+    background-color: #181717db;
+    color: #fff;
+    padding: 3px 20px;
+    border-radius: 6px;
+    width: 300px;
+    font-size: 14px;
   }

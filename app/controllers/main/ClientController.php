@@ -14,7 +14,7 @@ class ClientController extends Controller{
         $this->renderView('listings/clientList', [
             'clients' => $clients,
             'style' => [
-                '/../../../public/assets/css/clientList.css'
+                '../../assets/css/clientList.css'
             ],
         ]);
     }
@@ -34,7 +34,7 @@ class ClientController extends Controller{
 			$this->renderView('listings/clientList', [
             'clients' => $clients,
             'style' => [
-                '../../../../public/assets/css/clientList.css'
+                '../../../assets/css/clientList.css'
             ],
         ]);
 		}

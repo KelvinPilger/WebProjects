@@ -1,4 +1,6 @@
-<h2>Teste Render</h2>
+<div class="clientsTitle">
+	<h1>Clientes</h1>
+</div>
 <div class="tableContainer">
 	<table class="myTable">
 		<thead>
@@ -28,4 +30,7 @@
 			<?php endif; ?>
 		</tbody>
 	</table>
+	<a href="" class="btnIncluir">
+		Incluir
+	</a>
 </div>
