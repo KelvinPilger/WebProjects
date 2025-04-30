@@ -44,12 +44,18 @@ class ClientController extends Controller{
 
     }
 
-    public function edit($id) {
-
+    public function edit($request): void {
     }
+
+    
 	
-	public function remove($id) {
-		
+	public function remove($request): void {
+        $id = isset($request->parameter)
+        ?(int) $request->parameter
+        : 0;
+
+        $clientModel = new Client();
+        $client = $clientModel->delete($id);
 	}
 
 }
