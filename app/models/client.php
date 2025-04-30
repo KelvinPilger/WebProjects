@@ -32,5 +32,15 @@ class Client {
         ? $row 
         : [];
     }
+
+    public function delete($id): string {
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare('DELETE FROM clients WHERE ID = :id');
+        if($stmt->execute(['id' => $id])) {
+            return "Cliente excluído com sucesso!";
+        } else {
+            return "Não foi possível excluir o cliente!";
+        }
+    }
 }
 ?>
