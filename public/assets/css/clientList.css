@@ -18,13 +18,14 @@
  }
 
  .tableContainer {
+    z-index: 1;
+    position: relative;
     width: 95%;
     min-width: 900px;
     max-width: 1150px;
     margin: 0px auto 30px auto;
     overflow-x: auto;
-    border: 1px solid rgba(37, 34, 34, 0.999);
-    filter: blur(0.3px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     background-color: #fff;
     border-radius: 8px;
     padding: 10px;

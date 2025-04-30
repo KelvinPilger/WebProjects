@@ -36,7 +36,7 @@
 						<td>
 							<a>👁️</a>
 							<a>✏️</a>
-							<a href="../../controllers/main/ClientController.php">❌</a>
+							<a href="<?= $_SERVER['SCRIPT_NAME'] ?>/client/remove/<?= htmlspecialchars($c['id'], ENT_QUOTES, 'UTF-8') ?>">❌</a>
 						</td>
 					</tr>
 				<?php endforeach; ?>

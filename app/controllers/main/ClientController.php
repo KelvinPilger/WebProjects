@@ -56,6 +56,8 @@ class ClientController extends Controller{
 
         $clientModel = new Client();
         $client = $clientModel->delete($id);
+
+        header('Location: ' . $_SERVER['SCRIPT_NAME'] . '/client/index');
 	}
 
 }
