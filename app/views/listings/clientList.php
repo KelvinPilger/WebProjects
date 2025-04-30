@@ -11,6 +11,7 @@
 				<th>Idade</th>
 				<th>E-mail</th>
 				<th>Data e Hora do Cadastro</th>
+				<th>Ações</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -23,6 +24,11 @@
 					<td><?= htmlspecialchars($c['age'] ?? '') ?></td>
 					<td><?= htmlspecialchars($c['email'] ?? 'Sem e-mail') ?></td>
 					<td><?= date('d/m/Y H:i:s', strtotime($c['inserted_at'])) ?></td>
+					<td class="btnActions">
+						<a href="">👁️</a>
+						<a href="">✏️</a>
+						<a href="">❌</a>
+					</td>
 					</tr>
 				<?php endforeach; ?>
 			<?php else: ?>
@@ -30,7 +36,9 @@
 			<?php endif; ?>
 		</tbody>
 	</table>
-	<a href="" class="btnIncluir">
-		Incluir
-	</a>
+	<strong>
+		<a href="" class="btnIncluir">
+		Incluir Cliente
+		</a>
+	</strong>
 </div>

@@ -7,10 +7,10 @@ use PDO;
 class Client {
     public $id;
     public $name;
-    public $inseted_at;
+    public $inserted_at;
     public $cpf;
     public $cnpj;
-    public $born_at;
+    public $born_date;
     public $age;
     public $email;
     public $nat_registration;
