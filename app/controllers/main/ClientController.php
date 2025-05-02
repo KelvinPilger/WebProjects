@@ -45,6 +45,23 @@ class ClientController extends Controller{
     }
 
     public function edit($request): void {
+        $id = isset($request->parameter)
+            ? (int) $request->parameter
+            : 0;
+        $clientModel = new Client();
+
+        $client = $clientModel->edit($id);
+
+        $clientEdit = $client ? [$client] : [];
+
+        if($clientEdit !== []) {
+            $this->renderView('edit/clientEdit', [
+                'clients' => $clientEdit,
+                'style' => [
+                    '../../../assets/css/clientEdit.css'
+                ],
+            ]);
+        }
     }
 
     
@@ -55,7 +72,7 @@ class ClientController extends Controller{
         : 0;
 
         $clientModel = new Client();
-        $client = $clientModel->delete($id);
+        $clientModel->delete($id);
 
         header('Location: ' . $_SERVER['SCRIPT_NAME'] . '/client/index');
 	}

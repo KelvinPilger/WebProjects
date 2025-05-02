@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>ServFácil (SF)</title>
-  <link rel="stylesheet" href="../../assets/css/layout.css">
+  <link rel="stylesheet" href="/../../Projeto/public/assets/css/layout.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
