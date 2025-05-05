@@ -1,6 +1,10 @@
 <div class="infoContainer">
     <?php if (!empty($clients)): ?>
         <?php foreach ($clients as $c): ?>
+        <div class="containerId">
+            <label class="containerTitle">Cód.</label>
+            <label class="clientId"><?= htmlspecialchars($c['id']) ?></label>
+        </div>
         <div class="containerNatRegistr">
             <label class="containerTitle">Tipo</label>
             

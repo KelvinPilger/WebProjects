@@ -170,6 +170,20 @@ html {
 .containerContacts label[for="celular"] { grid-column: 2; grid-row: 1; }
 .containerContacts input#celular         { grid-column: 2; grid-row: 2; }
 
+.containerId {
+    width: 25%;
+    max-width: 0.5rem;
+    margin: 15px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1.8px solid #aaa2a2c4;
+    padding: 10px 33px;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
 .buttons {
     position: relative;
     display: flex;
