@@ -44,5 +44,6 @@
     </div>
   <main><?= $content ?></main>
   <footer></footer>
+  <script src="../../public/assets/js/clientEdit.js"></script>
 </body>
 </html>

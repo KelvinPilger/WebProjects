@@ -34,16 +34,16 @@
         </div>
         <div class="containerContacts">
             <label class="containerTitle">Contatos</label>
-            <table>
+            <table id="contactTable">
                 <thead>
                     <tr>
                         <th>Tipo</th>
                         <th>Contato</th>
                     </tr>  
                 </thead>
-                <tbody>
+                <tbody id="contactTableBody">
                     <tr>
-                        <td>
+                        <td id="selectContact">
                             <select name="ctt_type" id="contactType">
                                 <option>Celular</option>
                                 <option>Telefone</option>
@@ -51,7 +51,7 @@
                                 <option>Outros</option>
                             </select>
                         </td>
-                        <td>
+                        <td id="inputContact">
                             <input type="text" name="contact">
                         </td>
                     </tr>
