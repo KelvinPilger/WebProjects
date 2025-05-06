@@ -29,9 +29,11 @@ html {
     background: #fff;
     padding: 0 0.25rem;
     font-size: 12px;
-    color: #666;
+    color: #1a1818;
     pointer-events: none;
     z-index: 1;
+    font-weight: bold;
+
 }
 
 .containerNatRegistr {
@@ -71,6 +73,7 @@ html {
     border-radius: 6px;
     box-sizing: border-box;
     background: #fff;
+    font-size: 12px;
 }
 
 .containerGeneralInfo > #name {
@@ -94,11 +97,12 @@ html {
 
 .containerCnpjCpf {
     margin: 15px;
-    width: 28%;
-    max-width: 275px;
+    font-size: 12px;
+    width: 34%;
+    max-width: 575px;
     position: relative;
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto auto;
     grid-template-rows: auto auto;
     column-gap: 0.5rem;
     row-gap: 0.25rem;
@@ -127,6 +131,7 @@ html {
 .containerContacts {
     margin: 15px;
     width: 55%;
+    font-size: 12px;
     max-width: 550px;
     position: relative;
     display: grid;
@@ -155,33 +160,41 @@ html {
     font-size: 14px;
 }
 
-.containerContacts > #celular {
-    all: unset;
-    box-sizing: border-box;
-    width: 70%;
-    padding: 5px;
-    border: 0.5px solid #aaa2a2c4;
-    border-radius: 6px;
-    font-size: 14px;
-}
-
-.containerContacts label[for="email"]   { grid-column: 1; grid-row: 1; }
-.containerContacts input#email           { grid-column: 1; grid-row: 2; }
-.containerContacts label[for="celular"] { grid-column: 2; grid-row: 1; }
-.containerContacts input#celular         { grid-column: 2; grid-row: 2; }
-
 .containerId {
     width: 25%;
+    font-size: 12px;
     max-width: 0.5rem;
     margin: 15px;
-    position: relative;
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
+    top: 10px;
+    right: 10px;
     border: 1.8px solid #aaa2a2c4;
     padding: 10px 33px;
     border-radius: 6px;
     box-sizing: border-box;
+}
+
+.containerContacts .btnAddContactLine {
+    width: 100%;
+    padding: 5px;
+    border: 0.5px solid #aaa2a2c4;
+    border-radius: 6px;
+    font-size: 10px;
+    height: 29px;
+}
+
+.containerContacts #contactType {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 5px;
+    border: 0.5px solid #aaa2a2c4;
+    border-radius: 6px;
+    font-size: 14px;
+    height: 29px;
+    margin-right: 4px;
 }
 
 .buttons {

@@ -34,12 +34,30 @@
         </div>
         <div class="containerContacts">
             <label class="containerTitle">Contatos</label>
-            
-            <label for="email">E-mail</label>
-            <input type="text" id="email">
-
-            <label for="celular">Celular</label>
-            <input type="text" id="celular">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Contato</th>
+                    </tr>  
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <select name="ctt_type" id="contactType">
+                                <option>Celular</option>
+                                <option>Telefone</option>
+                                <option>E-mail</option>
+                                <option>Outros</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" name="contact">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class="btnAddContactLine">+</button>
         </div>
         <?php endforeach;?>
     <?php endif; ?>
