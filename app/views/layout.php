@@ -43,7 +43,9 @@
       </nav>
     </div>
   <main><?= $content ?></main>
-  <footer></footer>
-  <script src="../../public/assets/js/clientEdit.js"></script>
+  <footer>
+
+  </footer>
+  <script src="/projeto/public/assets/js/clientEdit.js" defer></script>
 </body>
 </html>

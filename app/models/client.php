@@ -10,7 +10,7 @@ class Client {
     public $inserted_at;
     public $cpf;
     public $cnpj;
-    public $born_date;
+    public $born_at;
     public $age;
     public $email;
     public $nat_registration;
@@ -52,6 +52,10 @@ class Client {
         } else {
             return [];
         }
+    }
+
+    public function save() {
+
     }
 }
 ?>

@@ -41,7 +41,8 @@ class ClientController extends Controller{
     }
 
     public function store() {
-
+        var_dump('CHEGUEI NO STORE'); 
+        exit;
     }
 
     public function edit($request): void {

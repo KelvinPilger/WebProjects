@@ -22,9 +22,9 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<?php if (!empty($clients)): ?>
-					<?php foreach ($clients as $c): ?>
+			<?php if (!empty($clients)): ?>
+				<?php foreach ($clients as $c): ?>
+					<tr>
 						<td id="checkboxId"><input type="checkbox"></td>
 						<td><?= htmlspecialchars($c['id']) ?></td>
 						<td><?= htmlspecialchars($c['name'] ?? 'N/A') ?></td>
@@ -38,9 +38,9 @@
 							<a href="<?= $_SERVER['SCRIPT_NAME'] ?>/client/edit/<?= htmlspecialchars($c['id'], ENT_QUOTES, 'UTF-8') ?>">✏️</a>
 							<a href="<?= $_SERVER['SCRIPT_NAME'] ?>/client/remove/<?= htmlspecialchars($c['id'], ENT_QUOTES, 'UTF-8') ?>">❌</a>
 						</td>
-					<?php endforeach; ?>
-				<?php endif; ?>
-			</tr>
+					</tr>
+				<?php endforeach; ?>
+			<?php endif; ?>
 		</tbody>
 	</table>
 </div>
