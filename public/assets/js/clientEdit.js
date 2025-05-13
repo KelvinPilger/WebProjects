@@ -18,20 +18,32 @@ function setupMaskCpf() {
     });
 }
 
-function validateFields() {
-const id      = document.getElementById('clientId')?.textContent;
-const name    = document.getElementById('name')?.value.trim();
-const born_at = document.getElementById('born_at')?.value;
-const cpfVal  = document.getElementById('cpf')?.value.trim();
-const cnpjVal = document.getElementById('cnpj')?.value.trim();
+const form = document.getElementById('clientForm');
+form.addEventListener('submit', createDataClient);
 
     if (!id || !name || !born_at) return null;
 
-    return JSON.stringify({
-        id,
-        name,
-        born_at,
-        cpf:  cpfVal  || null,
-        cnpj: cnpjVal || null
-    });
-}
+function createDataClient(event) {
+    event.preventDefault();
+    const id = document.getElementById('id').textContent;
+    const name = document.getElementById('name').value;
+    const born_at = document.getElementById('bornDate').value;
+    const cpf = document.getElementById('cpf').value;
+    const cnpj = document.getElementById('cnpj').value;
+
+    let data = ({id: id, name: name, born_at: born_at, cpf:cpf||null, cnpj:cnpj||null})
+
+    JSON.stringify(data);
+    console.log(data);
+
+    fetch('client/store',
+        {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: data
+        }
+    )
+    .then(res => res.json())
+    .then(json => console.log(json))
+    .catch(err => console.error(err));
+};

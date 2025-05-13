@@ -71,8 +71,8 @@ class Controller {
             explode('/', $this->uri),
             fn($s) => $s !== '' && $s !== 'index.php'
         ));
-    
-        if (isset($segs[0])) {
+
+        if(isset($segs[0])) {
             return ucfirst($segs[0]) . 'Controller';
         }
 

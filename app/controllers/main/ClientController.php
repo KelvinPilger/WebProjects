@@ -40,9 +40,20 @@ class ClientController extends Controller{
 		}
     }
 
+<<<<<<< HEAD
     public function store() {
         var_dump('CHEGUEI NO STORE'); 
         exit;
+=======
+    public function store($request): void {
+        $req = file_get_contents('php://input');
+
+        $client = json_decode($req, true);
+
+        $clientModel = new Client();
+
+        $clientModel->save($client);
+>>>>>>> ca3929098b07c9ae0d6f6b97cc46c95d0c0c8365
     }
 
     public function edit($request): void {

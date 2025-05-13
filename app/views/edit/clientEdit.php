@@ -1,10 +1,10 @@
-<form id="clientEditForm" method="post">
+<form id="clientForm" method="POST" action="../store">
     <div class="infoContainer">
         <?php if (!empty($clients)): ?>
             <?php foreach ($clients as $c): ?>
             <div class="containerId">
                 <label class="containerTitle">Cód.</label>
-                <label class="clientId" id="clientId"><?= htmlspecialchars($c['id']) ?></label>
+                <label class="clientId" id='id'><?= htmlspecialchars($c['id']) ?></label>
             </div>
             <div class="containerNatRegistr">
                 <label class="containerTitle">Tipo</label>
@@ -22,7 +22,7 @@
                 <input type="text" placeholder="Insira o Nome" id="name" value="<?= htmlspecialchars($c['name']) ?>">
                 
                 <label for="bornDate">Data de Nascimento</label>
-                <input type="date" id='born_at' value="<?= htmlspecialchars($c['born_at']) ?>">
+                <input type="date" id='bornDate' value="<?= htmlspecialchars($c['born_at']) ?>">
             </div>
             <div class="containerCnpjCpf">
                 <label class="containerTitle">Registro Nacional</label>
@@ -64,6 +64,6 @@
         <?php endif; ?>
         <div class="buttons">
             <button type="submit" class="btnSave">Salvar</button>
-        </div>  
-    </div>  
+        </div>
+    </div>
 </form>

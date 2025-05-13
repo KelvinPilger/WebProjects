@@ -54,8 +54,8 @@ class Client {
         }
     }
 
-    public function save() {
-
+    public function save($client): void {
+        
     }
 }
 ?>
