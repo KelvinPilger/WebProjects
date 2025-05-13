@@ -40,8 +40,14 @@ class ClientController extends Controller{
 		}
     }
 
-    public function store() {
+    public function store($request): void {
+        $req = file_get_contents('php://input');
 
+        $client = json_decode($req, true);
+
+        $clientModel = new Client();
+
+        $clientModel->save($client);
     }
 
     public function edit($request): void {

@@ -13,15 +13,31 @@ function maskCpf() {
     });
 }
 
-function addContactLine() {
-    const table = document.getElementById('contactTable');
-    const buttonAdd = document.getElementById('btnAddContactLine');
-    const tbBody = document.querySelector('#contactTable tbody');
+const form = document.getElementById('clientForm');
+form.addEventListener('submit', createDataClient);
 
 
-    document.appendChild(document.createElement(tdInput));
+function createDataClient(event) {
+    event.preventDefault();
+    const id = document.getElementById('id').textContent;
+    const name = document.getElementById('name').value;
+    const born_at = document.getElementById('bornDate').value;
+    const cpf = document.getElementById('cpf').value;
+    const cnpj = document.getElementById('cnpj').value;
 
-    buttonAdd.addEventListener('click', () => {
-        
-    });
-}
+    let data = ({id: id, name: name, born_at: born_at, cpf:cpf||null, cnpj:cnpj||null})
+
+    JSON.stringify(data);
+    console.log(data);
+
+    fetch('client/store',
+        {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: data
+        }
+    )
+    .then(res => res.json())
+    .then(json => console.log(json))
+    .catch(err => console.error(err));
+};

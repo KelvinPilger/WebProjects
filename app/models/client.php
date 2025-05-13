@@ -53,5 +53,9 @@ class Client {
             return [];
         }
     }
+
+    public function save($client): void {
+        
+    }
 }
 ?>
