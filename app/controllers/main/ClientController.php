@@ -4,6 +4,10 @@ namespace App\Controllers\main;
 use app\models\Client;
 use Core\Controller;
 
+header("Access-Control-Allow-Headers: Content-Type");
+header('Access-Control-Allow-Methods: GET, POST');
+header("Access-Control-Allow-Origin: *");
+
 class ClientController extends Controller{
 
     public function index() {
@@ -41,13 +45,12 @@ class ClientController extends Controller{
     }
 
     public function store($request): void {
-        $req = file_get_contents('php://input');
+        $clientData = $_POST;
 
-        $client = json_decode($req, true);
-
+        $clientJson = json_encode($clientData, true);
         $clientModel = new Client();
 
-        $clientModel->save($client);
+        $clientModel->save($clientJson);
     }
 
     public function edit($request): void {

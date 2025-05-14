@@ -13,31 +13,23 @@ function maskCpf() {
     });
 }
 
-const form = document.getElementById('clientForm');
-form.addEventListener('submit', createDataClient);
+function createDataClient() {
+    const form = document.querySelector('clientForm');
+    
+    form.addEventListener('submit', async event => {
+        event.preventDefault();
 
+        const formData = new FormData(form);
 
-function createDataClient(event) {
-    event.preventDefault();
-    const id = document.getElementById('id').textContent;
-    const name = document.getElementById('name').value;
-    const born_at = document.getElementById('bornDate').value;
-    const cpf = document.getElementById('cpf').value;
-    const cnpj = document.getElementById('cnpj').value;
+        console.log(formData);
 
-    let data = ({id: id, name: name, born_at: born_at, cpf:cpf||null, cnpj:cnpj||null})
-
-    JSON.stringify(data);
-    console.log(data);
-
-    fetch('client/store',
-        {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: data
-        }
-    )
-    .then(res => res.json())
-    .then(json => console.log(json))
-    .catch(err => console.error(err));
+        const data = await fetch('client/store',
+            {
+                method: 'POST',
+                mode: 'cors',
+                body: formData
+            }
+        ) 
+        const response = await data.json();
+    });
 };

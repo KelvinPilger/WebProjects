@@ -55,7 +55,30 @@ class Client {
     }
 
     public function save($client): void {
-        
+        $clientObj = json_decode($client, true);
+
+        if($clientObj['cpf'] !== null) {
+            $nat = 'F';
+        } else {
+            $nat = 'J';
+        }
+
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare('UPDATE CLIENTS SET name = :name, born_at = :bornDate, cpf = :cpf, cnpj = :cnpj, nat_registration = :nat where id = :id');
+
+        if($stmt->execute([
+            'name' => $clientObj['name'],
+            'bornDate' => $clientObj['bornDate'],
+            'cpf' => $clientObj['cpf'], 
+            'cnpj' => $clientObj['cnpj'], 
+            'nat' => $nat, 'id' => $clientObj['id']
+        ])) {
+            header('Location: ../client/index');
+        } else {
+            echo 'Não foi possível salvar o registro';
+        }
     }
 }
 ?>
+
+<!-- // string(114) "{"name":"gabriela mendes","borndate":"1996-03-08","cpf":"67890123467","cnpj":"","ctt_type":"celular","contact":""}" -->
