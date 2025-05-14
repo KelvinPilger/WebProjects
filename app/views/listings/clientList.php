@@ -40,8 +40,6 @@
 						</td>
 					</tr>
 				<?php endforeach; ?>
-			<?php else: ?>
-				<p>Nenhum cliente encontrado.</p>
 			<?php endif; ?>
 		</tbody>
 	</table>

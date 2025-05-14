@@ -14,7 +14,6 @@ html {
   padding: 0px 6px;
   max-height: 50px;
   margin: 0px auto;
-  overflow-x: auto;
  }
 
  .clientsTitle > h1 {
@@ -46,7 +45,7 @@ html {
   .myTable {
     width: 100%;
     border-collapse: collapse;
-    margin: 10px 0px;
+    margin: 2px 0px;
   }
   
   .myTable thead {
@@ -76,7 +75,7 @@ html {
   }
   
    .myTable tbody tr:nth-child(even) {
-    background-color: #f7f7f7;
+    background-color: #f7f7f759;
   }
   
   .myTable tbody tr:hover {
@@ -105,4 +104,8 @@ html {
     background-color: #eaeaea;
     color: rgba(37, 34, 34, 0.999);
     border: 1px solid rgba(37, 34, 34, 0.999);
+  }
+
+  #btnExcluir {
+    text-decoration: none;
   }

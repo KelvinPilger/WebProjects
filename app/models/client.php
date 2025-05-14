@@ -46,15 +46,17 @@ class Client {
     public function edit($id): array {
         $pdo = Database::getConnection();
         $stmt = $pdo->prepare('SELECT id, name, inserted_at, cpf, cnpj, born_at, age, email, nat_registration FROM clients WHERE id = :id');
-        if($stmt->execute(['id' => $id])) {
-            $row = $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
-            return $row;
-        } else {
-            return [];
+        
+        if (! $stmt->execute(['id' => $id])) {
+            return [];  
         }
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row ?: [];
     }
 
     public function save($client): void {
+<<<<<<< HEAD
         $clientObj = json_decode($client, true);
 
         if($clientObj['cpf'] !== null) {
@@ -77,6 +79,16 @@ class Client {
         } else {
             echo 'Não foi possível salvar o registro';
         }
+=======
+        $updateClient = $client;
+
+        $id = $updateClient->id;
+        $name = $updateClient->name;
+
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare('UPDATE clients set name = :name, cpf = :cpf, cnpj = :cnpj, born_at = :bornDate, age = 18, nat_registration = :nat_registration where id = :id');
+
+>>>>>>> 2df981beeb76bdebc204308a6234c5c8f636321e
     }
 }
 ?>
