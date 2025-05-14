@@ -1,7 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     setupMaskCpf();
-    setupFormSubmit();
 });
 
 function setupMaskCpf() {
@@ -21,8 +20,6 @@ function setupMaskCpf() {
 const form = document.getElementById('clientForm');
 form.addEventListener('submit', createDataClient);
 
-    if (!id || !name || !born_at) return null;
-
 function createDataClient(event) {
     event.preventDefault();
     const id = document.getElementById('id').textContent;
@@ -31,19 +28,24 @@ function createDataClient(event) {
     const cpf = document.getElementById('cpf').value;
     const cnpj = document.getElementById('cnpj').value;
 
-    let data = ({id: id, name: name, born_at: born_at, cpf:cpf||null, cnpj:cnpj||null})
+    let nRegister;
 
-    JSON.stringify(data);
-    console.log(data);
+    if(cpf != null) {
+        nRegister = 'F'
+    } else {
+        nRegister = 'J'
+    }
 
-    fetch('client/store',
+    let dataJson = JSON.stringify({id: id, name: name, born_at: born_at, cpf:cpf||null, cnpj:cnpj||null, nat_registration: nRegister})
+
+    console.log(dataJson);
+
+    fetch('../store',
         {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: data
+            body: dataJson
         }
     )
-    .then(res => res.json())
-    .then(json => console.log(json))
-    .catch(err => console.error(err));
+    .catch('Não foi possível realizar o fetch');
 };
