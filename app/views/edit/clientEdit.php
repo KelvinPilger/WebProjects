@@ -1,4 +1,4 @@
-<form id="clientForm" method="POST">
+<form id="clientForm" method="POST" action="../store">
     <div class="infoContainer">
         <?php if (!empty($clients)): ?>
             <?php foreach ($clients as $c): ?>

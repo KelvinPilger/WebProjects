@@ -46,8 +46,7 @@ class ClientController extends Controller{
 
     public function store($request): void {
         $clientData = $_POST;
-        var_dump($clientData);
-
+        
         $clientJson = json_encode($clientData, true);
         $clientModel = new Client();
 
@@ -83,8 +82,8 @@ class ClientController extends Controller{
         $clientModel->delete($id);
 
         header('Location: ' . $_SERVER['SCRIPT_NAME'] . '/client/index');
-	}
 
+    }
 }
 
 ?>
