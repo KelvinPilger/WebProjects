@@ -46,13 +46,9 @@ class ClientController extends Controller{
 
     public function store($request): void {
         $clientData = $_POST;
+        var_dump($clientData);
 
-<<<<<<< HEAD
         $clientJson = json_encode($clientData, true);
-=======
-        var_dump($req);
-
->>>>>>> 2df981beeb76bdebc204308a6234c5c8f636321e
         $clientModel = new Client();
 
         $clientModel->save($clientJson);
