@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br"></html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/products.css"/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@400..700&display=swap" rel="stylesheet">
+
+    <title>Produtos (ServFácil)</title>
+</head>
+<body>
+    <div class="form-background" id="form-background">
+        <h1 id="cadastro-h1">Cadastro de Produto</h1>
+        <div class="dadosg-produto" id="dadosg-produto">
+            <h2>Dados Gerais</h2>
+            <label for="description">Descrição</label><br>
+            <input type="text" name="description" id="description"><br><br>
+
+            <label for="barcode">Cód. Barras GTIN</label><br>
+            <input type="text" name="barcode" id="barcode" maxlength="14"><br><br>
+
+            <label for="ncm">NCM (Nomenclatura Comum do Mercosul)</label><br>
+            <input type="text" name="ncm" id="ncm" maxlength="9"><br><br>
+        </div>
+        <div class="qtde-produto" id="qtde-produto">
+            <h2>Quantidades</h2>
+                <label for="qtde">Qtde. Fís.</label><br>
+                <input type="" name="qtde" id="qtde" maxlength="9"><br><br>
+        </div>
+        <div class="valores-produto" id="valores-produto">
+            <h2>Valores</h2>
+                <label for="precocusto">Preço de Custo</label><br>
+                <input type="number" name="precocusto" id="precocusto" maxlength="9"><br><br>
+        
+                <label for="perclucro">% de Lucro</label><br>
+                <input type="number" name="perclucro" id="perclucro" maxlength="6"><br><br>
+        
+                <label for="precovenda">Preço de Venda</label><br>
+                <input type="number" name="precovenda" id="precovenda" maxlength="9">
+        </div>
+    </div>
+</body>
+</html>
