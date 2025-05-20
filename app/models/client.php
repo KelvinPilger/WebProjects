@@ -57,29 +57,62 @@ class Client {
 
     public function save($client): void {
         $clientObj = json_decode($client, true);
+        var_dump($clientObj);
 
         if($clientObj['cpf'] !== null) {
             $nat = 'F';
         } else {
             $nat = 'J';
         }
+        
+        $bornDate = DateTime::createFromFormat('d/m/Y', $clientObj['bornDate']);
+        $now = new DateTime();
+        $age = $bornDate ? $bornDate->diff($now)->y : null;
 
         $pdo = Database::getConnection();
-        $stmt = $pdo->prepare('UPDATE CLIENTS SET name = :name, born_at = :bornDate, cpf = :cpf, cnpj = :cnpj, nat_registration = :nat where id = :id');
 
-        if($stmt->execute([
-            'name' => $clientObj['name'],
-            'bornDate' => $clientObj['bornDate'],
-            'cpf' => $clientObj['cpf'], 
-            'cnpj' => $clientObj['cnpj'], 
-            'nat' => $nat, 'id' => $clientObj['id']
-        ])) {
-            header('Location: ../client/index');
+        if($clientObj['action'] === 'edit') {
+            $stmt = $pdo->prepare('UPDATE CLIENTS SET name = :name, born_at = :bornDate, cpf = :cpf, cnpj = :cnpj, nat_registration = :nat where id = :id');
+
+            if($stmt->execute([
+                'name' => $clientObj['name'],
+                'bornDate' => $clientObj['bornDate'],
+                'cpf' => $clientObj['cpf'], 
+                'cnpj' => $clientObj['cnpj'], 
+                'nat' => $nat, 'id' => $clientObj['id']
+            ])) {
+                header('Location: ../client/index');
+            } else {
+                echo 'Não foi possível salvar o registro';
+            }
         } else {
-            echo 'Não foi possível salvar o registro';
+            $stmt = $pdo->prepare('INSERT INTO CLIENTS (name, inserted_at, cpf, cnpj, born_at, age, nat_registration) VALUES (:name, :nowDateTime , :bornDate, :cpf, :cnpj, :age, :nat)');
+
+            if($stmt->execute([
+                'name' => $clientObj['name'],
+                'nowDateTime' => $nowDateTime,
+                'bornDate' => $clientObj['bornDate'],
+                'cpf' => $clientObj['cpf'], 
+                'cnpj' => $clientObj['cnpj'], 
+                'age' => $age,
+                'nat' => $nat, 'id' => $clientObj['id']
+            ])) {
+                header('Location: ../client/index');
+            } else {
+                echo 'Não foi possível salvar o registro';
+            }
         }
     }
-}
 ?>
+<!-- 
+  `id` int(11) not null auto_increment,
+  `name` varchar(50) not null,
+  `inserted_at` datetime not null,
+  `cpf` varchar(14) default null,
+  `cnpj` varchar(17) default null,
+  `born_at` date default null,
+  `age` smallint(6) default null,
+  `email` varchar(75) default null,
+  `nat_registration` char(1) not null, -->
 
 <!-- // string(114) "{"name":"gabriela mendes","borndate":"1996-03-08","cpf":"67890123467","cnpj":"","ctt_type":"celular","contact":""}" -->

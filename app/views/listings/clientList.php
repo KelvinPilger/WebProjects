@@ -4,7 +4,7 @@
 <div class="tableContainer">
 	<table class="myTable">
 		<strong>
-			<a href="" class="btnIncluir">
+			<a href="<?= $_SERVER['SCRIPT_NAME'] ?>/client/create" class="btnIncluir">
 			Incluir
 			</a>
 		</strong>	
@@ -43,4 +43,26 @@
 			<?php endif; ?>
 		</tbody>
 	</table>
+	<script>
+		function createDataClient() {
+			const form = document.querySelector('clientForm');
+			
+			form.addEventListener('submit', async event => {
+				event.preventDefault();
+
+				const formData = new FormData(form);
+
+				console.log(formData);
+
+				const data = await fetch('client/store',
+					{
+						method: 'POST',
+						mode: 'cors',
+						body: formData
+					}
+				) 
+				const response = await data.json();
+			});
+		};
+	</script>
 </div>

@@ -1,12 +1,5 @@
-<form id="clientForm" method="POST" action="../store">
+<form id="clientForm" method="POST" action="../client/store">
     <div class="infoContainer">
-        <?php if (!empty($clients)): ?>
-            <?php foreach ($clients as $c): ?>
-            <div class="containerId">
-                <label class="containerTitle">Cód.</label>
-                <label class="clientId" id='id'><?= htmlspecialchars($c['id']) ?></label>
-                <input type="hidden" name="id" value="<?= htmlspecialchars($c['id']) ?>">
-            </div>
             <div class="containerNatRegistr">
                 <label class="containerTitle">Tipo</label>
                 
@@ -20,19 +13,19 @@
                 <label class="containerTitle">Dados Gerais</label>
 
                 <label for="name">Nome</label>
-                <input type="text" placeholder="Insira o Nome" id="name" name="name" value="<?= htmlspecialchars($c['name']) ?>">
+                <input type="text" placeholder="Insira o Nome" id="name" name="name">
                 
                 <label for="bornDate">Data de Nascimento</label>
-                <input type="date" name="bornDate" id='bornDate' value="<?= htmlspecialchars($c['born_at']) ?>">
+                <input type="date" name="bornDate" id='bornDate'>
             </div>
             <div class="containerCnpjCpf">
                 <label class="containerTitle">Registro Nacional</label>
 
                 <label for="cpf">CPF</label>
-                <input type="text" id="cpf" name="cpf" value="<?= htmlspecialchars($c['cpf']) ?>">
+                <input type="text" id="cpf" name="cpf">
 
                 <label for="cnpj">CNPJ</label>
-                <input type="text" id="cnpj" name="cnpj" value="<?= htmlspecialchars($c['cnpj']) ?>">
+                <input type="text" id="cnpj" name="cnpj">
             </div>
             <div class="containerContacts">
                 <label class="containerTitle">Contatos</label>
@@ -61,8 +54,6 @@
                 </table>
                 <button class="btnAddContactLine">+</button>
             </div>
-            <?php endforeach;?>
-        <?php endif; ?>
         <div class="buttons">
             <button type="submit" class="btnSave">Salvar</button>
         </div>
@@ -75,7 +66,7 @@
 				event.preventDefault();
 
 				const formData = new FormData(form);
-                formData.append('action', 'edit')
+                formData.append('action', 'insert')
 
 				console.log(formData);
 

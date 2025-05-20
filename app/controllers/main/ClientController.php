@@ -44,13 +44,23 @@ class ClientController extends Controller{
 		}
     }
 
-    public function store($request): void {
+    public function store(): void {
         $clientData = $_POST;
         
+        var_dump($$_POST);
         $clientJson = json_encode($clientData, true);
         $clientModel = new Client();
 
         $clientModel->save($clientJson);
+    }
+
+    public function create(): void {
+        $this->renderView('edit/clientCreate', [
+            'clients' => null,
+            'style' => [
+               '../../assets/css/clientCreate.css'
+            ],
+        ]);
     }
 
     public function edit($request): void {
