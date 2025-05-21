@@ -20,7 +20,7 @@
           <li class="nav-item dropdown">
             <a href="#" class="nav-content">Listagens</a>
               <ul class="dropdown-content">
-                <li><a href="#">Clientes</a></li>
+                <li><a href="<?= $_SERVER['SCRIPT_NAME'] . '/client/index' ?>">Clientes</a></li>
                 <li><a href="#">Produtos</a></li>
                 <li><a href="#">Fornecedores</a></li>
                 <li><a href="#">Recebimentos</a></li>

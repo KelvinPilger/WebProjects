@@ -1,6 +1,7 @@
 <form id="clientForm" method="POST" action="../client/store">
     <div class="infoContainer">
             <div class="containerNatRegistr">
+                <input type="hidden" name="action" value="insert">
                 <label class="containerTitle">Tipo</label>
                 
                 <input type="radio" id="fisica" name="registrationType">
@@ -22,10 +23,10 @@
                 <label class="containerTitle">Registro Nacional</label>
 
                 <label for="cpf">CPF</label>
-                <input type="text" id="cpf" name="cpf">
+                <input type="text" id="cpf" name="cpf" maxlength="11" onfocus="javascript: retirarFormatacao(this);" oninput="javascript: formatarCampo(this);">
 
                 <label for="cnpj">CNPJ</label>
-                <input type="text" id="cnpj" name="cnpj">
+                <input type="text" id="cnpj" name="cnpj" maxlength="14" onfocus="javascript: retirarFormatacao(this);" oninput="javascript: formatarCampo(this);">
             </div>
             <div class="containerContacts">
                 <label class="containerTitle">Contatos</label>
@@ -57,28 +58,45 @@
         <div class="buttons">
             <button type="submit" class="btnSave">Salvar</button>
         </div>
+        <script>
+            function createDataClient() {
+                const form = document.getElementById('clientForm');
+                
+                form.addEventListener('submit', async event => {
+                    event.preventDefault();
+
+                    const formData = new FormData(form);
+                    formData.append("action", "insert");
+
+                    console.log(formData);
+
+                    const data = await fetch('client/store',
+                        {
+                            method: 'POST',
+                            mode: 'cors',
+                            body: formData
+                        }
+                    ) 
+                    const response = await data.json();
+                });
+            };
+
+            function formatarCampo(campoTexto) {
+                if (campoTexto.value.length <= 11) {
+                    campoTexto.value = mascaraCpf(campoTexto.value);
+                } else {
+                    campoTexto.value = mascaraCnpj(campoTexto.value);
+                }
+            }
+            function retirarFormatacao(campoTexto) {
+                campoTexto.value = campoTexto.value.replace(/(\.|\/|\-)/g,"");
+            }
+            function mascaraCpf(valor) {
+                return valor.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g,"\$1.\$2.\$3\-\$4");
+            }
+            function mascaraCnpj(valor) {
+                return valor.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g,"\$1.\$2.\$3\/\$4\-\$5");
+            }
+        </script>
     </div>
-    <script>
-        function createDataClient() {
-			const form = document.querySelector('clientForm');
-			
-			form.addEventListener('submit', async event => {
-				event.preventDefault();
-
-				const formData = new FormData(form);
-                formData.append('action', 'insert')
-
-				console.log(formData);
-
-				const data = await fetch('client/store',
-					{
-						method: 'POST',
-						mode: 'cors',
-						body: formData
-					}
-				) 
-				const response = await data.json();
-			});
-		};
-    </script>
 </form>

@@ -10,7 +10,6 @@
 		</strong>	
 		<thead>
 			<tr>
-				<th></th>
 				<th>Código</th>
 				<th>Nome</th>
 				<th>CPF</th>
@@ -25,11 +24,10 @@
 			<?php if (!empty($clients)): ?>
 				<?php foreach ($clients as $c): ?>
 					<tr>
-						<td id="checkboxId"><input type="checkbox"></td>
-						<td><?= htmlspecialchars($c['id']) ?></td>
-						<td><?= htmlspecialchars($c['name'] ?? 'N/A') ?></td>
-						<td><?= htmlspecialchars($c['cpf']) ?? ''?></td>
-						<td><?= htmlspecialchars($c['cnpj']) ?? ''?></td>
+						<td id="idTd"><?= htmlspecialchars($c['id']) ?></td>
+						<td id="nameTd"><?= htmlspecialchars($c['name'] ?? 'N/A') ?></td>
+						<td id="cpfTd"><?= htmlspecialchars($c['cpf']) ?? ''?></td>
+						<td id="cnpjTd"><?= htmlspecialchars($c['cnpj']) ?? ''?></td>
 						<td><?= htmlspecialchars($c['age'] ?? '') ?></td>
 						<td><?= htmlspecialchars($c['email'] ?? 'Sem e-mail') ?></td>
 						<td><?= date('d/m/Y H:i:s', strtotime($c['inserted_at'])) ?></td>

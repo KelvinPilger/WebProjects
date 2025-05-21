@@ -3,6 +3,7 @@
 namespace App\Models;
 use core\Database;
 use PDO;
+use DateTime;
 
 class Client {
     public $id;
@@ -65,13 +66,16 @@ class Client {
             $nat = 'J';
         }
         
-        $bornDate = DateTime::createFromFormat('d/m/Y', $clientObj['bornDate']);
-        $now = new DateTime();
-        $age = $bornDate ? $bornDate->diff($now)->y : null;
+        $bornDate = $clientObj['bornDate'];
+        $age = (new DateTime())->diff(new DateTime($clientObj['bornDate']))->y;
+        $now = (new DateTime())->getTimestamp();
+        
 
         $pdo = Database::getConnection();
 
-        if($clientObj['action'] === 'edit') {
+        var_dump($clientObj);
+
+        if($clientObj['action'] == 'edit') {
             $stmt = $pdo->prepare('UPDATE CLIENTS SET name = :name, born_at = :bornDate, cpf = :cpf, cnpj = :cnpj, nat_registration = :nat where id = :id');
 
             if($stmt->execute([
@@ -79,30 +83,32 @@ class Client {
                 'bornDate' => $clientObj['bornDate'],
                 'cpf' => $clientObj['cpf'], 
                 'cnpj' => $clientObj['cnpj'], 
-                'nat' => $nat, 'id' => $clientObj['id']
+                'nat' => $nat, 
+                'id' => $clientObj['id']
             ])) {
                 header('Location: ../client/index');
             } else {
-                echo 'Não foi possível salvar o registro';
+                echo 'Não foi possível atualizar o registro!';
             }
         } else {
-            $stmt = $pdo->prepare('INSERT INTO CLIENTS (name, inserted_at, cpf, cnpj, born_at, age, nat_registration) VALUES (:name, :nowDateTime , :bornDate, :cpf, :cnpj, :age, :nat)');
+            $stmt = $pdo->prepare('INSERT INTO CLIENTS (name, inserted_at, cpf, cnpj, born_at, age, nat_registration) VALUES (:name, :nowDateTime , :cpf, :cnpj, :bornDate, :age, :nat)');
 
             if($stmt->execute([
                 'name' => $clientObj['name'],
-                'nowDateTime' => $nowDateTime,
-                'bornDate' => $clientObj['bornDate'],
+                'nowDateTime' => $now,
                 'cpf' => $clientObj['cpf'], 
-                'cnpj' => $clientObj['cnpj'], 
+                'cnpj' => $clientObj['cnpj'],
+                'bornDate' => $bornDate,
                 'age' => $age,
-                'nat' => $nat, 'id' => $clientObj['id']
+                'nat' => $nat
             ])) {
                 header('Location: ../client/index');
             } else {
-                echo 'Não foi possível salvar o registro';
+                echo 'Não foi possível inserir o registro!';
             }
         }
     }
+}
 ?>
 <!-- 
   `id` int(11) not null auto_increment,

@@ -8,6 +8,10 @@ html {
   to   { opacity: 1; }
 }
 
+a {
+  text-decoration: none;
+}
+
 .clientsTitle {
   width: 95%;
   max-width: 1150px;
@@ -80,6 +84,22 @@ html {
   
   .myTable tbody tr:hover {
     background-color: #eaeaea;
+  }
+
+  #cpfTd {
+    width: 15ch;
+  }
+
+  #cnpjTd {
+    width: 19ch;
+  }
+
+  #idTd {
+    width: 5ch;
+  }
+
+  #nameTd {
+    width: 30ch;
   }
 
   .btnIncluir {
