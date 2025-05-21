@@ -7,12 +7,15 @@
   body {
     background: linear-gradient(to right, #ffffff, #ebe7e7);
     font-family: 'Rubik', sans-serif;
+    width: 100vw;
+    position: absolute;
   }
 
   .general-nav {
     z-index: 1000;
     overflow: visible;
     position: sticky;
+    width: 100vw;
   }
 
   #main-nav {
