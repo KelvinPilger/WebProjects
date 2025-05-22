@@ -42,23 +42,32 @@
 		</tbody>
 	</table>
 </div>
-	<div id="removeModal" hidden="true">
-		<div id="modalHeader">Confirmar Exclusão
-		<div id="modalContent">
-			Deseja realmente realizar a exclusão do registro?
-		</div>
-		<div id="modalButtons">
-			<button id="btnConfirm">Confirmar</button>
-			<button id="btnCancel">Cancelar</button>
-		</div>
+<div id="removeModal" hidden="true">
+	<object id="warningSvg" type="image/svg+xml" data="../../../public/assets/images/warningTriangle.svg"></object>
+	<div id="modalHeader">Confirmar Exclusão
 	</div>
+	<div id="modalContent">
+		Deseja realmente realizar a exclusão do registro?
+	</div>
+	<div id="modalButtons">
+		<button id="btnConfirm">Confirmar</button>
+		<button id="btnCancel">
+			X
+		</button>
+	</div>
+</div>
+<div id="modalOverlay" hidden="true">
 </div>
 <script>
 	function openRemoveModal(id) {
 		const modalId = id;
 		const modal = document.getElementById('removeModal');
+		const overlay = document.getElementById('modalOverlay');
+		overlay.hidden = false;
 		modal.hidden = false;
-		
+		modal.classList.remove('modal--close');
+		modal.classList.add('modal--open');
+
 		const btnExcluir = document.getElementById('btnExcluir');
 		const btnCancel = document.getElementById('btnCancel');
 
@@ -75,11 +84,18 @@
 	function closeRemoveModal() {
 		const modal = document.getElementById('removeModal');
 		const button = document.getElementById('btnCancel');
-		modal.hidden = true;
+		const overlay = document.getElementById('modalOverlay');
+		modal.classList.remove('modal--open');
+		modal.classList.add('modal--close');
+		setTimeout(function() {
+			modal.hidden = true;
+			overlay.hidden = true;
+		}, 1000);
+
 	}
 
 	function confirmRemoval(id) {
-		window.location.href = 'remove/'+id;
+		window.location.href = 'remove/' + id;
 	}
 
 	function createDataClient() {
