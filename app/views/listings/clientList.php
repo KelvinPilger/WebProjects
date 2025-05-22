@@ -40,22 +40,25 @@
 				<?php endforeach; ?>
 			<?php endif; ?>
 		</tbody>
-		<div id="removeModal" hidden="true">
-			<div id="modalHeader">Confirmar Exclusão
-				<div id="modalContent">
-					<div id="modalButtons">
-						<button id="btnConfirm">Confirmar</button>
-						<button id="btnCancel">Cancelar</button>
-					</div>
-				</div>
-			</div>
-		</div>
 	</table>
+</div>
+	<div id="removeModal" hidden="true">
+		<div id="modalHeader">Confirmar Exclusão
+		<div id="modalContent">
+			Deseja realmente realizar a exclusão do registro?
+		</div>
+		<div id="modalButtons">
+			<button id="btnConfirm">Confirmar</button>
+			<button id="btnCancel">Cancelar</button>
+		</div>
+	</div>
 </div>
 <script>
 	function openRemoveModal(id) {
+		const modalId = id;
 		const modal = document.getElementById('removeModal');
 		modal.hidden = false;
+		
 		const btnExcluir = document.getElementById('btnExcluir');
 		const btnCancel = document.getElementById('btnCancel');
 
@@ -63,7 +66,7 @@
 
 		btnConfirm.onclick = (event) => {
 			event.preventDefault();
-			confirmRemoval(id);
+			confirmRemoval(modalId);
 		}
 
 		btnCancel.onclick = () => closeRemoveModal();

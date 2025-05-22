@@ -130,3 +130,42 @@ a {
   #btnExcluir {
     text-decoration: none;
   }
+
+  #removeModal {
+    background-color: #f6f1f1;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    max-width: 300px;
+    border-radius: 8px;
+    border: 0.2px solid black;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    margin-bottom: 10px;
+  }
+
+  #modalContent {
+    padding: 6px;
+    text-align: center;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #modalHeader {
+    padding: 8px;
+    text-align: left;
+    position: relative;
+    justify-content: left;
+    align-items: left;
+  }
+
+  #modalButtons {
+    text-align: center;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0px 6px 0px;
+  }
