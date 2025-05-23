@@ -49,7 +49,7 @@ a {
 .myTable {
   width: 100%;
   border-collapse: collapse;
-  margin: 2px 0px;
+  margin: 40px 0px;
 }
 
 .myTable thead {
@@ -61,10 +61,11 @@ a {
   padding: 8px 15px;
   font-weight: 400;
   text-align: center;
+  justify-content: center;
 }
 
 .myTable td {
-  padding: 6px 15px;
+  padding: 8px 16px;
   text-align: center;
   border-bottom: 1px solid #eee;
   vertical-align: middle;
@@ -102,6 +103,12 @@ a {
   width: 30ch;
 }
 
+#headerButtons {
+  position: absolute;
+  max-width: 600px;
+  max-height: 30px;
+}
+
 .btnIncluir {
   text-decoration: none;
   background-color: rgba(37, 34, 34, 0.999);
@@ -114,7 +121,7 @@ a {
   font-size: 14px;
   transition: 0.6s;
   display: flex;
-  position: relative;
+  position: absolute;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
@@ -127,18 +134,52 @@ a {
 }
 
 #btnExcluir {
+  width: 24px;
+  height: 24px;
+  outline: none;
   text-decoration: none;
+  border: 0px;
+  background-color: transparent;
+  cursor: pointer;
+  color: rgba(11, 11, 11, 0.803);
+  transition: 0.3s ease;
+  border-radius: 6px;
+}
+
+#btnEdit:hover, #btnExcluir:hover {
+  background-color: rgba(79, 74, 74, 0.3);
+  border-radius: 6px;
+}
+
+#btnEdit {
+  border-radius: 6px;
+  transition: 0.3s ease;
+  margin-top: 12px;
+  width: 24px;
+  padding: 4px;
+  height: 24px;
+  outline: none;
+  text-decoration: none;
+  border: 0px;
+  background-color: transparent;
+  cursor: pointer;
+  color: rgba(11, 11, 11, 703);
+  position: relative;
+  display: inline-block;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
 #removeModal {
-  background-color: #f6f1f1;
+  background-color: #fdfdfd;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   margin: 0;
   padding: 0;
-  max-width: 300px;
+  max-width: 250px;
+  max-height: 250px;
   border-radius: 8px;
   border: 0.2px solid black;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
@@ -148,7 +189,7 @@ a {
 }
 
 #modalContent {
-  padding: 6px;
+  padding: 6px 8px 12px 8px;
   text-align: center;
   position: relative;
   justify-content: center;
@@ -169,15 +210,15 @@ a {
   position: relative;
   justify-content: space-between;
   align-items: center;
-  padding: 6px 0px 10px 0px;
+  padding: 6px 8px 10px 8px;
 }
 
 #btnCancel {
   background-color: red;
   color: #fff;
   border: 0px;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   font-weight: bolder;
   position: absolute;
@@ -189,23 +230,49 @@ a {
   cursor: pointer;
 }
 
+#btnConfirm {
+  background-color: #fff;
+  color: rgb(35, 33, 33);
+  padding: 4px;
+  margin-bottom: 10px;
+  border: 1px solid black;
+  border-radius: 8px;
+  transition: 0.5s ease;
+  font-weight: bold;
+  width: 100px;
+}
+
+#btnConfirm:hover {
+  background-color: rgba(221, 11, 11, 0.999);
+  color: #fff;
+}
+
 #modalOverlay {
   position: fixed;
   z-index: 100;
   left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
 }
 
 #warningSvg {
-  color: rgb(255, 77, 0);
+  color: #fff;
   padding: 10px;
   text-align: center;
   position: relative;
+  display: flex;
   justify-content: center;
   align-items: center;
+  top: 30px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#closeSvg {
+  color: white;
+  font-weight: bolder;
 }
 
 @keyframes bounceIn {
@@ -266,5 +333,5 @@ a {
 }
 
 .modal--close {
-  animation: slideOutDown 0.4s ease-in forwards;
+  animation: slideOutDown 0.2s ease-in forwards;
 }
