@@ -68,6 +68,10 @@
             <button type="submit" class="btnSave">Salvar</button>
         </div>
         <script>
+             document.addEventListener('DOMContentLoaded', () => {
+                alternateCpfCnpj();
+            });
+
             function editDataClient() {
                 const form = document.getElementById('clientForm');
 
@@ -86,6 +90,23 @@
                     })
                     const response = await data.json();
                 });
+            };
+
+            function alternateCpfCnpj() {
+                const radCpf = document.getElementById('fisica');
+                const radCnpj = document.getElementById('juridica');
+                const cpf = document.getElementById('cpf');
+                const cnpj = document.getElementById('cnpj');
+
+                [radCnpj, radCpf, cpf, cnpj].forEach(el => el.disabled = true);
+
+                if (cpf.value != null || cpf.value != '') {
+                    radCpf.checked = true;
+                    radCnpj.checked = false;
+                } else {
+                    radCpf.checked = false;
+                    radCnpj.checked = true;
+                }
             };
         </script>
     </div>
