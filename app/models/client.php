@@ -18,8 +18,27 @@ class Client {
 
     public function findAll(): array {
         $pdo = Database::getConnection();
-        $stmt = $pdo->query('SELECT * FROM clients');
+        $stmt = $pdo->query("SELECT * FROM clients");
         return $stmt->fetchAll();
+    }
+
+    public function countAll(): int {
+        $pdo = Database::getConnection();
+        $stmt = $pdo->query("SELECT COUNT(*) AS cnt FROM CLIENTS");
+        return (int) $stmt->fetch(PDO::FETCH_ASSOC)['cnt'];
+    }
+
+    public function getPage(int $offset, int $limit): array {
+        $pdo = Database::getConnection();
+        $stmt = $pdo->prepare("
+            SELECT * FROM CLIENTS
+            ORDER BY id
+            LIMIT :limit OFFSET :offset
+        ");
+        $stmt->bindValue(':limit',  $limit,  PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function searchById($id): array {
@@ -110,15 +129,3 @@ class Client {
     }
 }
 ?>
-<!-- 
-  `id` int(11) not null auto_increment,
-  `name` varchar(50) not null,
-  `inserted_at` datetime not null,
-  `cpf` varchar(14) default null,
-  `cnpj` varchar(17) default null,
-  `born_at` date default null,
-  `age` smallint(6) default null,
-  `email` varchar(75) default null,
-  `nat_registration` char(1) not null, -->
-
-<!-- // string(114) "{"name":"gabriela mendes","borndate":"1996-03-08","cpf":"67890123467","cnpj":"","ctt_type":"celular","contact":""}" -->

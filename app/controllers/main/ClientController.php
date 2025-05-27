@@ -14,15 +14,28 @@ class ClientController extends Controller
 
     public function index()
     {
-        $clientModel = new Client();
+        $page     = isset($_GET['page'])     ? max(1, (int) $_GET['page'])    : 1;
+        $rowLimit = $_GET['rowLimit'] ?? '10';
+        $offset   = ($page - 1) * ($rowLimit === 'all' ? PHP_INT_MAX : (int) $rowLimit);
 
-        $clients = $clientModel->findAll();
+        $clientModel = new Client();
+        $total       = $clientModel->countAll();
+
+        if ($rowLimit === 'all') {
+            $clients    = $clientModel->findAll();
+            $totalPages = 1;
+        } else {
+            $limit      = (int) $rowLimit;
+            $clients    = $clientModel->getPage($offset, $limit);
+            $totalPages = (int) ceil($total / $limit);
+        }
 
         $this->renderView('listings/clientList', [
-            'clients' => $clients,
-            'style' => [
-                '../../assets/css/clientList.css'
-            ],
+            'clients'     => $clients,
+            'currentPage' => $page,
+            'totalPages'  => $totalPages,
+            'rowLimit'    => $rowLimit,
+            'style'       => ['../../assets/css/clientList.css'],
         ]);
     }
 
