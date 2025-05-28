@@ -4,6 +4,7 @@ namespace App\Controllers\main;
 
 use app\models\Client;
 use Core\Controller;
+use Error;
 
 header("Access-Control-Allow-Headers: Content-Type");
 header('Access-Control-Allow-Methods: GET, POST');
@@ -105,13 +106,36 @@ class ClientController extends Controller
 
     public function remove($request): void
     {
+    header('Content-Type: application/json; charset=UTF-8');
+
+    try {
         $id = isset($request->parameter)
             ? (int) $request->parameter
             : 0;
-
         $clientModel = new Client();
-        $clientModel->delete($id);
+        $deleted = $clientModel->delete($id);
 
-        header('Location: ' . $_SERVER['SCRIPT_NAME'] . '/client/index');
+        if ($deleted) {
+            http_response_code(200);
+            echo json_encode([
+                'status'  => 'success',
+                'message' => 'Cliente removido com sucesso!'
+            ]);
+        } else {
+            http_response_code(404);
+            echo json_encode([
+                'status'  => 'warning',
+                'message' => 'Não foi possível encontrar o cliente para remover!'
+            ]);
+        }
+
+    } catch (\Throwable $e) {
+        http_response_code(500);
+        echo json_encode([
+            'status'  => 'error',
+            'message' => 'Erro ao remover: ' . $e->getMessage()
+        ]);
+    }
+    exit;
     }
 }

@@ -61,7 +61,7 @@
 			<tbody>
 				<?php if (!empty($clients)): ?>
 					<?php foreach ($clients as $c): ?>
-						<tr>
+						<tr id="row-<?= $c['id'] ?>">
 							<td id="idTd"><?= htmlspecialchars($c['id']) ?></td>
 							<td id="nameTd"><?= htmlspecialchars($c['name'] ?? 'N/A') ?></td>
 							<td id="cpfTd"><?= htmlspecialchars($c['cpf']) ?? '' ?></td>
@@ -75,7 +75,7 @@
 										<path d="m18.813,10c.309,0,.601-.143.79-.387s.255-.562.179-.861c-.311-1.217-.945-2.329-1.833-3.217l-3.485-3.485c-1.322-1.322-3.08-2.05-4.95-2.05h-4.515C2.243,0,0,2.243,0,5v14c0,2.757,2.243,5,5,5h3c.552,0,1-.448,1-1s-.448-1-1-1h-3c-1.654,0-3-1.346-3-3V5c0-1.654,1.346-3,3-3h4.515c.163,0,.325.008.485.023v4.977c0,1.654,1.346,3,3,3h5.813Zm-6.813-3V2.659c.379.218.732.488,1.05.806l3.485,3.485c.314.314.583.668.803,1.05h-4.338c-.551,0-1-.449-1-1Zm11.122,4.879c-1.134-1.134-3.11-1.134-4.243,0l-6.707,6.707c-.755.755-1.172,1.76-1.172,2.829v1.586c0,.552.448,1,1,1h1.586c1.069,0,2.073-.417,2.828-1.172l6.707-6.707c.567-.567.879-1.32.879-2.122s-.312-1.555-.878-2.121Zm-1.415,2.828l-6.708,6.707c-.377.378-.879.586-1.414.586h-.586v-.586c0-.534.208-1.036.586-1.414l6.708-6.707c.377-.378,1.036-.378,1.414,0,.189.188.293.439.293.707s-.104.518-.293.707Z" />
 									</svg>
 								</a>
-								<button id="btnExcluir" onclick="javascript:openRemoveModal(<?= htmlspecialchars($c['id'] ?? null) ?>)">
+								<button id="btnExcluir" type="button" onclick="javascript:openRemoveModal(<?= htmlspecialchars($c['id'] ?? null) ?>)">
 									<svg xmlns="http://www.w3.org/2000/svg" id="Bold" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
 										<path d="M14.121,12,18,8.117A1.5,1.5,0,0,0,15.883,6L12,9.879,8.11,5.988A1.5,1.5,0,1,0,5.988,8.11L9.879,12,6,15.882A1.5,1.5,0,1,0,8.118,18L12,14.121,15.878,18A1.5,1.5,0,0,0,18,15.878Z" />
 									</svg>
@@ -102,7 +102,7 @@
 					<?php endif; ?>
 
 					<?php for ($p = 1; $p <= $totalPages; $p++): ?>
-						<a
+						<a  class="paginationNumber"
 							href="?page=<?= $p ?>&rowLimit=<?= $rowLimit ?>"
 							class="page-link <?= $p === $currentPage ? 'active' : '' ?>">
 							<?= $p ?>
@@ -124,8 +124,8 @@
 		Deseja realmente realizar a exclusão do registro?
 	</div>
 	<div id="modalButtons">
-		<button id="btnConfirm">Confirmar</button>
-		<button id="btnCancel">
+		<button type="button" id="btnConfirm">Confirmar</button>
+		<button type="button" id="btnCancel">
 			<svg id="closeSvg" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
 				<polygon points="18.707 6.707 17.293 5.293 12 10.586 6.707 5.293 5.293 6.707 10.586 12 5.293 17.293 6.707 18.707 12 13.414 17.293 18.707 18.707 17.293 13.414 12 18.707 6.707" />
 			</svg>
@@ -208,8 +208,29 @@
 		}, 200);
 	}
 
-	function confirmRemoval(id) {
-		window.location.href = 'remove/' + id;
+	async function confirmRemoval(id) {
+		try {
+			const resp = await fetch(`<?= $_SERVER['SCRIPT_NAME'] ?>/client/remove/${id}`, {
+				method: 'POST',
+				headers: {'X-Requested-With': 'XMLHttpRequest'}
+			});
+			if(!resp.ok) throw new Error(`HTTP ${resp.status}`);
+			
+			const data = await resp.json();
+
+			if(data.status === 'success') {
+				const row = document.getElementById(`row-${id}`);
+				if (row) row.remove();
+				MessageModal.show('success', data.message);
+			} else {
+				MessageModal.show('warning', data.message);
+			}
+		} catch (err) {
+			console.log(err)
+			MessageModal.show('error', 'Erro inesperado: ' + err.message);
+		} finally {
+			closeRemoveModal();
+		};
 	}
 
 	function createDataClient() {

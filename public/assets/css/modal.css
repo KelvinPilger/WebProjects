@@ -1,0 +1,59 @@
+.modal.hidden {
+  display: none;
+  animation: slideOutDown 0.4s ease-in forwards;
+}
+.modal {
+  position: absolute;
+  top: 200px;
+  right: -280px;
+  width: 650px; height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+.modal__window {
+  max-width: 400px;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  transition: all .2s ease;
+}
+.modal.success .modal__window {
+  border-top: 4px solid #4CAF50;
+  background: #e8f5e9;
+  animation: slideIn 0.4s ease-in forwards;
+}
+.modal.error .modal__window {
+  border-top: 4px solid #F44336;
+  background: #ffebee;
+  animation: slideIn 0.4s ease-in forwards;
+}
+.modal.warning .modal__window {
+  border-top: 4px solid #FFC107;
+  background: #fff8e1;
+  animation: slideIn 0.4s ease-in forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translate(-50%, -50%) translateX(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%) translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutDown {
+  from {
+    transform: translate(-50%, -50%) translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -50%) translateY(30px);
+    opacity: 0;
+  }
+}
