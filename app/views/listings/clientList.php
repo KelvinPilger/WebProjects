@@ -31,15 +31,16 @@
 						<a class="paginationBtn" href="?page=<?= $currentPage - 1 ?>&rowLimit=<?= $rowLimit ?>">
 							<</a>
 							<?php endif; ?>
-
-							<?php for ($p = 1; $p <= $totalPages; $p++): ?>
-								<a  class="paginationNumber"
-									href="?page=<?= $p ?>&rowLimit=<?= $rowLimit ?>"
-									class="page-link <?= $p === $currentPage ? 'active' : '' ?>">
-									<?= $p ?>
-								</a>
-							<?php endfor; ?>
-
+								
+							<?php if ($rowLimit === 'all'): ?>
+								1 - <?= htmlspecialchars($total) ?> de <?= htmlspecialchars($total) ?> clientes
+							<?php else: ?>
+								<?= htmlspecialchars($offset + 1) ?>
+								-
+								<?= htmlspecialchars(min($offset + $limit, $total)) ?>
+								de <?= htmlspecialchars($total) ?> clientes
+							<?php endif; ?>
+							
 							<?php if ($currentPage < $totalPages): ?>
 								<a class="paginationBtn" href="?page=<?= $currentPage + 1 ?>&rowLimit=<?= $rowLimit ?>">></a>
 							<?php endif; ?>
@@ -101,13 +102,14 @@
 					<</a>
 					<?php endif; ?>
 
-					<?php for ($p = 1; $p <= $totalPages; $p++): ?>
-						<a  class="paginationNumber"
+					
+					<?php /*for ($p = 1; $p <= $totalPages; $p++): ?>
+						<!-- <a  class="paginationNumber"
 							href="?page=<?= $p ?>&rowLimit=<?= $rowLimit ?>"
 							class="page-link <?= $p === $currentPage ? 'active' : '' ?>">
 							<?= $p ?>
-						</a>
-					<?php endfor; ?>
+						</a> -->
+					<?php endfor; */?>
 
 					<?php if ($currentPage < $totalPages): ?>
 						<a class="paginationBtn" href="?page=<?= $currentPage + 1 ?>&rowLimit=<?= $rowLimit ?>">></a>

@@ -33,9 +33,12 @@ class ClientController extends Controller
 
         $this->renderView('listings/clientList', [
             'clients'     => $clients,
+            'total'       => $total,
             'currentPage' => $page,
             'totalPages'  => $totalPages,
             'rowLimit'    => $rowLimit,
+            'limit'       => $limit,
+            'offset'      => $offset,
             'style'       => ['../../assets/css/clientList.css'],
         ]);
     }
