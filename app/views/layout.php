@@ -15,6 +15,7 @@
     <?php endforeach; ?>
   <?php endif; ?>
 </head>
+
 <body>
   <div class="general-nav">
     <nav class="general" id="main-nav">
@@ -42,15 +43,17 @@
           <ul class="dropdown-content">
           </ul>
       </ul>
+      <div id="toast-container">
+      <div id="message-modal" class="modal hidden">
+        <div class="modal__window">
+          <p class="modal__message"></p>
+        </div>
+      </div>
     </nav>
+    </div>
   </div>
   <main><?= $content ?></main>
   <footer>
-    <div id="message-modal" class="modal hidden">
-      <div class="modal__window">
-        <p class="modal__message"></p>
-      </div>
-    </div>
   </footer>
   <script src="../../assets/js/modal.js" defer></script>
 </body>

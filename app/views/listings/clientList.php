@@ -2,14 +2,15 @@
 	<h1>Clientes</h1>
 </div>
 <div class="tableContainer">
-	<table class="myTable">
-		<div id="headerButtons">
+	<div id="headerButtons">
 			<strong>
 				<a href="<?= $_SERVER['SCRIPT_NAME'] ?>/client/create" class="btnIncluir">
 					Incluir
 				</a>
 			</strong>
 		</div>
+	<table class="myTable">
+		
 		<form id="filterForm" method="get" action="<?= $_SERVER['SCRIPT_NAME'] ?>/client/index">
 			<input
 				type="hidden"
@@ -28,22 +29,31 @@
 
 				<nav id="pagination">
 					<?php if ($currentPage > 1): ?>
+						<a class="paginationBtn" href="?page=<?= 1 ?>&rowLimit=<?= $rowLimit ?>"> << </a>
+
 						<a class="paginationBtn" href="?page=<?= $currentPage - 1 ?>&rowLimit=<?= $rowLimit ?>">
-							<</a>
-							<?php endif; ?>
-								
-							<?php if ($rowLimit === 'all'): ?>
-								1 - <?= htmlspecialchars($total) ?> de <?= htmlspecialchars($total) ?> clientes
-							<?php else: ?>
-								<?= htmlspecialchars($offset + 1) ?>
-								-
-								<?= htmlspecialchars(min($offset + $limit, $total)) ?>
-								de <?= htmlspecialchars($total) ?> clientes
-							<?php endif; ?>
-							
-							<?php if ($currentPage < $totalPages): ?>
-								<a class="paginationBtn" href="?page=<?= $currentPage + 1 ?>&rowLimit=<?= $rowLimit ?>">></a>
-							<?php endif; ?>
+						<</a>
+					<?php endif; ?>
+
+					<?php if ($rowLimit === 'all'): ?>
+						1 - <?= htmlspecialchars($total) ?> de <?= htmlspecialchars($total) ?> clientes
+					<?php elseif ($total > 0): ?>
+						<?= htmlspecialchars($offset + 1) ?>
+						-
+						<?= htmlspecialchars(min($offset + $limit, $total)) ?>
+						de <?= htmlspecialchars($total) ?> clientes
+					<?php else: ?>
+						<?= htmlspecialchars($total) ?>
+						-
+						<?= htmlspecialchars($total) ?>
+						de <?= htmlspecialchars($total) ?> clientes
+					<?php endif; ?>
+
+					<?php if ($currentPage < $totalPages): ?>
+						<a class="paginationBtn" href="?page=<?= $currentPage + 1 ?>&rowLimit=<?= $rowLimit ?>">></a>
+
+						<a class="paginationBtn" href="?page=<?= $totalPages ?>&rowLimit=<?= $rowLimit ?>"> >> </a>
+					<?php endif; ?>
 				</nav>
 				<input type="hidden" name="page" value="<?= $_GET['page'] ?? 1 ?>">
 			</div>
@@ -98,22 +108,31 @@
 		</select>
 		<nav id="pagination">
 			<?php if ($currentPage > 1): ?>
+				<a class="paginationBtn" href="?page=<?= 1 ?>&rowLimit=<?= $rowLimit ?>"> << </a>
+
 				<a class="paginationBtn" href="?page=<?= $currentPage - 1 ?>&rowLimit=<?= $rowLimit ?>">
-					<</a>
-					<?php endif; ?>
+				<</a>
+			<?php endif; ?>
 
-					
-					<?php /*for ($p = 1; $p <= $totalPages; $p++): ?>
-						<!-- <a  class="paginationNumber"
-							href="?page=<?= $p ?>&rowLimit=<?= $rowLimit ?>"
-							class="page-link <?= $p === $currentPage ? 'active' : '' ?>">
-							<?= $p ?>
-						</a> -->
-					<?php endfor; */?>
+			<?php if ($rowLimit === 'all'): ?>
+				1 - <?= htmlspecialchars($total) ?> de <?= htmlspecialchars($total) ?> clientes
+			<?php elseif ($total > 0): ?>
+				<?= htmlspecialchars($offset + 1) ?>
+				-
+				<?= htmlspecialchars(min($offset + $limit, $total)) ?>
+				de <?= htmlspecialchars($total) ?> clientes
+			<?php else: ?>
+				<?= htmlspecialchars($total) ?>
+				-
+				<?= htmlspecialchars($total) ?>
+				de <?= htmlspecialchars($total) ?> clientes
+			<?php endif; ?>
 
-					<?php if ($currentPage < $totalPages): ?>
-						<a class="paginationBtn" href="?page=<?= $currentPage + 1 ?>&rowLimit=<?= $rowLimit ?>">></a>
-					<?php endif; ?>
+			<?php if ($currentPage < $totalPages): ?>
+				<a class="paginationBtn" href="?page=<?= $currentPage + 1 ?>&rowLimit=<?= $rowLimit ?>">></a>
+
+				<a class="paginationBtn" href="?page=<?= $totalPages ?>&rowLimit=<?= $rowLimit ?>"> >> </a>
+			<?php endif; ?>
 		</nav>
 	</div>
 	</form>
@@ -138,8 +157,8 @@
 </div>
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
-		const form      = document.getElementById('filterForm');
-		const topSel    = document.getElementById('rowLimit');
+		const form = document.getElementById('filterForm');
+		const topSel = document.getElementById('rowLimit');
 		const bottomSel = document.getElementById('rowLimit2');
 		const pageInput = document.getElementById('pageInput');
 
@@ -147,7 +166,7 @@
 
 		function onLimitChange(e) {
 			const v = e.target.value;
-			topSel.value    = v;
+			topSel.value = v;
 			bottomSel.value = v;
 			pageInput.value = 1;
 			form.submit();
@@ -214,13 +233,15 @@
 		try {
 			const resp = await fetch(`<?= $_SERVER['SCRIPT_NAME'] ?>/client/remove/${id}`, {
 				method: 'POST',
-				headers: {'X-Requested-With': 'XMLHttpRequest'}
+				headers: {
+					'X-Requested-With': 'XMLHttpRequest'
+				}
 			});
-			if(!resp.ok) throw new Error(`HTTP ${resp.status}`);
-			
+			if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+
 			const data = await resp.json();
 
-			if(data.status === 'success') {
+			if (data.status === 'success') {
 				const row = document.getElementById(`row-${id}`);
 				if (row) row.remove();
 				MessageModal.show('success', data.message);

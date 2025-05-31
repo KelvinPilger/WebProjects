@@ -1,9 +1,9 @@
 .modal.hidden {
-  display: none;
-  animation: slideOutDown 0.4s ease-in forwards;
+  
 }
+
 .modal {
-  position: absolute;
+  position: fixed;
   top: 200px;
   right: -280px;
   width: 650px; height: 40px;
@@ -19,6 +19,7 @@
   border-radius: 6px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.3);
   transition: all .2s ease;
+  margin-bottom: 10px;
 }
 .modal.success .modal__window {
   border-top: 4px solid #4CAF50;
@@ -34,6 +35,28 @@
   border-top: 4px solid #FFC107;
   background: #fff8e1;
   animation: slideIn 0.4s ease-in forwards;
+}
+
+#toast-container {
+  position: fixed;
+  top: 1rem;
+  right: 200px;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2rem;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+#toast-container .modal {
+  position: relative;
+  width: auto;
+  max-width: 300px;
+  pointer-events: auto;
+}
+
+#toast-container .modal.hidden .modal__window {
+  animation: slideOutDown 0.4s ease-in forwards;
 }
 
 @keyframes slideIn {

@@ -1,18 +1,24 @@
-;(function(window, document) {
-  const modal = document.getElementById('message-modal');
-  const msg   = modal.querySelector('.modal__message');
+(function(window, document) {
+  const container = document.getElementById('toast-container');
 
-  function showModal(type, message, duration = 3000) {
-    console.log('showModal', type, message);
-    modal.classList.remove('success','error','warning','hidden');
-    modal.classList.add(type);
-    msg.textContent = message;
-    if (duration > 0) setTimeout(hideModal, duration);
+  function show(type, message, duration = 5000) {
+    const toast = document.createElement('div');
+    toast.classList.add('modal', type);
+    toast.innerHTML = `
+      <div class="modal__window">
+        <p class="modal__message">${message}</p>
+      </div>
+    `;
+    container.appendChild(toast);
+
+    setTimeout(() => {
+      toast.classList.add('hidden');
+      toast.addEventListener('animationend', () => toast.remove());
+    }, duration);
   }
 
-  function hideModal() {
-    modal.classList.add('hidden');
-  }
-
-  window.MessageModal = { show: showModal, hide: hideModal };
+  window.MessageModal = { show, hide: (toastEl) => {
+    toastEl.classList.add('hidden');
+    toastEl.addEventListener('animationend', () => toastEl.remove());
+  }};
 })(window, document);

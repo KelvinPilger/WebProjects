@@ -65,6 +65,7 @@ a {
 }
 
 .myTable td {
+  font-size: 13px;
   padding: 8px 16px;
   text-align: center;
   border-bottom: 1px solid #eee;
@@ -103,6 +104,17 @@ a {
   width: 30ch;
 }
 
+#actionTd {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  gap: 8px;             
+  white-space: nowrap;
+  margin: 0px 15px;
+  color: black;
+  border-radius: 8px;
+}
+
 #headerButtons {
   position: absolute;
   max-width: 600px;
@@ -133,7 +145,7 @@ a {
   text-decoration: none;
   background-color: rgba(37, 34, 34, 0.999);
   color: #fff;
-  margin: 2px;
+  margin: 10px;
   border: 1px solid black;
   padding: 4px;
   position: relative;
@@ -150,13 +162,16 @@ a {
   border: 0px;
   width: 56px;
   text-align: center;
-  margin-right: 6px;
+  margin-right: 12px;
   margin-left: 6px;
 }
 
 .paginationBtn {
   text-decoration: none;
   color: rgba(11, 11, 11, 0.803);
+  margin: 2px;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 #lblLimit {
@@ -170,8 +185,7 @@ a {
   bottom: 10px;
   text-align: center;
   width: 56px;
-  margin-right: 6px;
-  margin-left: 6px;
+  margin-right: 12px;
   margin-left: 6px;
 }
 
@@ -199,41 +213,29 @@ a {
   border: 1px solid rgba(37, 34, 34, 0.999);
 }
 
+#btnEdit,
 #btnExcluir {
-  width: 24px;
-  height: 24px;
-  outline: none;
   text-decoration: none;
-  border: 0px;
-  background-color: transparent;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  color: black;
+  align-items: center;
+  padding: 4px;
+  margin: 4px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: transparent;
   cursor: pointer;
-  color: rgba(11, 11, 11, 0.803);
-  transition: 0.3s ease;
-  border-radius: 6px;
+  transition: background-color 0.2s ease;
 }
 
-#btnEdit:hover, #btnExcluir:hover {
+#btnEdit:hover,
+#btnExcluir:hover {
+  text-decoration: none;
   background-color: rgba(79, 74, 74, 0.3);
   border-radius: 6px;
-}
-
-#btnEdit {
-  border-radius: 6px;
-  transition: 0.3s ease;
-  margin-top: 12px;
-  width: 24px;
-  padding: 4px;
-  height: 24px;
-  outline: none;
-  text-decoration: none;
-  border: 0px;
-  background-color: transparent;
-  cursor: pointer;
-  color: rgba(11, 11, 11, 703);
-  position: relative;
-  display: inline-block;
-  justify-content: space-between;
-  align-items: flex-end;
 }
 
 #removeModal {
