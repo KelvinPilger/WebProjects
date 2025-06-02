@@ -30,32 +30,41 @@
         </div>
         <div class="containerContacts">
             <label class="containerTitle">Contatos</label>
-            <table id="contactTable">
-                <thead>
-                    <tr>
-                        <th>Tipo</th>
-                        <th>Contato</th>
-                    </tr>
-                </thead>
-                <tbody id="contactTableBody">
-                    <tr>
-                        <td id="selectContact">
-                            <select name="ctt_type" id="contactType">
-                                <option>Celular</option>
-                                <option>Telefone</option>
-                                <option>E-mail</option>
-                                <option>Outros</option>
-                            </select>
-                        </td>
-                        <td id="inputContact">
-                            <input type="text" name="contact">
-                            
-                        </td>
-                        <button class="btnAddContactLine">+</button>
-                    </tr>
-                </tbody>
-            </table>
-            
+
+            <div id="contactsWrapper">
+                <div class="contact-row" data-index="0">
+                    <select name="contacts[0][type]" class="contact-type">
+                        <option value="Celular">Celular</option>
+                        <option value="Telefone">Telefone</option>
+                        <option value="E-mail">E-mail</option>
+                        <option value="Outros">Outros</option>
+                    </select>
+                    <input
+                        type="text"
+                        name="contacts[0][value]"
+                        class="contact-value"
+                        placeholder="Digite o contato" />
+                    <button type="button" class="btn-add">＋</button>
+                    <button type="button" class="btn-remove" style="display: none;">−</button>
+                </div>
+            </div>
+            <template id="contact-template">
+                <div class="contact-row" data-index="__INDEX__">
+                    <select name="contacts[__INDEX__][type]" class="contact-type">
+                        <option value="Celular">Celular</option>
+                        <option value="Telefone">Telefone</option>
+                        <option value="E-mail">E-mail</option>
+                        <option value="Outros">Outros</option>
+                    </select>
+                    <input
+                        type="text"
+                        name="contacts[__INDEX__][value]"
+                        class="contact-value"
+                        placeholder="Digite o contato" />
+                    <button type="button" class="btn-add">＋</button>
+                    <button type="button" class="btn-remove">−</button>
+                </div>
+            </template>
         </div>
         <div class="buttons">
             <button type="submit" class="btnSave">Salvar</button>
@@ -77,60 +86,59 @@
 
                 [radCpf, radCnpj].forEach(radio => {
                     radio.addEventListener('change', () => {
-                    if(radCpf.checked) {
-                        cnpj.value = null;
-                        cpf.disabled = false;
-                        cnpj.disabled = true;
-                    } else {
-                        cpf.value = null;
-                        cpf.disabled = true;
-                        cnpj.disabled = false;
-                    }
-                })
-            });
-        
-            
-
-            function createDataClient() {
-                const form = document.getElementById('clientForm');
-
-                form.addEventListener('submit', async event => {
-                    event.preventDefault();
-
-                    const formData = new FormData(form);
-                    formData.append("action", "insert");
-
-                    console.log(formData);
-
-                    const data = await fetch('client/store', {
-                        method: 'POST',
-                        mode: 'cors',
-                        body: formData
+                        if (radCpf.checked) {
+                            cnpj.value = null;
+                            cpf.disabled = false;
+                            cnpj.disabled = true;
+                        } else {
+                            cpf.value = null;
+                            cpf.disabled = true;
+                            cnpj.disabled = false;
+                        }
                     })
-                    const response = await data.json();
                 });
-            };
 
-            function formatarCampo(campoTexto) {
-                if (campoTexto.value.length <= 11) {
-                    campoTexto.value = mascaraCpf(campoTexto.value);
-                } else {
-                    campoTexto.value = mascaraCnpj(campoTexto.value);
+
+
+                function createDataClient() {
+                    const form = document.getElementById('clientForm');
+
+                    form.addEventListener('submit', async event => {
+                        event.preventDefault();
+
+                        const formData = new FormData(form);
+                        formData.append("action", "insert");
+
+                        console.log(formData);
+
+                        const data = await fetch('client/store', {
+                            method: 'POST',
+                            mode: 'cors',
+                            body: formData
+                        })
+                        const response = await data.json();
+                    });
+                };
+
+                function formatarCampo(campoTexto) {
+                    if (campoTexto.value.length <= 11) {
+                        campoTexto.value = mascaraCpf(campoTexto.value);
+                    } else {
+                        campoTexto.value = mascaraCnpj(campoTexto.value);
+                    }
+                }
+
+                function retirarFormatacao(campoTexto) {
+                    campoTexto.value = campoTexto.value.replace(/(\.|\/|\-)/g, "");
+                }
+
+                function mascaraCpf(valor) {
+                    return valor.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "\$1.\$2.\$3\-\$4");
+                }
+
+                function mascaraCnpj(valor) {
+                    return valor.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, "\$1.\$2.\$3\/\$4\-\$5");
                 }
             }
-
-            function retirarFormatacao(campoTexto) {
-                campoTexto.value = campoTexto.value.replace(/(\.|\/|\-)/g, "");
-            }
-
-            function mascaraCpf(valor) {
-                return valor.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "\$1.\$2.\$3\-\$4");
-            }
-
-            function mascaraCnpj(valor) {
-                return valor.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, "\$1.\$2.\$3\/\$4\-\$5");
-            }
-        }
         </script>
-    </div>
 </form>

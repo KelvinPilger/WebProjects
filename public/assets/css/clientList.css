@@ -64,6 +64,11 @@ a {
   justify-content: center;
 }
 
+.optContato {
+  background-color: rgba(37, 34, 34, 0.999);
+  color: #f7f7f7;
+}
+
 .myTable td {
   font-size: 13px;
   padding: 8px 16px;

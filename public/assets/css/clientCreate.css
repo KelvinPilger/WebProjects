@@ -177,16 +177,8 @@ html {
     box-sizing: border-box;
 }
 
-.containerContacts .btnAddContactLine {
-    width: 100%;
-    padding: 5px;
-    color: #fff;
-    border-radius: 6px;
-    font-size: 10px;
-    height: 29px;
-    border: 0;
-    background-color: rgba(37, 34, 34, 0.999);
-    font-weight: bold;
+.containerContacts .btnAdd {
+
 }
 
 .containerContacts #contactType {
@@ -196,6 +188,7 @@ html {
     border: 0.5px solid #aaa2a2c4;
     border-radius: 6px;
     font-size: 14px;
+    font-family: 'Rubik', sans-serif;
     height: 29px;
     margin-right: 4px;
 }
@@ -204,6 +197,17 @@ html {
     position: relative;
     display: flex;
     width: 110px;
+}
+
+.selContato {
+    font-family: 'Rubik', sans-serif;
+    color: black;
+}
+
+.optContato {
+  background-color: rgba(37, 34, 34, 0.999);
+  color: #f7f7f7;
+  font-family: 'Rubik', sans-serif;
 }
 
 .btnSave {
