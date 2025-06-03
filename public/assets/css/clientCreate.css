@@ -1,12 +1,14 @@
 html {
     opacity: 0;
     animation: fadeIn 0.5s ease-out forwards;
-  }
-  
-  @keyframes fadeIn {
-    to { opacity: 1; }
-  }
-  
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
 .infoContainer {
     background-color: #fff;
     border-radius: 6px;
@@ -14,10 +16,10 @@ html {
     max-width: 1150px;
     min-height: 800px;
     padding: 15px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     margin: 2rem auto;
     position: relative;
-    overflow: visible;
+    overflow: hidden;
     display: block;
 }
 
@@ -50,10 +52,10 @@ html {
     box-sizing: border-box;
 }
 
-.containerNatRegistr > input[type="radio"] {
+.containerNatRegistr>input[type="radio"] {
     cursor: pointer;
     accent-color: black;
-    box-shadow: inset 0 0 0.1em rgba(0,0,0,0.0);
+    box-shadow: inset 0 0 0.1em rgba(0, 0, 0, 0.0);
     width: auto;
     margin: 0 0.5rem;
 }
@@ -76,7 +78,7 @@ html {
     font-size: 12px;
 }
 
-.containerGeneralInfo > #name {
+.containerGeneralInfo>#name {
     width: 100%;
 }
 
@@ -90,10 +92,25 @@ html {
     font-size: 14px;
 }
 
-.containerGeneralInfo label[for="name"]    { grid-column: 1; grid-row: 1; }
-.containerGeneralInfo input#name            { grid-column: 1; grid-row: 2; }
-.containerGeneralInfo label[for="bornDate"] { grid-column: 2; grid-row: 1; }
-.containerGeneralInfo input#bornDate        { grid-column: 2; grid-row: 2; }
+.containerGeneralInfo label[for="name"] {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.containerGeneralInfo input#name {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.containerGeneralInfo label[for="bornDate"] {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.containerGeneralInfo input#bornDate {
+    grid-column: 2;
+    grid-row: 2;
+}
 
 .containerCnpjCpf {
     margin: 15px;
@@ -123,17 +140,35 @@ html {
     font-size: 14px;
 }
 
-.containerCnpjCpf label[for="cpf"]  { grid-column: 1; grid-row: 1; }
-.containerCnpjCpf input#cpf          { grid-column: 1; grid-row: 2; }
-.containerCnpjCpf label[for="cnpj"] { grid-column: 2; grid-row: 1; }
-.containerCnpjCpf input#cnpj         { grid-column: 2; grid-row: 2; }
+.containerCnpjCpf label[for="cpf"] {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.containerCnpjCpf input#cpf {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.containerCnpjCpf label[for="cnpj"] {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.containerCnpjCpf input#cnpj {
+    grid-column: 2;
+    grid-row: 2;
+}
 
 .containerContacts {
     margin: 15px;
     width: 55%;
+    min-height: 60px;
     font-size: 12px;
     max-width: 550px;
     position: relative;
+    justify-content: center;
+    align-items: center;
     display: grid;
     grid-template-columns: 1fr auto;
     grid-template-rows: auto auto;
@@ -146,7 +181,7 @@ html {
     background: #fff;
 }
 
-.containerContacts > #celular {
+.containerContacts>#celular {
     width: 100%;
 }
 
@@ -177,8 +212,103 @@ html {
     box-sizing: border-box;
 }
 
-.containerContacts .btnAdd {
+.containerContacts {
+    margin: 15px;
+    width: 55%;
+    max-width: 550px;
+    position: relative;
+    padding: 1.25rem 20px 20px;
+    border: 1.8px solid #aaa2a2c4;
+    border-radius: 6px;
+    background: #fff;
+    font-size: 12px;
+    box-sizing: border-box;
+}
 
+.containerContacts .containerTitle {
+    position: absolute;
+    top: 0;
+    left: 0.75rem;
+    transform: translateY(-50%);
+    background: #fff;
+    padding: 0 0.25rem;
+    font-size: 12px;
+    font-weight: bold;
+    color: #1a1818;
+    z-index: 1;
+}
+
+.contact-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.contact-row .contact-type {
+    box-sizing: border-box;
+    width: 30%;
+    padding: 5px;
+    border: 0.5px solid #aaa2a2c4;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: 'Rubik', sans-serif;
+    height: 30px;
+    background: #fff;
+    color: #000;
+}
+
+.contact-row .contact-value {
+    all: unset;
+    box-sizing: border-box;
+    width: 50%;
+    padding: 5px;
+    border: 0.5px solid #aaa2a2c4;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.contact-row .btn-add,
+.contact-row .btn-remove {
+    background-color: rgba(37, 34, 34, 0.999);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    font-size: 20px;
+    line-height: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+.contact-row .btn-add:hover,
+.contact-row .btn-remove:hover {
+    background-color: rgba(20, 18, 18, 0.8);
+}
+
+.buttons {
+    margin-top: 1rem;
+}
+
+.btnSave {
+    text-decoration: none;
+    background-color: rgba(37, 34, 34, 0.999);
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 6px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btnSave:hover {
+    background-color: rgba(20, 18, 18, 0.8);
 }
 
 .containerContacts #contactType {
@@ -205,9 +335,9 @@ html {
 }
 
 .optContato {
-  background-color: rgba(37, 34, 34, 0.999);
-  color: #f7f7f7;
-  font-family: 'Rubik', sans-serif;
+    background-color: rgba(37, 34, 34, 0.999);
+    color: #f7f7f7;
+    font-family: 'Rubik', sans-serif;
 }
 
 .btnSave {

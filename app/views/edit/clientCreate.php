@@ -44,7 +44,7 @@
                         name="contacts[0][value]"
                         class="contact-value"
                         placeholder="Digite o contato" />
-                    <button type="button" class="btn-add">＋</button>
+                    <button type="button" id="btnAdd" class="btn-add">＋</button>
                     <button type="button" class="btn-remove" style="display: none;">−</button>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                         name="contacts[__INDEX__][value]"
                         class="contact-value"
                         placeholder="Digite o contato" />
-                    <button type="button" class="btn-add">＋</button>
+                    <button id="btnAdd "type="button" class="btn-add">＋</button>
                     <button type="button" class="btn-remove">−</button>
                 </div>
             </template>
@@ -71,7 +71,39 @@
         </div>
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-                alternateCpfCnpj();
+            const contactsWrapper = document.getElementById('contactsWrapper');
+
+            function refreshButtons() {
+                const rows = contactsWrapper.querySelectorAll('.contact-row');
+                rows.forEach((row, idx) => {
+                const btnRemove = row.querySelector('.btn-remove');
+                btnRemove.style.display = rows.length > 1 ? 'flex' : 'none';
+                });
+            }
+
+            contactsWrapper.addEventListener('click', (e) => {
+                const target = e.target;
+
+                if (target.classList.contains('btn-add')) {
+                e.preventDefault();
+                const currentRow = target.closest('.contact-row');
+                const newRow = currentRow.cloneNode(true);
+
+                newRow.querySelector('.contact-value').value = '';
+
+                contactsWrapper.insertBefore(newRow, currentRow.nextSibling);
+
+                refreshButtons();
+                }
+
+                if (target.classList.contains('btn-remove')) {
+                e.preventDefault();
+                const currentRow = target.closest('.contact-row');
+                currentRow.remove();
+                refreshButtons();
+                }
+            });
+            refreshButtons();
             });
 
             function alternateCpfCnpj() {
@@ -97,8 +129,6 @@
                         }
                     })
                 });
-
-
 
                 function createDataClient() {
                     const form = document.getElementById('clientForm');
