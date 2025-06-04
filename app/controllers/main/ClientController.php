@@ -5,6 +5,7 @@ namespace App\Controllers\main;
 use app\models\Client;
 use Core\Controller;
 use Error;
+use Throwable;
 
 header("Access-Control-Allow-Headers: Content-Type");
 header('Access-Control-Allow-Methods: GET, POST');
@@ -67,13 +68,35 @@ class ClientController extends Controller
 
     public function store(): void
     {
-        $clientData = $_POST;
+        header('Content-Type: application/json; charset=UTF-8');
 
-        var_dump($_POST);
+        $clientData = $_POST;
         $clientJson = json_encode($clientData, true);
         $clientModel = new Client();
 
-        $clientModel->save($clientJson);
+        try {
+            $saved = $clientModel->save($clientJson);
+            if($saved) {
+                http_response_code(200);
+                echo json_encode([
+                    'status'  => 'success',
+                    'message' => 'Cliente cadastrado com sucesso!'
+                ]);
+            } else {
+                http_response_code(404);
+                echo json_encode([
+                    'status'  => 'error',
+                    'message' => 'O cliente não pode ser incluso no sistema!'
+                ]);
+            }
+        } catch (\Throwable $e) {
+            http_response_code(500);
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Ocorreu um erro ao registrar o cliente: ' . $e->getMessage()
+            ]);
+        }
+        exit;
     }
 
     public function create(): void

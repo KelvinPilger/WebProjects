@@ -265,13 +265,28 @@
 			const formData = new FormData(form);
 
 			console.log(formData);
+			try {
+				const data = await fetch('client/store', {
+					method: 'POST',
+					mode: 'cors',
+					body: formData
+				})
+				const response = await data.json();
+				if (resp.ok && json.status === 'success') {
 
-			const data = await fetch('client/store', {
-				method: 'POST',
-				mode: 'cors',
-				body: formData
-			})
-			const response = await data.json();
+				setTimeout(() => {
+					window.location.href = '/client/index';
+				}, 1000);
+
+				MessageModal.show('success', json.message);
+
+				} else {
+				MessageModal.show('error', json.message || 'Erro desconhecido ao salvar.');
+				}
+			} catch (err) {
+				console.error(err);
+				MessageModal.show('error', 'Falha de rede ao salvar o cliente.');
+			}
 		});
 	};
 </script>
