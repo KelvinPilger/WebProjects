@@ -19,42 +19,31 @@
 <body>
   <div class="general-nav">
     <nav class="general" id="main-nav">
-      <ul class="dropdown-nav">
-        <li class="nav-item dropdown">
-          <a href="#" class="nav-content">Listagens</a>
-          <ul class="dropdown-content">
-            <li><a href="<?= $_SERVER['SCRIPT_NAME'] . '/client/index' ?>">Clientes</a></li>
-            <li><a href="#">Produtos</a></li>
-            <li><a href="#">Fornecedores</a></li>
-            <li><a href="#">Recebimentos</a></li>
-            <li><a href="#">Pagamentos</a></li>
-            <li><a href="#">Caixa</a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a href="#" class="nav-content">Cadastros</a>
-          <ul class="dropdown-content">
-            <li><a href="#">Clientes</a></li>
-            <li><a href="#">Produtos</a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a href="#" class="nav-content">Outros</a>
-          <ul class="dropdown-content">
-          </ul>
-      </ul>
       <div id="toast-container">
-      <div id="message-modal" class="modal hidden">
-        <div class="modal__window">
-          <p class="modal__message"></p>
+        <div id="message-modal" class="modal hidden">
+          <div class="modal__window">
+            <p class="modal__message"></p>
+          </div>
         </div>
-      </div>
     </nav>
-    </div>
+  </div>
+  <nav id="sidebarNav">
+      <div id="accessButtons">
+        <a type="button" id="btnCliente" class="navButtons" href="../client/index">
+          <svg xmlns="http://www.w3.org/2000/svg" id="svgClient" height="25" width="25" fill="currentColor" viewBox="0 0 24 24" data-name="svgClient"><path d="m7.5 13a4.5 4.5 0 1 1 4.5-4.5 4.505 4.505 0 0 1 -4.5 4.5zm6.5 11h-13a1 1 0 0 1 -1-1v-.5a7.5 7.5 0 0 1 15 0v.5a1 1 0 0 1 -1 1zm3.5-15a4.5 4.5 0 1 1 4.5-4.5 4.505 4.505 0 0 1 -4.5 4.5zm-1.421 2.021a6.825 6.825 0 0 0 -4.67 2.831 9.537 9.537 0 0 1 4.914 5.148h6.677a1 1 0 0 0 1-1v-.038a7.008 7.008 0 0 0 -7.921-6.941z"/></svg>
+          <span class="btn-text">Clientes</span>
+        </a>
+        <a id="btnProdutos" class="navButtons">
+          <svg xmlns="http://www.w3.org/2000/svg" id="svgProduto" data-name="svgProduto" fill="currentColor" viewBox="0 0 24 24" height="25" width="25"><path d="M11,13H3c-1.657,0-3,1.343-3,3v5c0,1.657,1.343,3,3,3H11V13Zm-7.5,4h0c0-.552,.448-1,1-1h2c.552,0,1,.448,1,1h0c0,.552-.448,1-1,1h-2c-.552,0-1-.448-1-1Zm17.5-4H13v11h8c1.657,0,3-1.343,3-3v-5c0-1.657-1.343-3-3-3Zm-1.5,5h-2c-.552,0-1-.448-1-1h0c0-.552,.448-1,1-1h2c.552,0,1,.448,1,1h0c0,.552-.448,1-1,1ZM15,0h-6c-1.657,0-3,1.343-3,3V11h12V3c0-1.657-1.343-3-3-3Zm-2,5h-2c-.552,0-1-.448-1-1h0c0-.552,.448-1,1-1h2c.552,0,1,.448,1,1h0c0,.552-.448,1-1,1Z"/></svg>
+          <span class="btn-text">Produtos</span>
+        </a>
+      </div>
+  </nav>
   </div>
   <main><?= $content ?></main>
   <footer>
   </footer>
   <script src="../../assets/js/modal.js" defer></script>
 </body>
+
 </html>
