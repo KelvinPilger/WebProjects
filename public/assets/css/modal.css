@@ -5,15 +5,15 @@
 .modal {
   position: fixed;
   top: 200px;
-  right: -280px;
-  width: 650px; height: 40px;
+  right: -326px;
+  width: 950px; max-height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 999;
 }
 .modal__window {
-  max-width: 400px;
+  max-width: 600px;
   padding: 1rem;
   background: #fff;
   border-radius: 6px;
@@ -43,7 +43,7 @@
   right: 200px;
   display: flex;
   flex-direction: column-reverse;
-  gap: 2rem;
+  gap: 10px;
   z-index: 1000;
   pointer-events: none;
 }

@@ -115,8 +115,8 @@ class Client
             if($stmt->execute([
                 'name'     => $clientObj['name'],
                 'bornDate' => $clientObj['bornDate'],
-                'cpf'      => $clientObj['cpf'],
-                'cnpj'     => $clientObj['cnpj'],
+                'cpf'      => $clientObj['cpf'] ?? null,
+                'cnpj'     => $clientObj['cnpj'] ?? null,
                 'nat'      => $nat,
                 'id'       => $clientObj['id']
             ])) {
@@ -136,8 +136,8 @@ class Client
         if($stmt->execute([
             'name'        => $clientObj['name'],
             'nowDateTime' => $nowTs,
-            'cpf'         => $clientObj['cpf'],
-            'cnpj'        => $clientObj['cnpj'],
+            'cpf'         => $clientObj['cpf'] ?? null,
+            'cnpj'        => $clientObj['cnpj'] ?? null,
             'bornDate'    => $bornDate,
             'age'         => $age,
             'nat'         => $nat

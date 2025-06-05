@@ -56,102 +56,107 @@
 </form>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const contactsWrapper = document.getElementById('contactsWrapper');
+    const contactsWrapper = document.getElementById('contactsWrapper');
 
-        function refreshContactIndices() {
-            const rows = contactsWrapper.querySelectorAll('.contact-row');
-            rows.forEach((row, idx) => {
-                row.setAttribute('data-index', idx);
-                const selectType = row.querySelector('.contact-type');
-                const inputValue = row.querySelector('.contact-value');
-                selectType.setAttribute('name', `contacts[${idx}][type]`);
-                inputValue.setAttribute('name', `contacts[${idx}][value]`);
-            });
-        }
+    function refreshContactIndices() {
+      const rows = contactsWrapper.querySelectorAll('.contact-row');
+      rows.forEach((row, idx) => {
+        row.setAttribute('data-index', idx);
+        const selectType = row.querySelector('.contact-type');
+        const inputValue = row.querySelector('.contact-value');
+        selectType.setAttribute('name', `contacts[${idx}][type]`);
+        inputValue.setAttribute('name', `contacts[${idx}][value]`);
+      });
+    }
 
-        function refreshRemoveButtons() {
-            const rows = contactsWrapper.querySelectorAll('.contact-row');
-            rows.forEach(row => {
-                const btnRemove = row.querySelector('.btn-remove');
-                btnRemove.style.display = rows.length > 1 ? 'inline-block' : 'none';
-            });
-        }
+    function refreshRemoveButtons() {
+      const rows = contactsWrapper.querySelectorAll('.contact-row');
+      rows.forEach(row => {
+        const btnRemove = row.querySelector('.btn-remove');
+        btnRemove.style.display = rows.length > 1 ? 'inline-block' : 'none';
+      });
+    }
 
-        function refreshAll() {
-            refreshContactIndices();
-            refreshRemoveButtons();
-        }
+    function refreshAll() {
+      refreshContactIndices();
+      refreshRemoveButtons();
+    }
 
-        contactsWrapper.addEventListener('click', e => {
-            const target = e.target;
-            if (target.classList.contains('btn-add')) {
-                e.preventDefault();
-                const currentRow = target.closest('.contact-row');
-                const newRow = currentRow.cloneNode(true);
-                newRow.querySelector('.contact-value').value = '';
-                contactsWrapper.insertBefore(newRow, currentRow.nextSibling);
-                refreshAll();
-            }
-            if (target.classList.contains('btn-remove')) {
-                e.preventDefault();
-                const currentRow = target.closest('.contact-row');
-                currentRow.remove();
-                refreshAll();
-            }
-        });
-
-        function alternateCpfCnpj() {
-            const radCpf = document.getElementById('fisica');
-            const radCnpj = document.getElementById('juridica');
-            const cpf = document.getElementById('cpf');
-            const cnpj = document.getElementById('cnpj');
-            cpf.disabled = true;
-            cnpj.disabled = true;
-            [radCpf, radCnpj].forEach(radio => {
-                radio.addEventListener('change', () => {
-                    if (radCpf.checked) {
-                        cnpj.value = '';
-                        cpf.disabled = false;
-                        cnpj.disabled = true;
-                    } else {
-                        cpf.value = '';
-                        cpf.disabled = true;
-                        cnpj.disabled = false;
-                    }
-                });
-            });
-        }
-
-        function createDataClient() {
-            const form = document.getElementById('clientForm');
-            form.addEventListener('submit', async event => {
-                
-                refreshContactIndices();
-                const formData = new FormData(form);
-                formData.append('action', 'insert');
-                try {
-                    const resp = await fetch(form.getAttribute('action'), {
-                        method: 'POST',
-                        body: formData
-                    });
-                    const json = await resp.json();
-                    if (resp.ok && json.status === 'success') {
-                        MessageModal.show('success', json.message);
-                        setTimeout(() => {
-                            window.location.href = `<?= $_SERVER['SCRIPT_NAME'] ?>/client/index`;
-                        }, 1000);
-                    } else {
-                        MessageModal.show('error', json.message || 'Erro desconhecido ao salvar.');
-                    }
-                } catch (err) {
-                    console.error(err);
-                    MessageModal.show('error', 'Falha de rede ao salvar o cliente.');
-                }
-            });
-        }
-
-        alternateCpfCnpj();
+    contactsWrapper.addEventListener('click', e => {
+      const target = e.target;
+      if (target.classList.contains('btn-add')) {
+        e.preventDefault();
+        const currentRow = target.closest('.contact-row');
+        const newRow = currentRow.cloneNode(true);
+        newRow.querySelector('.contact-value').value = '';
+        contactsWrapper.insertBefore(newRow, currentRow.nextSibling);
         refreshAll();
+      }
+      if (target.classList.contains('btn-remove')) {
+        e.preventDefault();
+        const currentRow = target.closest('.contact-row');
+        currentRow.remove();
+        refreshAll();
+      }
+    });
+
+    function alternateCpfCnpj() {
+      const radCpf  = document.getElementById('fisica');
+      const radCnpj = document.getElementById('juridica');
+      const cpfField  = document.getElementById('cpf');
+      const cnpjField = document.getElementById('cnpj');
+      cpfField.disabled  = true;
+      cnpjField.disabled = true;
+      radCpf.addEventListener('change', () => {
+        if (radCpf.checked) {
+          cpfField.disabled = false;
+          cnpjField.disabled = true;
+          cnpjField.value = '';
+        }
+      });
+      radCnpj.addEventListener('change', () => {
+        if (radCnpj.checked) {
+          cpfField.disabled = true;
+          cnpjField.disabled = false;
+          cpfField.value = '';
+        }
+      });
+    }
+
+    function createDataClient() {
+      const form = document.getElementById('clientForm');
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        refreshContactIndices();
+        const formData = new FormData(form);
+        formData.set('action', 'insert');
+
+        try {
+          const resp = await fetch(form.getAttribute('action'), {
+            method: 'POST',
+            body: formData
+          });
+          const json = await resp.json();
+          console.log(json);
+          if (resp.ok && json.status === 'success') {
+            MessageModal.show('success', json.message);
+            setTimeout(() => {
+              window.location.href = `<?= $_SERVER['SCRIPT_NAME'] ?>/client/index`;
+            }, 2500);
+          } else {
+            MessageModal.show('error', json.message || 'Erro desconhecido ao salvar.');
+          }
+        } catch (err) {
+          console.error('Erro no fetch():', err);
+          MessageModal.show('error', 'Falha ao realizar a persistência do cliente/contato no banco de dados.');
+        }
+      });
+    }
+
+    // Inicializa tudo quando a página carrega
+    alternateCpfCnpj();
+    refreshAll();
+    createDataClient();
     });
 
     function formatarCampo(campoTexto) {
