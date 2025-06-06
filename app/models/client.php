@@ -75,14 +75,17 @@ class Client
     public function edit($id): array
     {
         $pdo = Database::getConnection();
-        $stmt = $pdo->prepare('SELECT id, name, inserted_at, cpf, cnpj, born_at, age, email, nat_registration FROM clients WHERE id = :id');
+        $stmt = $pdo->prepare('SELECT id, name, inserted_at, cpf, cnpj, born_at, age, email, nat_registration FROM clients WHERE id = :id;');
+        $stmtContact = $pdo->prepare('SELECT ctt_type, contact, person_id FROM CONTACTS WHERE id = :id;');
 
-        if (! $stmt->execute(['id' => $id])) {
+        if (!$stmt->execute(['id' => $id]) || !$stmtContact->execute(['id' => $id])) {
             return [];
         }
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $row ?: [];
+        $rowContacts = $stmtContact->fetch(PDO::FETCH_ASSOC);
+        $generalRows = [$row, $rowContacts];
+        return $generalRows ?: [];
     }
 
     public function save($client): string
@@ -98,10 +101,12 @@ class Client
         $bornDate = $clientObj['bornDate'];
         $age      = (new DateTime())->diff(new DateTime($clientObj['bornDate']))->y;
         $nowTs    = (new DateTime())->getTimestamp();
+        $message = "";
 
         $pdo = Database::getConnection();
 
         if ($clientObj['action'] == 'edit') {
+
             $stmt = $pdo->prepare(
                 'UPDATE CLIENTS 
                 SET name = :name,
@@ -112,6 +117,32 @@ class Client
                 WHERE id = :id'
             );
 
+            // ctt_type, contact, person_id, created_at
+
+            $clientId = $pdo->lastInsertId();
+            $now = new DateTime();
+            $stmtCtt = $pdo->prepare(
+                'UPDATE CONTACTS SET ctt_type = :ctt_type, contact = :contact WHERE id = :id;'
+            );
+
+            foreach ($clientObj['contacts'] as $ctt) {
+                if($stmtCtt->execute([
+                    'ctt_type'   => $ctt['type'],
+                    'contact'    => $ctt['value']
+                ]))
+                {$message = "Contato cadastrado!";} 
+                else {
+                   $stmtDelete = $pdo->prepare('DELETE FROM CONTACTS WHERE ctt_type = :ctt_type AND contact = :contact AND person_id = :id;');
+
+                   if($stmtDelete->execute([
+                    'ctt_type'   => $ctt['type'],
+                    'contact'    => $ctt['value'],
+                    'id'         => $clientId
+                ]))
+                {} }
+                return $message;
+            }
+
             if($stmt->execute([
                 'name'     => $clientObj['name'],
                 'bornDate' => $clientObj['bornDate'],
@@ -120,47 +151,47 @@ class Client
                 'nat'      => $nat,
                 'id'       => $clientObj['id']
             ])) {
-            
-            return "Cliente atualizado com sucesso!";
+            return "";
             };
-        }
+        } else {
+            $stmt = $pdo->prepare(
+                'INSERT INTO CLIENTS (
+                    name, inserted_at, cpf, cnpj, born_at, age, nat_registration
+                ) VALUES (
+                    :name, :nowDateTime, :cpf, :cnpj, :bornDate, :age, :nat
+                )'
+            );
 
-        $stmt = $pdo->prepare(
-            'INSERT INTO CLIENTS (
-                name, inserted_at, cpf, cnpj, born_at, age, nat_registration
-            ) VALUES (
-                :name, :nowDateTime, :cpf, :cnpj, :bornDate, :age, :nat
-            )'
-        );
-
-        if($stmt->execute([
-            'name'        => $clientObj['name'],
-            'nowDateTime' => $nowTs,
-            'cpf'         => $clientObj['cpf'] ?? null,
-            'cnpj'        => $clientObj['cnpj'] ?? null,
-            'bornDate'    => $bornDate,
-            'age'         => $age,
-            'nat'         => $nat
-        ]));
-
-        $clientId = $pdo->lastInsertId();
-        $now = new DateTime();
-        $stmtCtt = $pdo->prepare(
-            'INSERT INTO CONTACTS (
-                ctt_type, contact, person_id, created_at
-            ) VALUES (
-                :ctt_type, :contact, :person_id, :created_at
-            )'
-        );
-
-        foreach ($clientObj['contacts'] as $ctt) {
-            if($stmtCtt->execute([
-                'ctt_type'   => $ctt['type'],
-                'contact'    => $ctt['value'],
-                'person_id'  => $clientId,
-                'created_at' => $now->format('Y-m-d H:i:s')
+            if($stmt->execute([
+                'name'        => $clientObj['name'],
+                'nowDateTime' => $nowTs,
+                'cpf'         => $clientObj['cpf'] ?? null,
+                'cnpj'        => $clientObj['cnpj'] ?? null,
+                'bornDate'    => $bornDate,
+                'age'         => $age,
+                'nat'         => $nat
             ]));
+
+            $clientId = $pdo->lastInsertId();
+            $now = new DateTime();
+            $stmtCtt = $pdo->prepare(
+                'INSERT INTO CONTACTS (
+                    ctt_type, contact, person_id, created_at
+                ) VALUES (
+                    :ctt_type, :contact, :person_id, :created_at
+                )'
+            );
+
+            foreach ($clientObj['contacts'] as $ctt) {
+                if($stmtCtt->execute([
+                    'ctt_type'   => $ctt['type'],
+                    'contact'    => $ctt['value'],
+                    'person_id'  => $clientId,
+                    'created_at' => $now->format('Y-m-d H:i:s')
+                ]));
+            }
+            return "Cliente cadastrado com sucesso!";
         }
-        return "Cliente cadastrado com sucesso!";
+        return $message;
     }
 }

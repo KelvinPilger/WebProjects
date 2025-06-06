@@ -37,30 +37,24 @@
                 </div>
                 <div class="containerContacts">
                     <label class="containerTitle">Contatos</label>
-                    <table id="contactTable">
-                        <thead>
-                            <tr>
-                                <th>Tipo</th>
-                                <th>Contato</th>
-                            </tr>
-                        </thead>
-                        <tbody id="contactTableBody">
-                            <tr>
-                                <td id="selectContact">
-                                    <select name="ctt_type" id="contactType">
-                                        <option>Celular</option>
-                                        <option>Telefone</option>
-                                        <option>E-mail</option>
-                                        <option>Outros</option>
-                                    </select>
-                                </td>
-                                <td id="inputContact">
-                                    <input type="text" name="contact">
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button class="btnAddContactLine">+</button>
+                    <div id="contactsWrapper">
+                        <div class="contact-row" data-index="0">
+                            <select name="contacts[0][type]" id="contatoType" class="contact-type">
+                                <option value="Celular">Celular</option>
+                                <option value="Telefone">Telefone</option>
+                                <option value="E-mail">E-mail</option>
+                                <option value="Outros">Outros</option>
+                            </select>
+                            <input
+                                type="text"
+                                name="contacts[0][value]"
+                                id="contatoValue"
+                                class="contact-value"
+                                placeholder="Digite o contato" />
+                            <button type="button" id="btnAdd" class="btn-add">＋</button>
+                            <button type="button" class="btn-remove" style="display: none;">−</button>
+                        </div>
+                    </div>
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
@@ -70,27 +64,107 @@
         <script>
              document.addEventListener('DOMContentLoaded', () => {
                 alternateCpfCnpj();
-            });
 
-            function editDataClient() {
-                const form = document.getElementById('clientForm');
-
-                form.addEventListener('submit', async event => {
-                    event.preventDefault();
-
-                    const formData = new FormData(form);
-                    formData.append("action", "edit");
-
-                    console.log(formData);
-
-                    const data = await fetch('client/store', {
-                        method: 'POST',
-                        mode: 'cors',
-                        body: formData
-                    })
-                    const response = await data.json();
+                const contactsWrapper = document.getElementById('contactsWrapper');
+                function refreshContactIndices() {
+                const rows = contactsWrapper.querySelectorAll('.contact-row');
+                rows.forEach((row, idx) => {
+                    row.setAttribute('data-index', idx);
+                    const selectType = row.querySelector('.contact-type');
+                    const inputValue = row.querySelector('.contact-value');
+                    selectType.setAttribute('name', `contacts[${idx}][type]`);
+                    inputValue.setAttribute('name', `contacts[${idx}][value]`);
                 });
-            };
+                }
+
+                function refreshRemoveButtons() {
+                const rows = contactsWrapper.querySelectorAll('.contact-row');
+                rows.forEach(row => {
+                    const btnRemove = row.querySelector('.btn-remove');
+                    btnRemove.style.display = rows.length > 1 ? 'inline-block' : 'none';
+                });
+                }
+
+                function refreshAll() {
+                refreshContactIndices();
+                refreshRemoveButtons();
+                }
+
+                contactsWrapper.addEventListener('click', e => {
+                const target = e.target;
+                if (target.classList.contains('btn-add')) {
+                    e.preventDefault();
+                    const currentRow = target.closest('.contact-row');
+                    const newRow = currentRow.cloneNode(true);
+                    newRow.querySelector('.contact-value').value = '';
+                    contactsWrapper.insertBefore(newRow, currentRow.nextSibling);
+                    refreshAll();
+                }
+                if (target.classList.contains('btn-remove')) {
+                    e.preventDefault();
+                    const currentRow = target.closest('.contact-row');
+                    currentRow.remove();
+                    refreshAll();
+                }
+                });
+
+                function alternateCpfCnpj() {
+                const radCpf  = document.getElementById('fisica');
+                const radCnpj = document.getElementById('juridica');
+                const cpfField  = document.getElementById('cpf');
+                const cnpjField = document.getElementById('cnpj');
+                cpfField.disabled  = true;
+                cnpjField.disabled = true;
+                radCpf.addEventListener('change', () => {
+                    if (radCpf.checked) {
+                    cpfField.disabled = false;
+                    cnpjField.disabled = true;
+                    cnpjField.value = '';
+                    }
+                });
+                radCnpj.addEventListener('change', () => {
+                    if (radCnpj.checked) {
+                    cpfField.disabled = true;
+                    cnpjField.disabled = false;
+                    cpfField.value = '';
+                    }
+                });
+                }
+
+                function editDataClient() {
+                const form = document.getElementById('clientForm');
+                form.addEventListener('submit', async (event) => {
+                    event.preventDefault();
+                    refreshContactIndices();
+                    const formData = new FormData(form);
+                    formData.set('action', 'edit');
+
+                    try {
+                    const resp = await fetch(form.getAttribute('action'), {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const json = await resp.json();
+                    console.log(json);
+                    if (resp.ok && json.status === 'success') {
+                        MessageModal.show('success', json.message);
+                        setTimeout(() => {
+                        window.location.href = `<?= $_SERVER['SCRIPT_NAME'] ?>/client/index`;
+                        }, 2500);
+                    } else {
+                        MessageModal.show('error', json.message || 'Erro desconhecido ao salvar.');
+                    }
+                    } catch (err) {
+                    console.error('Erro no fetch():', err);
+                    MessageModal.show('error', 'Falha ao realizar a persistência do cliente/contato no banco de dados.');
+                    }
+                });
+                }
+
+                alternateCpfCnpj();
+                refreshAll();
+                createDataClient();
+            });
 
             function alternateCpfCnpj() {
                 const radCpf = document.getElementById('fisica');
