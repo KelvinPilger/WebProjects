@@ -114,16 +114,15 @@ class ClientController extends Controller
         $id = isset($request->parameter)
             ? (int) $request->parameter
             : 0;
-        $clientModel = new Client();
 
-        $client = $clientModel->edit($id);
+        $model = new Client();
+        $data  = $model->edit($id); 
 
-        $clientEdit = $client ? [$client] : [];
-
-        if ($clientEdit !== []) {
+        if ($data !== []) {
             $this->renderView('edit/clientEdit', [
-                'clients' => $clientEdit,
-                'style' => [
+                'clients'  => [ $data['client'] ],
+                'contacts' =>   $data['contacts'],    
+                'style'    => [
                     '../../../assets/css/clientEdit.css'
                 ],
             ]);

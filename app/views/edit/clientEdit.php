@@ -10,11 +10,9 @@
                 </div>
                 <div class="containerNatRegistr">
                     <label class="containerTitle">Tipo</label>
-
-                    <input type="radio" id="fisica" name="registrationType">
+                    <input type="radio" id="fisica" name="nat_registration" value="Física" <?= $c['nat_registration'] === 'F'  ? 'checked' : '' ?>>
                     <label for="fisica">Física</label>
-
-                    <input type="radio" id="juridica" name="registrationType">
+                    <input type="radio" id="juridica" name="nat_registration" value="Jurídica" <?= $c['nat_registration'] === 'J' ? 'checked' : '' ?>>
                     <label for="juridica">Jurídica</label>
                 </div>
                 <div class="containerGeneralInfo">
@@ -30,30 +28,54 @@
                     <label class="containerTitle">Registro Nacional</label>
 
                     <label for="cpf">CPF</label>
-                    <input type="text" id="cpf" name="cpf" value="<?= htmlspecialchars($c['cpf']) ?>" maxlength="11" onfocus="javascript: retirarFormatacao(this);" oninput="javascript: formatarCampo(this);">
+                    <input type="text" id="cpf" name="cpf" value="<?= htmlspecialchars($c['cpf']) ?>" maxlength="14" onfocus="javascript: retirarFormatacao(this);" oninput="javascript: formatarCampo(this);">
 
                     <label for="cnpj">CNPJ</label>
-                    <input type="text" id="cnpj" name="cnpj" value="<?= htmlspecialchars($c['cnpj']) ?>" maxlength="14" onfocus="javascript: retirarFormatacao(this);" oninput="javascript: formatarCampo(this);">
+                    <input type="text" id="cnpj" name="cnpj" value="<?= htmlspecialchars($c['cnpj']) ?>" maxlength="18" onfocus="javascript: retirarFormatacao(this);" oninput="javascript: formatarCampo(this);">
                 </div>
                 <div class="containerContacts">
                     <label class="containerTitle">Contatos</label>
-                    <div id="contactsWrapper">
-                        <div class="contact-row" data-index="0">
-                            <select name="contacts[0][type]" id="contatoType" class="contact-type">
-                                <option value="Celular">Celular</option>
-                                <option value="Telefone">Telefone</option>
-                                <option value="E-mail">E-mail</option>
-                                <option value="Outros">Outros</option>
-                            </select>
-                            <input
-                                type="text"
-                                name="contacts[0][value]"
-                                id="contatoValue"
-                                class="contact-value"
-                                placeholder="Digite o contato" />
-                            <button type="button" id="btnAdd" class="btn-add">＋</button>
-                            <button type="button" class="btn-remove" style="display: none;">−</button>
-                        </div>
+                    <div class="contactsWrapper">
+                        <?php if (!empty($contacts)): ?>
+                            <?php foreach ($contacts as $ctt): ?>
+                                <div class="contact-row" data-index="0">
+                                    <select name="contacts[0][type]" id="contatoType" class="contact-type">
+                                        <option <?= $ctt['ctt_type'] === 'C'  ? 'selected' : '' ?>>Celular</option>
+                                        <option <?= $ctt['ctt_type'] === 'T' ? 'selected' : '' ?>>Telefone</option>
+                                        <option <?= $ctt['ctt_type'] === 'E'   ? 'selected' : '' ?>>E-mail</option>
+                                        <option <?= $ctt['ctt_type'] === 'O'   ? 'selected' : '' ?>>Outros</option>
+                                    </select>
+                                    <input
+                                        type="text"
+                                        name="contacts[0][value]"
+                                        id="contatoValue"
+                                        class="contact-value"
+                                        placeholder="Digite o contato"
+                                        value="<?= htmlspecialchars($ctt['contact']) ?>" />
+                                    <button type="button" id="btnAdd" class="btn-add">＋</button>
+                                    <button type="button" class="btn-remove" style="display: none;">−</button>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                                <div class="contactsWrapper">
+                                    <div class="contact-row" data-index="0">
+                                        <select name="contacts[0][type]" id="contatoType" class="contact-type">
+                                            <option value="Celular">Celular</option>
+                                            <option value="Telefone">Telefone</option>
+                                            <option value="E-mail">E-mail</option>
+                                            <option value="Outros">Outros</option>
+                                        </select>
+                                        <input
+                                            type="text"
+                                            name="contacts[0][value]"
+                                            id="contatoValue"
+                                            class="contact-value"
+                                            placeholder="Digite o contato" />
+                                        <button type="button" id="btnAdd" class="btn-add">＋</button>
+                                        <button type="button" class="btn-remove" style="display: none;">−</button>
+                                    </div>
+                                </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -62,103 +84,104 @@
             <button type="submit" class="btnSave">Salvar</button>
         </div>
         <script>
-             document.addEventListener('DOMContentLoaded', () => {
+            document.addEventListener('DOMContentLoaded', () => {
                 alternateCpfCnpj();
 
-                const contactsWrapper = document.getElementById('contactsWrapper');
-                function refreshContactIndices() {
-                const rows = contactsWrapper.querySelectorAll('.contact-row');
-                rows.forEach((row, idx) => {
-                    row.setAttribute('data-index', idx);
-                    const selectType = row.querySelector('.contact-type');
-                    const inputValue = row.querySelector('.contact-value');
-                    selectType.setAttribute('name', `contacts[${idx}][type]`);
-                    inputValue.setAttribute('name', `contacts[${idx}][value]`);
-                });
-                }
+                document.querySelectorAll('.contactsWrapper').forEach(contactsWrapper => {
+                    function refreshContactIndices() {
+                        const rows = contactsWrapper.querySelectorAll('.contact-row');
+                        rows.forEach((row, idx) => {
+                            row.setAttribute('data-index', idx);
+                            const selectType = row.querySelector('.contact-type');
+                            const inputValue = row.querySelector('.contact-value');
+                            selectType.setAttribute('name', `contacts[${idx}][type]`);
+                            inputValue.setAttribute('name', `contacts[${idx}][value]`);
+                        });
+                    }
 
-                function refreshRemoveButtons() {
-                const rows = contactsWrapper.querySelectorAll('.contact-row');
-                rows.forEach(row => {
-                    const btnRemove = row.querySelector('.btn-remove');
-                    btnRemove.style.display = rows.length > 1 ? 'inline-block' : 'none';
-                });
-                }
+                    function refreshRemoveButtons() {
+                        const rows = contactsWrapper.querySelectorAll('.contact-row');
+                        rows.forEach(row => {
+                            const btnRemove = row.querySelector('.btn-remove');
+                            btnRemove.style.display = rows.length > 1 ? 'inline-block' : 'none';
+                        });
+                    }
 
-                function refreshAll() {
-                refreshContactIndices();
-                refreshRemoveButtons();
-                }
+                    function refreshAll() {
+                        refreshContactIndices();
+                        refreshRemoveButtons();
+                    }
 
-                contactsWrapper.addEventListener('click', e => {
-                const target = e.target;
-                if (target.classList.contains('btn-add')) {
-                    e.preventDefault();
-                    const currentRow = target.closest('.contact-row');
-                    const newRow = currentRow.cloneNode(true);
-                    newRow.querySelector('.contact-value').value = '';
-                    contactsWrapper.insertBefore(newRow, currentRow.nextSibling);
-                    refreshAll();
-                }
-                if (target.classList.contains('btn-remove')) {
-                    e.preventDefault();
-                    const currentRow = target.closest('.contact-row');
-                    currentRow.remove();
-                    refreshAll();
-                }
+                    contactsWrapper.addEventListener('click', e => {
+                        const target = e.target;
+                        if (target.classList.contains('btn-add')) {
+                            e.preventDefault();
+                            const currentRow = target.closest('.contact-row');
+                            const newRow = currentRow.cloneNode(true);
+                            newRow.querySelector('.contact-value').value = '';
+                            contactsWrapper.insertBefore(newRow, currentRow.nextSibling);
+                            refreshAll();
+                        }
+                        if (target.classList.contains('btn-remove')) {
+                            e.preventDefault();
+                            const currentRow = target.closest('.contact-row');
+                            currentRow.remove();
+                            refreshAll();
+                        }
+                    });
                 });
 
                 function alternateCpfCnpj() {
-                const radCpf  = document.getElementById('fisica');
-                const radCnpj = document.getElementById('juridica');
-                const cpfField  = document.getElementById('cpf');
-                const cnpjField = document.getElementById('cnpj');
-                cpfField.disabled  = true;
-                cnpjField.disabled = true;
-                radCpf.addEventListener('change', () => {
-                    if (radCpf.checked) {
-                    cpfField.disabled = false;
-                    cnpjField.disabled = true;
-                    cnpjField.value = '';
-                    }
-                });
-                radCnpj.addEventListener('change', () => {
-                    if (radCnpj.checked) {
+                    const radCpf = document.getElementById('fisica');
+                    const radCnpj = document.getElementById('juridica');
+                    const cpfField = document.getElementById('cpf');
+                    const cnpjField = document.getElementById('cnpj');
                     cpfField.disabled = true;
-                    cnpjField.disabled = false;
-                    cpfField.value = '';
-                    }
-                });
+                    cnpjField.disabled = true;
+                    radCpf.addEventListener('change', () => {
+                        if (radCpf.checked) {
+                            cpfField.disabled = false;
+                            cnpjField.disabled = true;
+                            cnpjField.value = '';
+                        }
+                    });
+                    radCnpj.addEventListener('change', () => {
+                        if (radCnpj.checked) {
+                            cpfField.disabled = true;
+                            cnpjField.disabled = false;
+                            cpfField.value = '';
+                        }
+                    });
                 }
 
                 function editDataClient() {
-                const form = document.getElementById('clientForm');
-                form.addEventListener('submit', async (event) => {
-                    event.preventDefault();
-                    refreshContactIndices();
-                    const formData = new FormData(form);
-                    formData.set('action', 'edit');
+                    const form = document.getElementById('clientForm');
+                    form.addEventListener('submit', async (event) => {
+                        event.preventDefault();
+                        refreshContactIndices();
+                        const formData = new FormData(form);
+                        formData.set('action', 'edit');
 
-                    try {
-                    const resp = await fetch(form.getAttribute('action'), {
-                        method: 'POST',
-                        body: formData
+                        try {
+                            const resp = await fetch(form.getAttribute('action'), {
+                                method: 'POST',
+                                body: formData
+                            });
+                            const json = await resp.json();
+                            console.log(json);
+                            if (resp.ok && json.status === 'success') {
+                                MessageModal.show('success', json.message);
+                                setTimeout(() => {
+                                    window.location.href = `<?= $_SERVER['SCRIPT_NAME'] ?>/client/index`;
+                                }, 2500);
+                            } else {
+                                MessageModal.show('error', json.message || 'Erro desconhecido ao salvar.');
+                            }
+                        } catch (err) {
+                            console.error('Erro no fetch():', err);
+                            MessageModal.show('error', 'Falha ao realizar a persistência do cliente/contato no banco de dados.');
+                        }
                     });
-                    const json = await resp.json();
-                    console.log(json);
-                    if (resp.ok && json.status === 'success') {
-                        MessageModal.show('success', json.message);
-                        setTimeout(() => {
-                        window.location.href = `<?= $_SERVER['SCRIPT_NAME'] ?>/client/index`;
-                        }, 2500);
-                    } else {
-                        MessageModal.show('error', json.message || 'Erro desconhecido ao salvar.');
-                    }
-                    } catch (err) {
-                    console.error('Erro no fetch():', err);
-                    MessageModal.show('error', 'Falha ao realizar a persistência do cliente/contato no banco de dados.');
-                    }
-                });
                 }
 
                 alternateCpfCnpj();

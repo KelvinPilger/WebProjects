@@ -9,6 +9,9 @@ use app\Controllers\Main\ClientController;
 
 try{
 
+    // ini_set('display_errors', 1);
+    // error_reporting(E_ALL);
+
     $controller = (new Controller())->load();
 
     $method = (new Method())->load($controller);

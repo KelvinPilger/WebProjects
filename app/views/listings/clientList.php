@@ -75,8 +75,8 @@
 						<tr id="row-<?= $c['id'] ?>">
 							<td id="idTd"><?= htmlspecialchars($c['id']) ?></td>
 							<td id="nameTd"><?= htmlspecialchars($c['name'] ?? 'N/A') ?></td>
-							<td id="cpfTd"><?= htmlspecialchars($c['cpf']) ?? '' ?></td>
-							<td id="cnpjTd"><?= htmlspecialchars($c['cnpj']) ?? '' ?></td>
+							<td id="cpfTd"><?= htmlspecialchars($c['cpf']  ?? '')?></td>
+							<td id="cnpjTd"><?= htmlspecialchars($c['cnpj'] ?? '')?></td>
 							<td><?= htmlspecialchars($c['age'] ?? '') ?></td>
 							<td><?= htmlspecialchars($c['email'] ?? 'Sem e-mail') ?></td>
 							<td><?= date('d/m/Y H:i:s', strtotime($c['inserted_at'])) ?></td>

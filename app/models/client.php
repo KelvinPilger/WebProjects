@@ -75,23 +75,35 @@ class Client
     public function edit($id): array
     {
         $pdo = Database::getConnection();
-        $stmt = $pdo->prepare('SELECT id, name, inserted_at, cpf, cnpj, born_at, age, email, nat_registration FROM clients WHERE id = :id;');
-        $stmtContact = $pdo->prepare('SELECT ctt_type, contact, person_id FROM CONTACTS WHERE id = :id;');
 
-        if (!$stmt->execute(['id' => $id]) || !$stmtContact->execute(['id' => $id])) {
+        $stmtClient = $pdo->prepare('SELECT id, name, inserted_at, cpf, cnpj, born_at, age, email, nat_registration FROM clients WHERE id = :id;');
+
+        $stmtContact = $pdo->prepare('SELECT ctt_type, contact FROM CONTACTS WHERE person_id = :id;');
+
+        $stmtClient->execute(['id' => $id]);
+        $client = $stmtClient->fetch(PDO::FETCH_ASSOC);
+
+        if(!$client) {
             return [];
         }
 
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        $rowContacts = $stmtContact->fetch(PDO::FETCH_ASSOC);
-        $generalRows = [$row, $rowContacts];
-        return $generalRows ?: [];
+        $stmtContact->execute(['id' => $id]);
+        $contacts = $stmtContact->fetchAll(PDO::FETCH_ASSOC);
+
+        return
+        [
+            'client' => $client,
+            'contacts' => $contacts
+        ] 
+        ?: [];
     }
 
     public function save($client): string
     {
+        
         $clientObj = json_decode($client, true);
-
+        var_dump($clientObj);
+        
         if ($clientObj['cpf'] !== null) {
             $nat = 'F';
         } else {
@@ -116,8 +128,6 @@ class Client
                     nat_registration = :nat
                 WHERE id = :id'
             );
-
-            // ctt_type, contact, person_id, created_at
 
             $clientId = $pdo->lastInsertId();
             $now = new DateTime();
