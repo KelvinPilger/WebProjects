@@ -133,7 +133,7 @@
         console.log(formData);
 
         try {
-          const resp = await fetch(form.getAttribute('action'), {
+          const resp = await fetch(`<?= $_SERVER['SCRIPT_NAME'] ?>/client/store`, {
             method: 'POST',
             body: formData
           });
@@ -149,12 +149,11 @@
           }
         } catch (err) {
           console.error('Erro no fetch():', err);
-          MessageModal.show('error', 'Falha ao realizar a persistência do cliente/contato no banco de dados.');
+          MessageModal.show('error', 'Falha ao realizar a persistência do cliente/contato no banco de dados.', err);
         }
       });
     }
 
-    // Inicializa tudo quando a página carrega
     alternateCpfCnpj();
     refreshAll();
     createDataClient();

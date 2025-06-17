@@ -16,10 +16,12 @@
 
 
 -- Dumping database structure for db_servfacil
+DROP DATABASE IF EXISTS `db_servfacil`;
 CREATE DATABASE IF NOT EXISTS `db_servfacil` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 USE `db_servfacil`;
 
 -- Dumping structure for table db_servfacil.clients
+DROP TABLE IF EXISTS `clients`;
 CREATE TABLE IF NOT EXISTS `clients` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
@@ -31,14 +33,11 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `email` varchar(75) DEFAULT NULL,
   `nat_registration` char(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=676 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=700 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table db_servfacil.clients: ~500 rows (approximately)
+-- Dumping data for table db_servfacil.clients: ~541 rows (approximately)
 DELETE FROM `clients`;
 INSERT INTO `clients` (`id`, `name`, `inserted_at`, `cpf`, `cnpj`, `born_at`, `age`, `email`, `nat_registration`) VALUES
-	(157, 'Client 027', '2025-05-21 14:00:00', '00000000027', NULL, '1970-01-28', 55, 'client027@example.com', 'F'),
-	(158, 'Client 028', '2025-05-21 14:00:00', '00000000028', NULL, '1970-01-29', 55, 'client028@example.com', 'F'),
-	(159, 'Client 029', '2025-05-21 14:00:00', '00000000029', NULL, '1970-01-30', 55, 'client029@example.com', 'F'),
 	(160, 'Client 030', '2025-05-21 14:00:00', '00000000030', NULL, '1970-01-31', 55, 'client030@example.com', 'F'),
 	(161, 'Client 031', '2025-05-21 14:00:00', '00000000031', NULL, '1970-02-01', 55, 'client031@example.com', 'F'),
 	(162, 'Client 032', '2025-05-21 14:00:00', '00000000032', NULL, '1970-02-02', 55, 'client032@example.com', 'F'),
@@ -554,9 +553,34 @@ INSERT INTO `clients` (`id`, `name`, `inserted_at`, `cpf`, `cnpj`, `born_at`, `a
 	(672, '', '0000-00-00 00:00:00', NULL, NULL, '0000-00-00', 0, NULL, 'J'),
 	(673, '', '0000-00-00 00:00:00', NULL, NULL, '0000-00-00', 0, NULL, 'J'),
 	(674, '', '0000-00-00 00:00:00', NULL, NULL, '0000-00-00', 0, NULL, 'J'),
-	(675, '', '0000-00-00 00:00:00', NULL, NULL, '0000-00-00', 0, NULL, 'J');
+	(675, '', '0000-00-00 00:00:00', NULL, NULL, '0000-00-00', 0, NULL, 'J'),
+	(676, 'Andrei Rigones', '0000-00-00 00:00:00', '109.827.649-36', NULL, '2005-09-07', 19, NULL, 'F'),
+	(677, 'Andrei Rigones', '0000-00-00 00:00:00', '109.827.649-36', NULL, '2005-09-07', 19, NULL, 'F'),
+	(678, 'Alex Bruno', '0000-00-00 00:00:00', '109.827.649-36', NULL, '2005-09-07', 19, NULL, 'F'),
+	(679, 'Alex Bruno', '0000-00-00 00:00:00', '109.827.649-36', NULL, '2005-09-07', 19, NULL, 'F'),
+	(680, 'dwadawda', '0000-00-00 00:00:00', '123.131.231-31', NULL, '0000-00-00', 0, NULL, 'F'),
+	(681, 'dwadawda', '0000-00-00 00:00:00', '123.131.231-31', NULL, '0000-00-00', 0, NULL, 'F'),
+	(682, 'dwadawda', '0000-00-00 00:00:00', '123.131.231-31', NULL, '8205-09-07', 6180, NULL, 'F'),
+	(683, 'Kelvin', '0000-00-00 00:00:00', '109.827.649-36', NULL, '2005-09-07', 19, NULL, 'F'),
+	(684, 'Kelvin', '0000-00-00 00:00:00', '109.827.649-36', NULL, '2005-09-07', 19, NULL, 'F'),
+	(685, 'Kelvin', '0000-00-00 00:00:00', '109.827.649-36', NULL, '2005-09-07', 19, NULL, 'F'),
+	(686, 'Alex Burno', '0000-00-00 00:00:00', '109.827.649-36', NULL, '2005-09-07', 19, NULL, 'F'),
+	(687, 'Alex Burno', '0000-00-00 00:00:00', '109.827.649-36', NULL, '2005-09-07', 19, NULL, 'F'),
+	(688, 'Alex Bruno', '0000-00-00 00:00:00', '109.827.649-36', NULL, '2025-02-15', 0, NULL, 'F'),
+	(689, 'Kelvin M Pilger', '0000-00-00 00:00:00', '109.827.649-36', NULL, '2005-09-07', 19, NULL, 'F'),
+	(690, '3213123131', '0000-00-00 00:00:00', NULL, '213.131.313-13131', '2005-09-07', 19, NULL, 'J'),
+	(691, '3213123131', '0000-00-00 00:00:00', NULL, '213.131.313-13131', '2005-09-07', 19, NULL, 'J'),
+	(692, '3213123131', '0000-00-00 00:00:00', NULL, '213.131.313-13131', '2005-09-07', 19, NULL, 'J'),
+	(693, '3213123131', '0000-00-00 00:00:00', NULL, '213.131.313-13131', '2005-09-07', 19, NULL, 'J'),
+	(694, '3213123131', '0000-00-00 00:00:00', NULL, '213.131.313-13131', '2005-09-07', 19, NULL, 'J'),
+	(695, '3213123131', '0000-00-00 00:00:00', NULL, '213.131.313-13131', '2005-09-07', 19, NULL, 'J'),
+	(696, '3213131', '0000-00-00 00:00:00', NULL, '321.313.131-31313', '0000-00-00', 0, NULL, 'J'),
+	(697, 'dwadadadad', '0000-00-00 00:00:00', '1231231312', NULL, '0000-00-00', 0, NULL, 'F'),
+	(698, 'Alex Bruno', '0000-00-00 00:00:00', '104.139.569-89', NULL, '2005-11-28', 19, NULL, 'F'),
+	(699, 'Lemores', '2025-06-17 16:39:37', '109.827.649-36', NULL, '2005-02-12', 20, NULL, 'F');
 
 -- Dumping structure for table db_servfacil.contacts
+DROP TABLE IF EXISTS `contacts`;
 CREATE TABLE IF NOT EXISTS `contacts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ctt_type` char(1) NOT NULL,
@@ -566,9 +590,9 @@ CREATE TABLE IF NOT EXISTS `contacts` (
   PRIMARY KEY (`id`),
   KEY `fk_person` (`person_id`),
   CONSTRAINT `fk_person` FOREIGN KEY (`person_id`) REFERENCES `clients` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=148 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=175 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table db_servfacil.contacts: ~121 rows (approximately)
+-- Dumping data for table db_servfacil.contacts: ~152 rows (approximately)
 DELETE FROM `contacts`;
 INSERT INTO `contacts` (`id`, `ctt_type`, `contact`, `person_id`, `created_at`) VALUES
 	(23, 'C', '1', 565, '2025-06-04 16:57:28'),
@@ -695,7 +719,56 @@ INSERT INTO `contacts` (`id`, `ctt_type`, `contact`, `person_id`, `created_at`) 
 	(144, 'C', '', 672, '2025-06-05 17:20:09'),
 	(145, 'C', '', 673, '2025-06-05 17:20:17'),
 	(146, 'C', '', 674, '2025-06-05 17:20:17'),
-	(147, 'C', '', 675, '2025-06-05 17:20:17');
+	(147, 'C', '', 675, '2025-06-05 17:20:17'),
+	(148, 'C', '(49) 99994-8164', 676, '2025-06-16 14:11:17'),
+	(149, 'E', 'andreirigon@gmail.com', 676, '2025-06-16 14:11:17'),
+	(150, 'C', '(49) 99994-8164', 677, '2025-06-16 14:11:29'),
+	(151, 'E', 'andreirigon@gmail.com', 677, '2025-06-16 14:11:29'),
+	(152, 'C', '4999999999', 678, '2025-06-17 10:52:51'),
+	(153, 'C', '4999999999', 679, '2025-06-17 10:53:53'),
+	(154, 'C', '312321313', 680, '2025-06-17 10:54:53'),
+	(155, 'C', '312321313', 681, '2025-06-17 10:54:55'),
+	(156, 'C', '312321313', 682, '2025-06-17 10:55:00'),
+	(157, 'C', '4999999999', 683, '2025-06-17 10:55:31'),
+	(158, 'C', '4999999999', 684, '2025-06-17 10:55:32'),
+	(159, 'C', '4999999999', 685, '2025-06-17 10:55:33'),
+	(160, 'C', '49949494949', 686, '2025-06-17 10:56:36'),
+	(161, 'C', '49949494949', 687, '2025-06-17 10:56:38'),
+	(162, 'C', '', 688, '2025-06-17 10:59:27'),
+	(163, 'C', '4999999999', 689, '2025-06-17 10:59:55'),
+	(164, 'E', 'kelvinmpilger@gmail.com', 689, '2025-06-17 10:59:55'),
+	(165, 'C', '123131312', 690, '2025-06-17 15:39:12'),
+	(166, 'C', '123131312', 691, '2025-06-17 15:39:14'),
+	(167, 'C', '123131312', 692, '2025-06-17 15:39:15'),
+	(168, 'C', '123131312', 693, '2025-06-17 15:39:17'),
+	(169, 'C', '123131312', 694, '2025-06-17 15:39:17'),
+	(170, 'C', '123131312', 695, '2025-06-17 15:41:19'),
+	(171, 'C', '231313131', 696, '2025-06-17 15:42:17'),
+	(172, 'C', '131313131', 697, '2025-06-17 15:46:21'),
+	(173, 'C', '494949494994', 698, '2025-06-17 16:36:36'),
+	(174, 'C', '49494949494949', 699, '2025-06-17 16:39:37');
+
+-- Dumping structure for table db_servfacil.products
+DROP TABLE IF EXISTS `products`;
+CREATE TABLE IF NOT EXISTS `products` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_name` varchar(150) NOT NULL,
+  `product_application` enum('Mercadoria para revenda','Serviços','Material de uso e consumo') NOT NULL DEFAULT 'Mercadoria para revenda',
+  `gtin_barcode` varchar(15) DEFAULT NULL,
+  `ncm` varchar(10) DEFAULT NULL,
+  `cest` varchar(10) DEFAULT NULL,
+  `quantity` double(10,4) NOT NULL DEFAULT 0.0000,
+  `cost_price` double(15,4) NOT NULL DEFAULT 0.0000,
+  `sell_price` double(15,4) NOT NULL DEFAULT 0.0000,
+  `profit_percentual` double(15,4) NOT NULL DEFAULT 0.0000,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Dumping data for table db_servfacil.products: ~2 rows (approximately)
+DELETE FROM `products`;
+INSERT INTO `products` (`id`, `product_name`, `product_application`, `gtin_barcode`, `ncm`, `cest`, `quantity`, `cost_price`, `sell_price`, `profit_percentual`) VALUES
+	(1, 'Coca-Cola 600ml', 'Mercadoria para revenda', NULL, NULL, NULL, 0.0000, 0.0000, 0.0000, 0.0000),
+	(2, 'Fanta Laranja Lata 330ml', 'Mercadoria para revenda', '7891234567891', NULL, NULL, 15.0000, 1.0000, 3.0000, 124.3600);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

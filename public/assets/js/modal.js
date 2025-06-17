@@ -1,24 +1,21 @@
-(function(window, document) {
-  const container = document.getElementById('toast-container');
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById("message-modal");
+  const messageEl = modal.querySelector(".modal__message");
 
-  function show(type, message, duration = 5000) {
-    const toast = document.createElement('div');
-    toast.classList.add('modal', type);
-    toast.innerHTML = `
-      <div class="modal__window">
-        <p class="modal__message">${message}</p>
-      </div>
-    `;
-    container.appendChild(toast);
+  const MessageModal = {
+    show(type, message) {
+      if (!modal || !messageEl) return;
 
-    setTimeout(() => {
-      toast.classList.add('hidden');
-      toast.addEventListener('animationend', () => toast.remove());
-    }, duration);
-  }
+      messageEl.textContent = message;
+      modal.classList.remove("hidden");
+      modal.classList.add(type);
 
-  window.MessageModal = { show, hide: (toastEl) => {
-    toastEl.classList.add('hidden');
-    toastEl.addEventListener('animationend', () => toastEl.remove());
-  }};
-})(window, document);
+      setTimeout(() => {
+        modal.classList.add("hidden");
+        modal.classList.remove(type);
+      }, 3000);
+    }
+  };
+
+  window.MessageModal = MessageModal;
+});
