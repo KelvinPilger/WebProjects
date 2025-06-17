@@ -40,7 +40,7 @@
 #toast-container {
   position: fixed;
   top: 1rem;
-  right: 200px;
+  right: 240px;
   display: flex;
   flex-direction: column-reverse;
   gap: 10px;

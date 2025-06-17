@@ -38,6 +38,24 @@ html {
 
 }
 
+.contact-row .btn-add,
+.contact-row .btn-remove {
+    background-color: rgba(37, 34, 34, 0.999);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    font-size: 20px;
+    line-height: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
 .containerNatRegistr {
     width: 25%;
     max-width: 250px;

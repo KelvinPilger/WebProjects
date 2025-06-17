@@ -102,7 +102,6 @@ class Client
     {
         
         $clientObj = json_decode($client, true);
-        var_dump($clientObj);
         
         if ($clientObj['cpf'] !== null) {
             $nat = 'F';
@@ -132,13 +131,14 @@ class Client
             $clientId = $pdo->lastInsertId();
             $now = new DateTime();
             $stmtCtt = $pdo->prepare(
-                'UPDATE CONTACTS SET ctt_type = :ctt_type, contact = :contact WHERE id = :id;'
+                'UPDATE CONTACTS SET ctt_type = :ctt_type, contact = :contact WHERE person_id = :id;'
             );
 
             foreach ($clientObj['contacts'] as $ctt) {
                 if($stmtCtt->execute([
                     'ctt_type'   => $ctt['type'],
-                    'contact'    => $ctt['value']
+                    'contact'    => $ctt['value'],
+                    'id'         => $clientId
                 ]))
                 {$message = "Contato cadastrado!";} 
                 else {

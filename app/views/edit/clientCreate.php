@@ -130,6 +130,7 @@
         refreshContactIndices();
         const formData = new FormData(form);
         formData.set('action', 'insert');
+        console.log(formData);
 
         try {
           const resp = await fetch(form.getAttribute('action'), {

@@ -14,6 +14,7 @@
       <link rel="stylesheet" href="<?= htmlspecialchars($href) ?>">
     <?php endforeach; ?>
   <?php endif; ?>
+  <script src="../../assets/js/modal.js"></script>
 </head>
 
 <body>
@@ -43,7 +44,6 @@
   <main><?= $content ?></main>
   <footer>
   </footer>
-  <script src="../../assets/js/modal.js" defer></script>
 </body>
 
 </html>
