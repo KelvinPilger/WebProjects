@@ -101,8 +101,7 @@ class Client
     public function save($client): string
     {
         
-        $clientObj = json_decode($client, true);
-        var_dump($clientObj);
+        $clientObj = $client;
         
         if ($clientObj['cpf'] !== null) {
             $nat = 'F';
@@ -112,7 +111,7 @@ class Client
 
         $bornDate = $clientObj['bornDate'];
         $age      = (new DateTime())->diff(new DateTime($clientObj['bornDate']))->y;
-        $nowTs    = (new DateTime())->getTimestamp();
+        $now = new DateTime();
         $message = "";
 
         $pdo = Database::getConnection();
@@ -132,13 +131,14 @@ class Client
             $clientId = $pdo->lastInsertId();
             $now = new DateTime();
             $stmtCtt = $pdo->prepare(
-                'UPDATE CONTACTS SET ctt_type = :ctt_type, contact = :contact WHERE id = :id;'
+                'UPDATE CONTACTS SET ctt_type = :ctt_type, contact = :contact WHERE person_id = :id;'
             );
 
             foreach ($clientObj['contacts'] as $ctt) {
                 if($stmtCtt->execute([
                     'ctt_type'   => $ctt['type'],
-                    'contact'    => $ctt['value']
+                    'contact'    => $ctt['value'],
+                    'id'         => $clientId
                 ]))
                 {$message = "Contato cadastrado!";} 
                 else {
@@ -147,7 +147,7 @@ class Client
                    if($stmtDelete->execute([
                     'ctt_type'   => $ctt['type'],
                     'contact'    => $ctt['value'],
-                    'id'         => $clientId
+                    'id'         => $clientObj['id']
                 ]))
                 {} }
                 return $message;
@@ -174,7 +174,7 @@ class Client
 
             if($stmt->execute([
                 'name'        => $clientObj['name'],
-                'nowDateTime' => $nowTs,
+                'nowDateTime' => $now->format('Y-m-d H:i:s'),
                 'cpf'         => $clientObj['cpf'] ?? null,
                 'cnpj'        => $clientObj['cnpj'] ?? null,
                 'bornDate'    => $bornDate,
@@ -183,7 +183,6 @@ class Client
             ]));
 
             $clientId = $pdo->lastInsertId();
-            $now = new DateTime();
             $stmtCtt = $pdo->prepare(
                 'INSERT INTO CONTACTS (
                     ctt_type, contact, person_id, created_at

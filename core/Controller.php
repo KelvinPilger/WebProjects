@@ -94,4 +94,12 @@ class Controller {
     }
 }
 
+abstract class ControllerMethods {
+    abstract public function index();
+    abstract public function create();
+    abstract public function show();
+    abstract public function remove();
+    abstract public function store();
+}
+
 ?>

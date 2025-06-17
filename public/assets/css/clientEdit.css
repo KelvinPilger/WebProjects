@@ -10,14 +10,15 @@ html {
 }
 
 .infoContainer {
+    top: 70px;
     background-color: #fff;
     border-radius: 6px;
     width: 90%;
-    max-width: 1150px;
-    min-height: 800px;
+    max-width: 1750px;
+    min-height: 830px;
     padding: 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    margin: 2rem auto;
+    margin: 0px auto 30px 130px;
     position: relative;
     overflow: hidden;
     display: block;
@@ -58,6 +59,11 @@ html {
     box-shadow: inset 0 0 0.1em rgba(0, 0, 0, 0.0);
     width: auto;
     margin: 0 0.5rem;
+}
+
+.readonly {
+    pointer-events: none;
+    opacity: 1;
 }
 
 .containerGeneralInfo {

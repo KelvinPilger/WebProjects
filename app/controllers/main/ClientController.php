@@ -71,16 +71,15 @@ class ClientController extends Controller
         header('Content-Type: application/json; charset=UTF-8');
 
         $clientData = $_POST;
-        $clientJson = json_encode($clientData, true);
         $clientModel = new Client();
 
         try {
-            $saved = $clientModel->save($clientJson);
+            $saved = $clientModel->save($clientData);
             if($saved) {
                 http_response_code(200);
                 echo json_encode([
                     'status'  => 'success',
-                    'message' => 'Cliente cadastrado com sucesso!'
+                    'message' => 'Dados cadastrados com sucesso!'
                 ]);
             } else {
                 http_response_code(404);

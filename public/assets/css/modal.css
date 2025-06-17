@@ -1,11 +1,14 @@
 .modal.hidden {
-  
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-20px);
+  transition: all 0.3s ease-in-out;
 }
 
 .modal {
   position: fixed;
   top: 200px;
-  right: -326px;
+  right: -316px;
   width: 950px; max-height: 200px;
   display: flex;
   align-items: center;
@@ -13,7 +16,7 @@
   z-index: 999;
 }
 .modal__window {
-  max-width: 600px;
+  max-width: 800px;
   padding: 1rem;
   background: #fff;
   border-radius: 6px;

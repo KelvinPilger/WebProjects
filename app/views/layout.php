@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/modal.css">
+  <link rel="stylesheet" href="/projeto/public/assets/css/modal.css">
   <?php if (!empty($style) && is_array($style)): ?>
     <?php foreach ($style as $href): ?>
       <link rel="stylesheet" href="<?= htmlspecialchars($href) ?>">
@@ -25,6 +25,7 @@
             <p class="modal__message"></p>
           </div>
         </div>
+      </div>
     </nav>
   </div>
   <nav id="sidebarNav">
@@ -43,7 +44,7 @@
   <main><?= $content ?></main>
   <footer>
   </footer>
-  <script src="../../assets/js/modal.js" defer></script>
+  <script src="/projeto/public/assets/js/modal.js"></script>
 </body>
 
 </html>

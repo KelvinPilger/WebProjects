@@ -10,9 +10,9 @@
                 </div>
                 <div class="containerNatRegistr">
                     <label class="containerTitle">Tipo</label>
-                    <input type="radio" id="fisica" name="nat_registration" value="Física" <?= $c['nat_registration'] === 'F'  ? 'checked' : '' ?>>
+                    <input type="radio" class="readonly" id="fisica" name="nat_registration" value="Física" <?= $c['nat_registration'] === 'F'  ? 'checked' : '' ?>>
                     <label for="fisica">Física</label>
-                    <input type="radio" id="juridica" name="nat_registration" value="Jurídica" <?= $c['nat_registration'] === 'J' ? 'checked' : '' ?>>
+                    <input type="radio" class="readonly" id="juridica" name="nat_registration" value="Jurídica" <?= $c['nat_registration'] === 'J' ? 'checked' : '' ?>>
                     <label for="juridica">Jurídica</label>
                 </div>
                 <div class="containerGeneralInfo">
@@ -28,10 +28,10 @@
                     <label class="containerTitle">Registro Nacional</label>
 
                     <label for="cpf">CPF</label>
-                    <input type="text" id="cpf" name="cpf" value="<?= htmlspecialchars($c['cpf']) ?>" maxlength="14" onfocus="javascript: retirarFormatacao(this);" oninput="javascript: formatarCampo(this);">
+                    <input type="text" id="cpf" name="cpf" value="<?= htmlspecialchars($c['cpf'] ?? null) ?>" maxlength="14" onfocus="javascript: retirarFormatacao(this);" oninput="javascript: formatarCampo(this);" readonly>
 
                     <label for="cnpj">CNPJ</label>
-                    <input type="text" id="cnpj" name="cnpj" value="<?= htmlspecialchars($c['cnpj']) ?>" maxlength="18" onfocus="javascript: retirarFormatacao(this);" oninput="javascript: formatarCampo(this);">
+                    <input type="text" id="cnpj" name="cnpj" value="<?= htmlspecialchars($c['cnpj'] ?? null) ?>" maxlength="18" onfocus="javascript: retirarFormatacao(this);" oninput="javascript: formatarCampo(this);" readonly>
                 </div>
                 <div class="containerContacts">
                     <label class="containerTitle">Contatos</label>
@@ -85,9 +85,8 @@
         </div>
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-                alternateCpfCnpj();
-
                 document.querySelectorAll('.contactsWrapper').forEach(contactsWrapper => {
+
                     function refreshContactIndices() {
                         const rows = contactsWrapper.querySelectorAll('.contact-row');
                         rows.forEach((row, idx) => {
@@ -131,39 +130,17 @@
                     });
                 });
 
-                function alternateCpfCnpj() {
-                    const radCpf = document.getElementById('fisica');
-                    const radCnpj = document.getElementById('juridica');
-                    const cpfField = document.getElementById('cpf');
-                    const cnpjField = document.getElementById('cnpj');
-                    cpfField.disabled = true;
-                    cnpjField.disabled = true;
-                    radCpf.addEventListener('change', () => {
-                        if (radCpf.checked) {
-                            cpfField.disabled = false;
-                            cnpjField.disabled = true;
-                            cnpjField.value = '';
-                        }
-                    });
-                    radCnpj.addEventListener('change', () => {
-                        if (radCnpj.checked) {
-                            cpfField.disabled = true;
-                            cnpjField.disabled = false;
-                            cpfField.value = '';
-                        }
-                    });
-                }
 
                 function editDataClient() {
                     const form = document.getElementById('clientForm');
                     form.addEventListener('submit', async (event) => {
                         event.preventDefault();
-                        refreshContactIndices();
+                        console.log("Interceptando o submit...");
                         const formData = new FormData(form);
                         formData.set('action', 'edit');
 
                         try {
-                            const resp = await fetch(form.getAttribute('action'), {
+                            const resp = await fetch(`<?= $_SERVER['SCRIPT_NAME'] ?>/client/store`, {
                                 method: 'POST',
                                 body: formData
                             });
@@ -179,32 +156,12 @@
                             }
                         } catch (err) {
                             console.error('Erro no fetch():', err);
-                            MessageModal.show('error', 'Falha ao realizar a persistência do cliente/contato no banco de dados.');
+                            MessageModal.show('error', err);
                         }
                     });
                 }
-
-                alternateCpfCnpj();
-                refreshAll();
-                createDataClient();
+                editDataClient();
             });
-
-            function alternateCpfCnpj() {
-                const radCpf = document.getElementById('fisica');
-                const radCnpj = document.getElementById('juridica');
-                const cpf = document.getElementById('cpf');
-                const cnpj = document.getElementById('cnpj');
-
-                [radCnpj, radCpf, cpf, cnpj].forEach(el => el.disabled = true);
-
-                if (cpf.value != null || cpf.value != '') {
-                    radCpf.checked = true;
-                    radCnpj.checked = false;
-                } else {
-                    radCpf.checked = false;
-                    radCnpj.checked = true;
-                }
-            };
         </script>
     </div>
 </form>
