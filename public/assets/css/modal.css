@@ -6,10 +6,6 @@
 }
 
 .modal {
-  position: fixed;
-  top: 200px;
-  right: -316px;
-  width: 950px; max-height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,8 +38,8 @@
 
 #toast-container {
   position: fixed;
-  top: 1rem;
-  right: 240px;
+  top: 92px;                
+  left: 52%;             
   display: flex;
   flex-direction: column-reverse;
   gap: 10px;
@@ -56,6 +52,7 @@
   width: auto;
   max-width: 300px;
   pointer-events: auto;
+  margin: 0 auto; 
 }
 
 #toast-container .modal.hidden .modal__window {

@@ -259,7 +259,7 @@ a {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(2px);
   margin-bottom: 10px;
-  z-index: 101;
+  z-index: 11100;
 }
 
 #modalContent {
