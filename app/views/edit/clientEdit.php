@@ -167,6 +167,9 @@
 </form>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        const main = document.querySelector('main');
+        main.classList.add('slide-in');
+        
         const form = document.getElementById('clientForm');
         const cpfField = document.getElementById('cpf');
         const cnpjField = document.getElementById('cnpj');

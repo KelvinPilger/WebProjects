@@ -35,16 +35,28 @@
           <svg xmlns="http://www.w3.org/2000/svg" id="svgClient" height="22" width="22" fill="currentColor" viewBox="0 0 24 24" data-name="svgClient"><path d="m7.5 13a4.5 4.5 0 1 1 4.5-4.5 4.505 4.505 0 0 1 -4.5 4.5zm6.5 11h-13a1 1 0 0 1 -1-1v-.5a7.5 7.5 0 0 1 15 0v.5a1 1 0 0 1 -1 1zm3.5-15a4.5 4.5 0 1 1 4.5-4.5 4.505 4.505 0 0 1 -4.5 4.5zm-1.421 2.021a6.825 6.825 0 0 0 -4.67 2.831 9.537 9.537 0 0 1 4.914 5.148h6.677a1 1 0 0 0 1-1v-.038a7.008 7.008 0 0 0 -7.921-6.941z"/></svg>
           <span class="btn-text">Clientes</span>
         </a>
-        <a id="btnProdutos" class="navButtons">
+        <a id="btnProdutos" class="navButtons" href="<?= $_SERVER['SCRIPT_NAME'] ?>/product/index">
           <svg xmlns="http://www.w3.org/2000/svg" id="svgProduto" data-name="svgProduto" fill="currentColor" viewBox="0 0 24 24" height="22" width="22"><path d="M11,13H3c-1.657,0-3,1.343-3,3v5c0,1.657,1.343,3,3,3H11V13Zm-7.5,4h0c0-.552,.448-1,1-1h2c.552,0,1,.448,1,1h0c0,.552-.448,1-1,1h-2c-.552,0-1-.448-1-1Zm17.5-4H13v11h8c1.657,0,3-1.343,3-3v-5c0-1.657-1.343-3-3-3Zm-1.5,5h-2c-.552,0-1-.448-1-1h0c0-.552,.448-1,1-1h2c.552,0,1,.448,1,1h0c0,.552-.448,1-1,1ZM15,0h-6c-1.657,0-3,1.343-3,3V11h12V3c0-1.657-1.343-3-3-3Zm-2,5h-2c-.552,0-1-.448-1-1h0c0-.552,.448-1,1-1h2c.552,0,1,.448,1,1h0c0,.552-.448,1-1,1Z"/></svg>
           <span class="btn-text">Produtos</span>
         </a>
       </div>
   </nav>
   </div>
-  <main><?= $content ?></main>
+  <main class="pre-slide"><?= $content ?></main>
   <footer>
   </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const main = document.querySelector('main');
+
+      requestAnimationFrame(() => {
+      setTimeout(() => {
+        main.classList.remove('pre-slide');
+        main.classList.add('slide-in');
+      }, 20);
+    });
+  });
+  </script>
   <script src="/projeto/public/assets/js/modal.js"></script>
 </body>
 

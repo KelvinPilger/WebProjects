@@ -1,35 +1,3 @@
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-a {
-  text-decoration: none;
-}
-
-.clientsTitle {
-  width: 95%;
-  max-width: 1150px;
-  padding: 0px 6px;
-  max-height: 50px;
-  margin: 0px auto;
-}
-
-.clientsTitle>h1 {
-  font-family: 'Rubik', sans-serif;
-  font-size: 16px;
-  margin: 14px auto;
-  overflow-x: auto;
-  color: rgba(37, 34, 34, 0.999)s;
-  display: flex;
-  justify-content: center;
-}
-
 .tableContainer {
   top: 80px;
   z-index: 1;
@@ -45,6 +13,24 @@ a {
   padding: 10px;
   font-family: 'Rubik', sans-serif;
   font-size: 14px;
+}
+
+.productTitle {
+  width: 95%;
+  max-width: 1150px;
+  padding: 0px 6px;
+  max-height: 50px;
+  margin: 0px auto;
+}
+
+.productTitle>h1 {
+  font-family: 'Rubik', sans-serif;
+  font-size: 16px;
+  margin: 14px auto;
+  overflow-x: auto;
+  color: rgba(37, 34, 34, 0.999)s;
+  display: flex;
+  justify-content: center;
 }
 
 .myTable {
@@ -63,11 +49,6 @@ a {
   font-weight: 400;
   text-align: center;
   justify-content: center;
-}
-
-.optContato {
-  background-color: rgba(37, 34, 34, 0.999);
-  color: #f7f7f7;
 }
 
 .myTable td {
@@ -92,22 +73,6 @@ a {
 
 .myTable tbody tr:hover {
   background-color: #eaeaea;
-}
-
-#cpfTd {
-  width: 16ch;
-}
-
-#cnpjTd {
-  width: 19ch;
-}
-
-#idTd {
-  width: 5ch;
-}
-
-#nameTd {
-  width: 30ch;
 }
 
 #actionTd {
@@ -195,7 +160,7 @@ a {
   margin-left: 6px;
 }
 
-#btnIncluir {
+.btnIncluir {
   text-decoration: none;
   background-color: rgba(37, 34, 34, 0.999);
   border: 1px solid #fff;
@@ -213,7 +178,7 @@ a {
   margin-bottom: 20px;
 }
 
-#btnIncluir:hover {
+.btnIncluir:hover {
   background-color: #eaeaea;
   color: rgba(37, 34, 34, 0.999);
   border: 1px solid rgba(37, 34, 34, 0.999);
@@ -408,4 +373,16 @@ a {
 
 .modal--close {
   animation: slideOutDown 0.2s ease-in forwards;
+}
+
+body.slide-out-left {
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+body.slide-out-right {
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform 0.6s ease, opacity 0.6s ease;
 }

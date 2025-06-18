@@ -56,6 +56,9 @@
 </form>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+    
+    const main = document.querySelector('main');
+    main.classList.add('slide-in');
     const contactsWrapper = document.getElementById('contactsWrapper');
 
     function refreshContactIndices() {
@@ -124,6 +127,14 @@
     }
 
     function createDataClient() {
+      const radCpf  = document.getElementById('fisica');
+      const radCnpj = document.getElementById('juridica');
+      const cpfField  = document.getElementById('cpf');
+      const cnpjField = document.getElementById('cnpj');
+
+      cpfField.disabled = false;
+      cnpjField.disabled = false;
+
       const form = document.getElementById('clientForm');
       form.addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -168,14 +179,26 @@
     }
 
     function retirarFormatacao(campoTexto) {
-        campoTexto.value = campoTexto.value.replace(/(\.|\/|\-)/g, "");
-    }
+      campoTexto.value = campoTexto.value.replace(/(\.|\/|\-)/g, "");
+      }
 
     function mascaraCpf(valor) {
         return valor.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "\$1.\$2.\$3\-\$4");
     }
 
     function mascaraCnpj(valor) {
-        return valor.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, "\$1.\$2.\$3\/\$4\-\$5");
+        valor = valor.replace(/\D/g, '');
+
+   
+      if (valor.length > 14) {
+          valor = valor.substring(0, 14);
+      }
+
+      valor = valor.replace(/^(\d{2})(\d)/, '$1.$2');
+      valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+      valor = valor.replace(/\.(\d{3})(\d)/, '.$1/$2');
+      valor = valor.replace(/(\d{4})(\d)/, '$1-$2');
+
+      return valor;
     }
 </script>

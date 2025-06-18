@@ -10,6 +10,7 @@
   align-items: center;
   justify-content: center;
   z-index: 999;
+  color: #fffefe;
 }
 .modal__window {
   max-width: 800px;
@@ -21,18 +22,15 @@
   margin-bottom: 10px;
 }
 .modal.success .modal__window {
-  border-top: 4px solid #4CAF50;
-  background: #e8f5e9;
+  background: #4CAF50;
   animation: slideIn 0.4s ease-in forwards;
 }
 .modal.error .modal__window {
-  border-top: 4px solid #F44336;
-  background: #ffebee;
+  background: #F44336;
   animation: slideIn 0.4s ease-in forwards;
 }
 .modal.warning .modal__window {
-  border-top: 4px solid #FFC107;
-  background: #fff8e1;
+  background: #FFC107;
   animation: slideIn 0.4s ease-in forwards;
 }
 
@@ -42,7 +40,7 @@
   left: 52%;             
   display: flex;
   flex-direction: column-reverse;
-  gap: 10px;
+  gap: 40px;
   z-index: 1000;
   pointer-events: none;
 }
@@ -50,7 +48,7 @@
 #toast-container .modal {
   position: relative;
   width: auto;
-  max-width: 300px;
+  max-width: 1200px;
   pointer-events: auto;
   margin: 0 auto; 
 }

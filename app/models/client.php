@@ -103,7 +103,7 @@ class Client
         
         $clientObj = $client;
         
-        if ($clientObj['cpf'] !== null) {
+        if ($clientObj['cpf'] != null) {
             $nat = 'F';
         } else {
             $nat = 'J';

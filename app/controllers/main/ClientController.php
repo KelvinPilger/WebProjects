@@ -136,6 +136,7 @@ class ClientController extends Controller
         $id = isset($request->parameter)
             ? (int) $request->parameter
             : 0;
+            
         $clientModel = new Client();
         $deleted = $clientModel->delete($id);
 

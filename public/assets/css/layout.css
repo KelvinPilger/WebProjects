@@ -52,10 +52,10 @@ a {
 #sidebarNav::before {
   content: '';
   position: absolute;
-  inset: 0;   /* top/right/bottom/left = 0 */
+  inset: 0;
   background: url('../images/navbarImage.jpg') center/cover no-repeat;
   filter: brightness(15%) grayscale(100%);
-  z-index: 0; /* atrás do conteúdo */
+  z-index: 0;
 }
 
 .navButtons {
@@ -223,4 +223,20 @@ a {
   background-color: #fff;
   color: rgba(37, 34, 34, 0.999);
   transition: 0.6s;
+}
+
+main {
+  transform: translateX(100%);
+  opacity: 0.7;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+main.slide-in {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+main.pre-slide {
+  transform: translateX(100%);
+  opacity: 0;
 }
