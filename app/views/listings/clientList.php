@@ -62,7 +62,6 @@
 					<th>CPF</th>
 					<th>CNPJ</th>
 					<th>Idade</th>
-					<th>E-mail</th>
 					<th>Data e Hora do Cadastro</th>
 					<th id="actionTh">Ações</th>
 				</tr>
@@ -76,7 +75,6 @@
 							<td id="cpfTd"><?= htmlspecialchars($c['cpf']  ?? '') ?></td>
 							<td id="cnpjTd"><?= htmlspecialchars($c['cnpj'] ?? '') ?></td>
 							<td><?= htmlspecialchars($c['age'] ?? '') ?></td>
-							<td><?= htmlspecialchars($c['email'] ?? 'Sem e-mail') ?></td>
 							<td><?= date('d/m/Y H:i:s', strtotime($c['inserted_at'])) ?></td>
 							<td id="actionTd">
 								<a id="btnEdit" href="<?= $_SERVER['SCRIPT_NAME'] ?>/client/edit/<?= htmlspecialchars($c['id'], ENT_QUOTES, 'UTF-8') ?>" data-direction="right">

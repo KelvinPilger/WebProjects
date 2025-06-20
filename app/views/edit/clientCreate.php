@@ -1,4 +1,4 @@
-<form id="clientForm" method="POST" action="../client/store">
+<form id="clientForm" method="POST" action="<?= $_SERVER['SCRIPT_NAME'] ?>/client/store">
     <div class="infoContainer">
         <div class="containerNatRegistr">
             <input type="hidden" name="action" value="insert">

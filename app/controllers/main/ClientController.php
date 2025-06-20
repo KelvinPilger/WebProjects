@@ -75,7 +75,7 @@ class ClientController extends Controller
 
         try {
             $saved = $clientModel->save($clientData);
-            if($saved) {
+            if ($saved !== false) {
                 http_response_code(200);
                 echo json_encode([
                     'status'  => 'success',
@@ -115,12 +115,12 @@ class ClientController extends Controller
             : 0;
 
         $model = new Client();
-        $data  = $model->edit($id); 
+        $data  = $model->edit($id);
 
         if ($data !== []) {
             $this->renderView('edit/clientEdit', [
-                'clients'  => [ $data['client'] ],
-                'contacts' =>   $data['contacts'],    
+                'clients'  => [$data['client']],
+                'contacts' =>   $data['contacts'],
                 'style'    => [
                     '../../../assets/css/clientEdit.css'
                 ],
@@ -130,37 +130,43 @@ class ClientController extends Controller
 
     public function remove($request): void
     {
-    header('Content-Type: application/json; charset=UTF-8');
+        header('Content-Type: application/json; charset=UTF-8');
 
-    try {
-        $id = isset($request->parameter)
-            ? (int) $request->parameter
-            : 0;
-            
-        $clientModel = new Client();
-        $deleted = $clientModel->delete($id);
+        try {
+            $id = isset($request->parameter)
+                ? (int) $request->parameter
+                : 0;
 
-        if ($deleted) {
-            http_response_code(200);
-            echo json_encode([
-                'status'  => 'success',
-                'message' => 'Cliente removido com sucesso!'
-            ]);
-        } else {
-            http_response_code(404);
-            echo json_encode([
-                'status'  => 'warning',
-                'message' => 'Não foi possível encontrar o cliente para remover!'
-            ]);
+            $clientModel = new Client();
+            $deleted = $clientModel->delete($id);
+
+            if ($deleted) {
+                http_response_code(200);
+                echo json_encode([
+                    'status'  => 'success',
+                    'message' => 'Cliente removido com sucesso!'
+                ]);
+            } else {
+                http_response_code(404);
+                echo json_encode([
+                    'status'  => 'warning',
+                    'message' => 'Não foi possível encontrar o cliente para remover!'
+                ]);
+            }
+        } catch (\Throwable $e) {
+            if ($e->getCode() === '23000') {
+                http_response_code(409);
+                echo json_encode([
+                    'status'  => 'warning',
+                    'message' => 'Não é possível remover cliente pois há contatos vinculados.'
+                ]);
+            } else {
+                echo json_encode([
+                    'status'  => 'error',
+                    'message' => 'Erro ao remover: ' . $e->getMessage()
+                ]);
+            }
+            exit;
         }
-
-    } catch (\Throwable $e) {
-        http_response_code(500);
-        echo json_encode([
-            'status'  => 'error',
-            'message' => 'Erro ao remover: ' . $e->getMessage()
-        ]);
-    }
-    exit;
     }
 }

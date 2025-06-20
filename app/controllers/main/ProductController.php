@@ -40,7 +40,17 @@
                 'style'       => ['../../assets/css/productList.css'],
             ]);
         }
-        public function create() {}
+
+        public function create(): void
+        {
+            $this->renderView('edit/productCreateEdit', [
+                'products' => null,
+                'style' => [
+                    '../../assets/css/productCreateEdit.css'
+                ],
+            ]);
+        }
+
         public function show() {}
 
 
