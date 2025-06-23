@@ -1,74 +1,208 @@
-/* container externo com 3 colunas (duas largas + uma estreita) */
+body {
+  font-family: 'Rubik';
+}
+
 .infoContainer {
-  position: relative;
-  margin: 70px auto 30px;
-  width: 90%;
-  max-width: 1750px;
+  padding: 15px auto 15px auto;
+  top: 70px;
   display: grid;
-  grid-template-columns: 55% 30% 15%;
-  column-gap: 1rem;
+  grid-template-columns: 1fr;
+
+  row-gap: 1rem;
+  column-gap: 0;
+
+  margin: auto 10px auto 120px;
+  max-width: 1750px;
   padding: 15px;
   background: #fff;
   border-radius: 6px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-  overflow: hidden;
+  box-sizing: border-box;
+  position: relative;
+  overflow: visible;
 }
 
-/* estilo comum a todos os painéis */
 .containerGeneralInfo,
 .containerTribInfo,
 .containerValues {
-  position: relative;
+  min-width: 0;
+  font-family: 'Rubik';
   display: grid;
-  /* duas colunas: auto (label) + fr (controle) */
   grid-template-columns: auto minmax(0,1fr);
-  row-gap: 0.75rem;
-  column-gap: 0.5rem;
+  row-gap: 0.1rem;
+  column-gap: 0.1rem;
+
   padding: 1.5rem 1rem 1rem;
-  background: #fafafa;
+  background: #ffffff;
   border: 1.8px solid #aaa2a2c4;
   border-radius: 6px;
+  font-size: 12px;
   box-sizing: border-box;
-  font-size: 12px;
+  align-items: center;
 }
 
-/* título ocupa as 2 colunas */
-.containerGeneralInfo .containerTitle,
-.containerTribInfo .containerTitle,
-.containerValues .containerTitle {
-  grid-column: 1 / -1;
-  top: 0;
-  left: 0.75rem;
-  transform: translateY(-50%);
-  position: absolute;
-  background: #fff;
-  padding: 0 0.25rem;
-  font-weight: bold;
-  color: #1a1818;
-  z-index: 1;
-  pointer-events: none;
-  font-size: 12px;
+.containerGeneralInfo {
+  font-family: 'Rubik';
+  width: 690px;
+  padding: auto;
+  height: 150px;
 }
 
-/* label fica na 1ª coluna, input/select na 2ª */
+.containerTribInfo {
+  width: 400px;
+  padding: auto;
+  height: 200px;
+}
+
+.containerValues {
+    width: 350px;
+    height: 150px;
+    padding: auto;
+}
+
 .containerGeneralInfo label,
 .containerTribInfo label,
 .containerValues label {
   align-self: center;
+  justify-self: auto;
+  margin-right: 8px;
+  font-size: 14px;
+  font-weight: normal;
 }
 
-.containerGeneralInfo input,
-.containerGeneralInfo select,
+.containerTitle {
+    position: absolute;
+    top: 0;
+    left: 0.75rem;
+    transform: translateY(-50%);
+    background: #fff;
+    padding: 0 0.25rem;
+    font-size: 12px;
+    color: #1a1818;
+    pointer-events: none;
+    z-index: 1;
+    font-weight: bold;
+
+}
+
 .containerTribInfo input,
-.containerTribInfo select,
-.containerValues input {
-  all: unset;
+.containerTribInfo select
+{
+  font-family: 'Rubik';
+  padding: 10px;
   box-sizing: border-box;
   width: 100%;
+  justify-content: center;
+  align-items: center;
   padding: 5px;
   border: 0.5px solid #aaa2a2c4;
   border-radius: 6px;
   font-size: 14px;
   background: #fff;
   color: #000;
+  height: 28px;
+  justify-self: stretch;
+}
+
+.containerGeneralInfo input
+{
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border: 0.5px solid #aaa2a2c4;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #fff;
+  color: #000;
+  height: 28px;
+  justify-self: stretch;
+  width: 500px;
+}
+
+.containerGeneralInfo select {
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border: 0.5px solid #aaa2a2c4;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #fff;
+  color: #000;
+  height: 28px;
+  justify-self: stretch;
+  width: 350px;
+  text-align: center;
+}
+
+.containerValues input {
+  appearance: none;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border: 0.5px solid #aaa2a2c4;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #fff;
+  color: #000;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  height: 28px;
+  justify-self: stretch;
+}
+
+#gtin {
+  appearance: none;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border: 0.5px solid #aaa2a2c4;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #fff;
+  color: #000;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  height: 28px;
+  width: 18ch;
+  text-align: center;
+  justify-self: stretch;
+}
+
+.btnSave {
+    text-decoration: none;
+    background-color: rgba(37, 34, 34, 0.999);
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 6px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    width: 100px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btnSave:hover {
+    background-color: rgba(20, 18, 18, 0.8);
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
 }
