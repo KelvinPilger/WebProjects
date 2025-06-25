@@ -27,10 +27,10 @@
 				<nav id="pagination">
 					<?php if ($currentPage > 1): ?>
 						<a class="paginationBtn" href="?page=<?= 1 ?>&rowLimit=<?= $rowLimit ?>">
-							<<< /a>
+							<<</a>
 
 								<a class="paginationBtn" href="?page=<?= $currentPage - 1 ?>&rowLimit=<?= $rowLimit ?>">
-									<< /a>
+									<</a>
 									<?php endif; ?>
 
 									<?php if ($rowLimit === 'all'): ?>

@@ -89,6 +89,18 @@
         exit;
         }
 
-        public function store() {}
+        public function store($request) {
+            
+        header('Content-Type: application/json; charset=UTF-8');
+
+        $product = $_POST;
+        $productModel = new Product();
+
+            try {
+                //$saved = $productModel->save($product);
+            } catch (\Throwable $e) {
+                
+            }
+        }
     }
 ?>

@@ -82,6 +82,19 @@ a {
   color: #000;
 }
 
+.navButtons:active {
+  box-shadow: 0 0 14px rgba(240, 240, 241, 0.852);
+  background-color: #fff;
+}
+
+#accessButtons .navButtons:active svg {
+  color: #000;
+}
+
+.navButtons:active .btn-text {
+  color: #000;
+}
+
 #sidebarNav:hover .btn-text {
   font-family: 'Rubik', sans-serif;
   display: inline-block;

@@ -22,47 +22,9 @@ body {
   overflow: visible;
 }
 
-.containerGeneralInfo,
-.containerTribInfo,
-.containerValues {
-  min-width: 0;
-  font-family: 'Rubik';
-  display: grid;
-  grid-template-columns: auto minmax(0,1fr);
-  row-gap: 0.1rem;
-  column-gap: 0.1rem;
-
-  padding: 1.5rem 1rem 1rem;
-  background: #ffffff;
-  border: 1.8px solid #aaa2a2c4;
-  border-radius: 6px;
-  font-size: 12px;
-  box-sizing: border-box;
-  align-items: center;
-}
-
-.containerGeneralInfo {
-  font-family: 'Rubik';
-  width: 690px;
-  padding: auto;
-  height: 150px;
-}
-
-.containerTribInfo {
-  width: 400px;
-  padding: auto;
-  height: 200px;
-}
-
-.containerValues {
-    width: 350px;
-    height: 150px;
-    padding: auto;
-}
-
-.containerGeneralInfo label,
-.containerTribInfo label,
-.containerValues label {
+.fieldsetBlockInfo label,
+.fieldsetBlockTributes label,
+.fieldsetBlockValues label {
   align-self: center;
   justify-self: auto;
   margin-right: 8px;
@@ -71,22 +33,94 @@ body {
 }
 
 .containerTitle {
-    position: absolute;
-    top: 0;
-    left: 0.75rem;
-    transform: translateY(-50%);
-    background: #fff;
-    padding: 0 0.25rem;
-    font-size: 12px;
-    color: #1a1818;
-    pointer-events: none;
-    z-index: 1;
-    font-weight: bold;
-
+  grid-column: 1 / -1;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #1a1818;
+  padding: 8px 0;
+  border-bottom: 1px solid #ccc;
 }
 
-.containerTribInfo input,
-.containerTribInfo select
+.fieldsetBlockInfo {
+  border: 1px solid #aaa2a2c4;
+  border-radius: 6px;
+  padding: 1.5rem 1rem 1rem;
+  margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 0.5rem;
+  row-gap: 0.5rem;
+  font-size: 14px;
+  width: 600px;
+}
+
+
+.fieldsetBlockInfo input,
+.fieldsetBlockTributes input,
+.fieldsetBlockValues input {
+  align-self: center;
+  justify-self: auto;
+  margin-right: 8px;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.fieldsetId {
+  top: 15px;
+  right: 25px;
+  position: absolute;
+  width: 64px;
+  height: 44px;
+  border-radius: 6px;
+}
+
+.fieldsetBlockTributes {
+  border: 1px solid #aaa2a2c4;
+  border-radius: 6px;
+  padding: 1.5rem 1rem 1rem;
+  margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 0.5rem;
+  row-gap: 0.5rem;
+  font-size: 14px;
+  width: 400px;
+}
+
+.fieldsetBlockValues {
+  border: 1px solid #aaa2a2c4;
+  border-radius: 6px;
+  padding: 1.5rem 1rem 1rem;
+  margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 0.5rem;
+  row-gap: 0.5rem;
+  font-size: 14px;
+  width: 400px;
+}
+
+.fieldsetBlockInfo legend,
+.fieldsetBlockTributes legend,
+.fieldsetBlockValues legend {
+  padding: 0 0.25rem;
+  font-weight: bold;
+  font-size: 12px;
+  color: #1a1818;
+}
+
+.fieldsetId legend {
+  padding: 0 0.25rem;
+  font-weight: bold;
+  font-size: 12px;
+  color: #1a1818;
+  text-align: center;
+}
+
+
+.fieldsetBlockTributes input,
+.fieldsetBlockTributes select
 {
   font-family: 'Rubik';
   padding: 10px;
@@ -104,7 +138,7 @@ body {
   justify-self: stretch;
 }
 
-.containerGeneralInfo input
+.fieldsetBlockInfo input
 {
   padding: 10px;
   box-sizing: border-box;
@@ -119,10 +153,10 @@ body {
   color: #000;
   height: 28px;
   justify-self: stretch;
-  width: 500px;
+  width: 400px;
 }
 
-.containerGeneralInfo select {
+.fieldsetBlockInfo select {
   padding: 10px;
   box-sizing: border-box;
   width: 100%;
@@ -140,7 +174,7 @@ body {
   text-align: center;
 }
 
-.containerValues input {
+.fieldsetBlockValues input {
   appearance: none;
   padding: 10px;
   box-sizing: border-box;
