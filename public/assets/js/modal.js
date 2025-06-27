@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         modal.classList.add("hidden");
         modal.classList.remove(type);
-      }, 3000);
+      }, 2000);
     }
   };
 

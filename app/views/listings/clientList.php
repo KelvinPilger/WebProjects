@@ -193,25 +193,6 @@
 				bottomSel.value = sel.value;
 			}));
 		}
-
-		// function redirectMain(url, direction = 'left', delay = 500) {
-		// const main = document.querySelector('main');
-		// main.classList.add(`slide-out-${direction}`);
-
-		// setTimeout(() => {
-		// 	window.location.href = url;
-		// }, delay);
-		// }
-
-
-		// document.querySelectorAll('.slide-link').forEach(link => {
-		// 	link.addEventListener('click', e => {
-		// 		e.preventDefault();
-		// 		const url = link.dataset.href;
-		// 		const direction = link.dataset.direction || 'left';
-		// 		redirectMain(url, direction);
-		// 	});
-		// });
 	});
 
 	

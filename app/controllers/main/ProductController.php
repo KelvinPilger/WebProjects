@@ -43,12 +43,30 @@
 
         public function create(): void
         {
-            $this->renderView('edit/productCreateEdit', [
+            $this->renderView('edit/productCreate', [
                 'products' => null,
                 'style' => [
                     '../../assets/css/productCreateEdit.css'
                 ],
             ]);
+        }
+
+        public function edit($request): void {
+            $id = isset($request->parameter)
+                ? (int) $request->parameter
+                : 0;
+
+            $productModel = new Product();
+            $product = $productModel->edit($id);
+
+            if($product !== []) {
+                $this->renderView('edit/productEdit', [
+                    'product' => $product,
+                    'style' => [
+                        $_SERVER['SCRIPT_NAME'], '../../../assets/css/productCreateEdit.css'
+                    ],
+                ]);
+            }
         }
 
         public function show() {}
@@ -89,17 +107,36 @@
         exit;
         }
 
-        public function store($request) {
+        public function store(): void {
             
         header('Content-Type: application/json; charset=UTF-8');
 
-        $product = $_POST;
+        $product = json_decode(file_get_contents('php://input'), true);
         $productModel = new Product();
 
             try {
-                //$saved = $productModel->save($product);
+                $saved = $productModel->save($product);
+
+                if($saved !== false) {
+                    http_response_code(200);
+                    echo json_encode([
+                        'status' => 'success',
+                        'message' => 'Dados atualizados com sucesso!'
+                    ]);
+                } else {
+                    http_response_code(404);
+                    echo json_encode([
+                        'status' => 'warning',
+                        'message' => 'Não foi possível realizar a inclusão do produto!'
+                    ]);
+                }
             } catch (\Throwable $e) {
-                
+                http_response_code(500);
+                echo $e->getMessage();
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => 'Ocorreu um erro ao registrar o produto: ' . $e->getMessage()
+                ]);
             }
         }
     }

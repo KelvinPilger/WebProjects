@@ -212,9 +212,8 @@
 #removeModal {
   background-color: #fdfdfd;
   position: fixed;
-  top: 50%;
+  top: 425px;
   left: 50%;
-  transform: translate(-50%, -50%);
   margin: 0;
   padding: 0;
   max-width: 350px;

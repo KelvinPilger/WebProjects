@@ -67,12 +67,20 @@ body {
 }
 
 .fieldsetId {
+  position: relative;
   top: 15px;
   right: 25px;
   position: absolute;
   width: 64px;
   height: 44px;
   border-radius: 6px;
+}
+
+.fieldsetId p {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 3px;
 }
 
 .fieldsetBlockTributes {
