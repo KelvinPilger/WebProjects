@@ -36,14 +36,14 @@
       <label for="cost">Preço de Custo</label>
       <input id="cost" type="number" value="0.00">
 
-      <label for="profit">% Lucro</label>
-      <input id="profit" type="number" value="0.00">
-
       <label for="price">Preço de Venda</label>
       <input id="price" type="number" value="0.00">
 
+      <label for="profit">% Lucro</label>
+      <input id="profit" type="number" value="0.00">
+
       <label for="quantity">Quantidade</label>
-      <input id="quantity" type="number" value="0">
+      <input id="quantity" type="number" value="0.00">
     </fieldset>
 
     <button class="btnSave" type="submit">Salvar</button>
@@ -98,5 +98,82 @@
         MessageModal.show('error', 'Erro na requisição:' + err);
       }
     });
+
+    const sell = document.getElementById('price');
+    const profit = document.getElementById('profit');
+    const cost = document.getElementById('cost');
+
+    function ValueToDecimal(value, component) {
+          if(!isNaN(value)) {
+          component.value = value.toFixed(2);
+        }
+      };
+
+    sell.addEventListener('change', async function RecalcProfitValue() {
+      let sellPrice = parseFloat(sell.value);
+      let profitPercentual;
+      let costPrice = parseFloat(cost.value);
+
+      ValueToDecimal(sellPrice, sell);
+
+      console.log(sellPrice, profitPercentual, costPrice);
+
+      if(!isNaN(sellPrice) && !isNaN(costPrice)) {
+        console.log('Entrando no cálculo.');
+        profitPercentual = ((sellPrice - costPrice) / costPrice) * 100;
+        profit.value = profitPercentual.toFixed(2);
+        console.log(profit.value);
+      }
+
+      
+    });
+
+    cost.addEventListener('change', async function ItemRecalcValues() {
+      let sellPrice = parseFloat(sell.value);
+      let profitPercentual;
+      let costPrice = parseFloat(cost.value);
+
+      ValueToDecimal(costPrice, cost);
+
+      console.log(sellPrice, profitPercentual, costPrice);
+
+      if(!isNaN(sellPrice) && !isNaN(costPrice)) {
+        console.log('Entrando no cálculo.');
+        profitPercentual = ((sellPrice - costPrice) / costPrice) * 100;
+        profit.value = profitPercentual.toFixed(2);
+        console.log(profit.value);
+      }
+
+      
+    });
+
+    profit.addEventListener('change', async function ItemRecalcValues() {
+      let sellPrice = parseFloat(sell.value);
+      let profitPercentual = parseFloat(profit.value);
+      let costPrice = parseFloat(cost.value);
+      
+      ValueToDecimal(profitPercentual, profit);
+
+      if(!isNaN(profitPercentual)) {
+       sellPrice = costPrice * (1 + (profitPercentual / 100));
+       sell.value = sellPrice.toFixed(2);
+      }
+
+    });
+
+
+
+    //  let sellPrice = parseFloat(sell.value);
+    //   let profitPercentual;
+    //   let costPrice = parseFloat(cost.value);
+
+    const quantity = document.getElementById('quantity');
+    const quantityValue = parseFloat(quantity.value);
+
+    quantity.addEventListener('change', async function QuantityToDecimal() {
+      let quantityValue = parseFloat(quantity.value);
+
+      ValueToDecimal(quantityValue, quantity)
+    })
   });
 </script>
