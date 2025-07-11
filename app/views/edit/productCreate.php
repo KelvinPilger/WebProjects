@@ -50,11 +50,52 @@
   </div>
 </form>
 <script>
+
   document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('productForm');
 
+    function runValidations(rules, formData) {
+      const errors = {};
+
+      for (const field in rules) {
+        const value = document.getElementById(field)?.value || '';
+        const validations = Array.isArray(rules[field]) ? rules[field] : [rules[field]];
+
+        for (const validate of validations) {
+          const error = validate(value);
+          if (error) {
+            errors[field] = error;
+            break;
+          }
+        }
+      }
+
+      return errors;
+    }
+
+    const validationRules = 
+    {
+      description: 
+      [value => value.trim() !== '' ? null : 'O nome do produto não foi preenchido!'],
+      application: 
+      [value => value.trim() !== '' ? null : 'Não foi selecionado um tipo de aplicação para o produto.'],
+      cost: 
+      [value => parseFloat(value) > 0 ? null : 'O valor de custo deve ser maior que R$0,00.'],
+      sell: 
+      [value => parseFloat(value) >= parseFloat(cost.value) ? null : 'O valor de venda do produto deve ser maior que o preço de custo do mesmo.',
+      value => parseFloat(value) > 0 ? null : 'O valor de venda deve ser maior que zero.',
+      ] 
+    };
+
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
+
+      const errors = runValidations(validationRules);
+
+      if(Object.keys(errors).length > 0) {
+        MessageModal.show('warning', Object.values(errors).join('\n'));
+        return;
+      }
 
       const data = {
         action: 'insert',
@@ -160,12 +201,6 @@
       }
 
     });
-
-
-
-    //  let sellPrice = parseFloat(sell.value);
-    //   let profitPercentual;
-    //   let costPrice = parseFloat(cost.value);
 
     const quantity = document.getElementById('quantity');
     const quantityValue = parseFloat(quantity.value);

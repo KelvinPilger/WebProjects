@@ -5,6 +5,10 @@
   transition: all 0.3s ease-in-out;
 }
 
+.modal__message {
+  white-space: pre-line
+}
+
 .modal {
   display: flex;
   align-items: center;
