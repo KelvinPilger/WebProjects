@@ -19,31 +19,31 @@
     <fieldset class="fieldsetBlockTributes">
       <legend>Tributações</legend>
       <label for="ncm">NCM/NBS</label>
-      <input id="ncm" type="text">
+      <input id="ncm" type="text" maxlength="9">
 
       <label for="cest">CEST</label>
-      <input id="cest" type="text">
+      <input id="cest" type="text" maxlength="10">
 
       <label for="csosn">CSOSN</label>
-      <input id="csosn" type="text" placeholder="Pesquisar…">
+      <input id="csosn" type="text" placeholder="Pesquisar…" maxlength="3">
 
       <label for="cfop">CFOP</label>
-      <input id="cfop" type="text" placeholder="Pesquisar…">
+      <input id="cfop" type="text" placeholder="Pesquisar…" maxlength="4">
     </fieldset>
 
     <fieldset class="fieldsetBlockValues">
       <legend>Valores do Produto</legend>
       <label for="cost">Preço de Custo</label>
-      <input id="cost" type="number" value="0.00">
+      <input id="cost" type="number" value="0.00" step="0.01">
 
       <label for="price">Preço de Venda</label>
-      <input id="price" type="number" value="0.00">
+      <input id="price" type="number" value="0.00" step="0.01">
 
       <label for="profit">% Lucro</label>
-      <input id="profit" type="number" value="0.00">
+      <input id="profit" type="number" value="0.00" step="0.01">
 
       <label for="quantity">Quantidade</label>
-      <input id="quantity" type="number" value="0.00">
+      <input id="quantity" type="number" value="0.00" step="0.01">
     </fieldset>
 
     <button class="btnSave" type="submit">Salvar</button>
@@ -61,6 +61,8 @@
         const value = document.getElementById(field)?.value || '';
         const validations = Array.isArray(rules[field]) ? rules[field] : [rules[field]];
 
+        console.log(`Validando campo "${field}" com valor: "${value}"`);
+
         for (const validate of validations) {
           const error = validate(value);
           if (error) {
@@ -73,6 +75,10 @@
       return errors;
     }
 
+    const sell = document.getElementById('price');
+    const profit = document.getElementById('profit');
+    const cost = document.getElementById('cost');
+
     const validationRules = 
     {
       description: 
@@ -81,7 +87,7 @@
       [value => value.trim() !== '' ? null : 'Não foi selecionado um tipo de aplicação para o produto.'],
       cost: 
       [value => parseFloat(value) > 0 ? null : 'O valor de custo deve ser maior que R$0,00.'],
-      sell: 
+      price: 
       [value => parseFloat(value) >= parseFloat(cost.value) ? null : 'O valor de venda do produto deve ser maior que o preço de custo do mesmo.',
       value => parseFloat(value) > 0 ? null : 'O valor de venda deve ser maior que zero.',
       ] 
@@ -140,17 +146,13 @@
       }
     });
 
-    const sell = document.getElementById('price');
-    const profit = document.getElementById('profit');
-    const cost = document.getElementById('cost');
-
     function ValueToDecimal(value, component) {
-          if(!isNaN(value)) {
-          component.value = value.toFixed(2);
-        }
-      };
+        if(!isNaN(value)) {
+        component.value = value.toFixed(2);
+      }
+    };
 
-    sell.addEventListener('change', async function RecalcProfitValue() {
+    sell.addEventListener('blur', async function RecalcProfitValue() {
       let sellPrice = parseFloat(sell.value);
       let profitPercentual;
       let costPrice = parseFloat(cost.value);
@@ -169,7 +171,7 @@
       
     });
 
-    cost.addEventListener('change', async function ItemRecalcValues() {
+    cost.addEventListener('blur', async function ItemRecalcValues() {
       let sellPrice = parseFloat(sell.value);
       let profitPercentual;
       let costPrice = parseFloat(cost.value);
@@ -188,7 +190,7 @@
       
     });
 
-    profit.addEventListener('change', async function ItemRecalcValues() {
+    profit.addEventListener('blur', async function ItemRecalcValues() {
       let sellPrice = parseFloat(sell.value);
       let profitPercentual = parseFloat(profit.value);
       let costPrice = parseFloat(cost.value);
@@ -205,7 +207,7 @@
     const quantity = document.getElementById('quantity');
     const quantityValue = parseFloat(quantity.value);
 
-    quantity.addEventListener('change', async function QuantityToDecimal() {
+    quantity.addEventListener('blur', async function QuantityToDecimal() {
       let quantityValue = parseFloat(quantity.value);
 
       ValueToDecimal(quantityValue, quantity)

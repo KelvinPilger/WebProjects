@@ -76,10 +76,10 @@
 							<td id="produtoTd"><?= htmlspecialchars($p['product_name'] ?? 'N/A') ?></td>
 							<td id="codBarrasTd"><?= htmlspecialchars($p['gtin_barcode']  ?? '') ?></td>
 							<td id="qtdeTd"><?= number_format($p['quantity'], 2, ',', '.') ?></td>
-							<td id="custoTd"><?= number_format($p['cost_price'], 2, ',', '.') ?></td>
-							<td id="vendaTd"><?= number_format($p['sell_price'], 2, ',', '.') ?></td>
-							<td id="cfopTd"></td>
-							<td id="csosnTd"></td>
+							<td id="custoTd">R$ <?= number_format($p['cost_price'], 2, ',', '.') ?></td>
+							<td id="vendaTd">R$ <?= number_format($p['sell_price'], 2, ',', '.') ?></td>
+							<td id="cfopTd"><?= htmlspecialchars($p['cfop'])?></td>
+							<td id="csosnTd"><?= htmlspecialchars($p['csosn_cst'])?></td>
 							<td id="actionTd">
 								<a id="btnEdit" href="<?= $_SERVER['SCRIPT_NAME'] ?>/product/edit/<?= htmlspecialchars($p['id'], ENT_QUOTES, 'UTF-8') ?>">
 									<svg xmlns="http://www.w3.org/2000/svg" id="editSvg" data-name="Layer 1" viewBox="0 0 24 24" width="17" height="17" fill="currentColor">

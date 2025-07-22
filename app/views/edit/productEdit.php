@@ -25,16 +25,16 @@
         <fieldset class="fieldsetBlockTributes">
           <legend>Tributações</legend>
           <label for="ncm">NCM/NBS</label>
-          <input id="ncm" type="text" value="<?= htmlspecialchars($p['ncm']) ?>">
+          <input id="ncm" type="text" value="<?= htmlspecialchars($p['ncm']) ?>" maxlength="9">
 
           <label for="cest">CEST</label>
-          <input id="cest" type="text" value="<?= htmlspecialchars($p['cest']) ?>">
+          <input id="cest" type="text" value="<?= htmlspecialchars($p['cest']) ?>" maxlength="10">
 
           <label for="csosn">CSOSN</label>
-          <input id="csosn" type="text" placeholder="Pesquisar…" value="<?= htmlspecialchars($p['csosn_cst']) ?>">
+          <input id="csosn" type="text" placeholder="Pesquisar…" value="<?= htmlspecialchars($p['csosn_cst']) ?>" maxlength="3">
 
           <label for="cfop">CFOP</label>
-          <input id="cfop" type="text" placeholder="Pesquisar…" value="<?= htmlspecialchars($p['cfop']) ?>">
+          <input id="cfop" type="text" placeholder="Pesquisar…" value="<?= htmlspecialchars($p['cfop']) ?>" maxlength="4">
         </fieldset>
 
         <fieldset class="fieldsetBlockValues">
@@ -61,12 +61,57 @@
   document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('productForm');
 
-    form.addEventListener('submit', async function(e) {
+      function runValidations(rules, formData) {
+        const errors = {};
+
+        for (const field in rules) {
+          const value = document.getElementById(field)?.value || '';
+          const validations = Array.isArray(rules[field]) ? rules[field] : [rules[field]];
+
+          console.log(`Validando campo "${field}" com valor: "${value}"`);
+
+          for (const validate of validations) {
+            const error = validate(value);
+            if (error) {
+              errors[field] = error;
+              break;
+            }
+          }
+        }
+
+        return errors;
+      }
+
+      const sell = document.getElementById('price');
+      const profit = document.getElementById('profit');
+      const cost = document.getElementById('cost');
+
+      const validationRules = 
+      {
+        description: 
+        [value => value.trim() !== '' ? null : 'O nome do produto não foi preenchido!'],
+        application: 
+        [value => value.trim() !== '' ? null : 'Não foi selecionado um tipo de aplicação para o produto.'],
+        cost: 
+        [value => parseFloat(value) > 0 ? null : 'O valor de custo deve ser maior que R$0,00.'],
+        price: 
+        [value => parseFloat(value) >= parseFloat(cost.value) ? null : 'O valor de venda do produto deve ser maior que o preço de custo do mesmo.',
+        value => parseFloat(value) > 0 ? null : 'O valor de venda deve ser maior que zero.',
+        ] 
+      };
+
+      form.addEventListener('submit', async function(e) {
       e.preventDefault();
 
+      const errors = runValidations(validationRules);
+
+      if(Object.keys(errors).length > 0) {
+        MessageModal.show('warning', Object.values(errors).join('\n'));
+        return;
+      }
+
       const data = {
-        action: 'edit',
-        id: document.querySelector('.fieldsetId p')?.innerText || null,
+        action: 'insert',
         product_name: document.getElementById('description').value.trim(),
         product_application: document.getElementById('application').value,
         gtin_barcode: document.getElementById('gtin').value.trim(),
@@ -107,5 +152,72 @@
         MessageModal.show('error', 'Erro na requisição:' + err);
       }
     });
+
+    function ValueToDecimal(value, component) {
+        if(!isNaN(value)) {
+        component.value = value.toFixed(2);
+      }
+    };
+
+    sell.addEventListener('blur', async function RecalcProfitValue() {
+      let sellPrice = parseFloat(sell.value);
+      let profitPercentual;
+      let costPrice = parseFloat(cost.value);
+
+      ValueToDecimal(sellPrice, sell);
+
+      console.log(sellPrice, profitPercentual, costPrice);
+
+      if(!isNaN(sellPrice) && !isNaN(costPrice)) {
+        console.log('Entrando no cálculo.');
+        profitPercentual = ((sellPrice - costPrice) / costPrice) * 100;
+        profit.value = profitPercentual.toFixed(2);
+        console.log(profit.value);
+      }
+
+      
+    });
+
+    cost.addEventListener('blur', async function ItemRecalcValues() {
+      let sellPrice = parseFloat(sell.value);
+      let profitPercentual;
+      let costPrice = parseFloat(cost.value);
+
+      ValueToDecimal(costPrice, cost);
+
+      console.log(sellPrice, profitPercentual, costPrice);
+
+      if(!isNaN(sellPrice) && !isNaN(costPrice)) {
+        console.log('Entrando no cálculo.');
+        profitPercentual = ((sellPrice - costPrice) / costPrice) * 100;
+        profit.value = profitPercentual.toFixed(2);
+        console.log(profit.value);
+      }
+
+      
+    });
+
+    profit.addEventListener('blur', async function ItemRecalcValues() {
+      let sellPrice = parseFloat(sell.value);
+      let profitPercentual = parseFloat(profit.value);
+      let costPrice = parseFloat(cost.value);
+      
+      ValueToDecimal(profitPercentual, profit);
+
+      if(!isNaN(profitPercentual)) {
+       sellPrice = costPrice * (1 + (profitPercentual / 100));
+       sell.value = sellPrice.toFixed(2);
+      }
+
+    });
+
+    const quantity = document.getElementById('quantity');
+    const quantityValue = parseFloat(quantity.value);
+
+    quantity.addEventListener('blur', async function QuantityToDecimal() {
+      let quantityValue = parseFloat(quantity.value);
+
+      ValueToDecimal(quantityValue, quantity)
+    })
   });
 </script>
