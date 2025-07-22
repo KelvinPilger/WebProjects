@@ -2,13 +2,13 @@
 <div class="tableContainer">
 	<div id="headerButtons">
 		<strong>
-			<a href="<?= $_SERVER['SCRIPT_NAME'] ?>/product/create" class="btnIncluir">
+			<a href="<?= BASE_URL ?>/product/create" class="btnIncluir">
 				Cadastrar
 			</a>
 		</strong>
 	</div>
 	<table class="myTable">
-		<form action="<?= $_SERVER['SCRIPT_NAME'] ?>/product/index" id="filterForm" method="get">
+		<form action="<?= BASE_URL ?>/product/index" id="filterForm" method="get">
 			<input
 				type="hidden"
 				name="page"
@@ -81,7 +81,7 @@
 							<td id="cfopTd"><?= htmlspecialchars($p['cfop'])?></td>
 							<td id="csosnTd"><?= htmlspecialchars($p['csosn_cst'])?></td>
 							<td id="actionTd">
-								<a id="btnEdit" href="<?= $_SERVER['SCRIPT_NAME'] ?>/product/edit/<?= htmlspecialchars($p['id'], ENT_QUOTES, 'UTF-8') ?>">
+								<a id="btnEdit" href="<?= BASE_URL ?>/product/edit/<?= htmlspecialchars($p['id'], ENT_QUOTES, 'UTF-8') ?>">
 									<svg xmlns="http://www.w3.org/2000/svg" id="editSvg" data-name="Layer 1" viewBox="0 0 24 24" width="17" height="17" fill="currentColor">
 										<path d="m18.813,10c.309,0,.601-.143.79-.387s.255-.562.179-.861c-.311-1.217-.945-2.329-1.833-3.217l-3.485-3.485c-1.322-1.322-3.08-2.05-4.95-2.05h-4.515C2.243,0,0,2.243,0,5v14c0,2.757,2.243,5,5,5h3c.552,0,1-.448,1-1s-.448-1-1-1h-3c-1.654,0-3-1.346-3-3V5c0-1.654,1.346-3,3-3h4.515c.163,0,.325.008.485.023v4.977c0,1.654,1.346,3,3,3h5.813Zm-6.813-3V2.659c.379.218.732.488,1.05.806l3.485,3.485c.314.314.583.668.803,1.05h-4.338c-.551,0-1-.449-1-1Zm11.122,4.879c-1.134-1.134-3.11-1.134-4.243,0l-6.707,6.707c-.755.755-1.172,1.76-1.172,2.829v1.586c0,.552.448,1,1,1h1.586c1.069,0,2.073-.417,2.828-1.172l6.707-6.707c.567-.567.879-1.32.879-2.122s-.312-1.555-.878-2.121Zm-1.415,2.828l-6.708,6.707c-.377.378-.879.586-1.414.586h-.586v-.586c0-.534.208-1.036.586-1.414l6.708-6.707c.377-.378,1.036-.378,1.414,0,.189.188.293.439.293.707s-.104.518-.293.707Z" />
 									</svg>
@@ -140,7 +140,7 @@
 	</form>
 </div>
 <div id="removeModal" hidden="true">
-	<object id="warningSvg" type="image/svg+xml" data="../../../public/assets/images/warningTriangle.svg"></object>
+	<object id="warningSvg" type="image/svg+xml" data="<?= BASE_URL ?>/assets/images/warningTriangle.svg"></object>
 	<div id="modalHeader">Confirmar Exclusão
 	</div>
 	<div id="modalContent">
@@ -246,7 +246,7 @@
 
 	async function confirmRemoval(id) {
 		try {
-			const resp = await fetch(`<?= $_SERVER['SCRIPT_NAME'] ?>/product/remove/${id}`, {
+			const resp = await fetch(`<?= BASE_URL ?>/product/remove/${id}`, {
 				method: 'POST',
 				headers: {
 					'X-Requested-With': 'XMLHttpRequest'

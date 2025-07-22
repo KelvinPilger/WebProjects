@@ -7,6 +7,10 @@ use core\Method;
 use core\Parameters;
 use app\Controllers\Main\ClientController;
 
+
+define('BASE_URL', 'http://servfacil');
+
+
 try{
 
     $controller = (new Controller())->load();

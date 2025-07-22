@@ -40,7 +40,7 @@ class ClientController extends Controller
             'rowLimit'    => $rowLimit,
             'limit'       => $limit,
             'offset'      => $offset,
-            'style'       => ['../../assets/css/clientList.css'],
+            'style'       => [BASE_URL . '/assets/css/clientList.css'],
         ]);
     }
 
@@ -60,7 +60,7 @@ class ClientController extends Controller
             $this->renderView('listings/clientList', [
                 'clients' => $clients,
                 'style' => [
-                    '../../../assets/css/clientList.css'
+                    BASE_URL . '/assets/css/clientList.css'
                 ],
             ]);
         }
@@ -103,7 +103,7 @@ class ClientController extends Controller
         $this->renderView('edit/clientCreate', [
             'clients' => null,
             'style' => [
-                '../../assets/css/clientCreate.css'
+                BASE_URL . '/assets/css/clientCreate.css'
             ],
         ]);
     }
@@ -122,7 +122,7 @@ class ClientController extends Controller
                 'clients'  => [$data['client']],
                 'contacts' =>   $data['contacts'],
                 'style'    => [
-                    '../../../assets/css/clientEdit.css'
+                    BASE_URL . '/assets/css/clientEdit.css'
                 ],
             ]);
         }

@@ -37,7 +37,7 @@
                 'rowLimit'    => $rowLimit,
                 'limit'       => $limit,
                 'offset'      => $offset,
-                'style'       => ['../../assets/css/productList.css'],
+                'style'       => [BASE_URL . '/assets/css/productList.css'],
             ]);
         }
 
@@ -46,7 +46,7 @@
             $this->renderView('edit/productCreate', [
                 'products' => null,
                 'style' => [
-                    '../../assets/css/productCreateEdit.css'
+                    BASE_URL . '/assets/css/productCreateEdit.css'
                 ],
             ]);
         }
@@ -63,7 +63,7 @@
                 $this->renderView('edit/productEdit', [
                     'product' => $product,
                     'style' => [
-                        $_SERVER['SCRIPT_NAME'], '../../../assets/css/productCreateEdit.css'
+                        BASE_URL . '/assets/css/productCreateEdit.css'
                     ],
                 ]);
             }
