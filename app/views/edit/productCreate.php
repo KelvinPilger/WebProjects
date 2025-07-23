@@ -1,4 +1,4 @@
-<form id="productForm" method="POST" action="<?= $_SERVER['SCRIPT_NAME'] ?>/product/store">
+<form id="productForm" method="POST" action="<?= BASE_URL ?>/product/store">
   <div class="infoContainer">
     <fieldset class="fieldsetBlockInfo">
       <legend>Informações Gerais</legend>
@@ -122,7 +122,7 @@
       console.log('JSON final:', JSON.stringify(data, null, 2));
 
       try {
-        const resp = await fetch(`<?= $_SERVER['SCRIPT_NAME'] ?>/product/store`, {
+        const resp = await fetch(`<?= BASE_URL ?>/product/store`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -136,7 +136,7 @@
         if (resp.ok && json.status === 'success') {
           MessageModal.show('success', json.message);
           setTimeout(() => {
-            window.location.href = `<?= $_SERVER['SCRIPT_NAME'] ?>/product/index`;
+            window.location.href = `<?= BASE_URL ?>/product/index`;
           }, 2500);
         } else {
           MessageModal.show('error', json.message || 'Erro desconhecido ao salvar.');

@@ -11,12 +11,11 @@
   <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/modal.css">
   <?php if (!empty($style) && is_array($style)): ?>
     <?php foreach ($style as $href): ?>
-      <link rel="stylesheet" href="<?= htmlspecialchars($href)?>">
+      <link rel="stylesheet" href="<?= htmlspecialchars($href) ?>">
     <?php endforeach; ?>
   <?php endif; ?>
   <script src="<?= BASE_URL ?>/assets/js/modal.js"></script>
 </head>
-
 <body>
   <div class="general-nav">
     <nav class="general" id="main-nav">
@@ -74,11 +73,9 @@
         }, 20);
       });
     });
-
     function toggleDropdown(id) {
       const menu = document.getElementById(id);
       menu.classList.toggle('show');
-
     }
   </script>
   <script src="<?= BASE_URL ?>/assets/js/modal.js"></script>
