@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Core\Database;
+use core\Database;
 use PDO;
 use DateTime;
 
@@ -49,7 +49,6 @@ class ServiceOrder {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
 
 }
 ?>

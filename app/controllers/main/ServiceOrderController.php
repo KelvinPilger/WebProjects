@@ -31,7 +31,7 @@ class ServiceOrderController extends Controller {
             $totalPages = (int) ceil($total / $limit);
         }
 
-        $this->renderView('listings/clientList', [
+        $this->renderView('listings/serviceOrderList', [
             'os'          => $os,
             'total'       => $total,
             'currentPage' => $page,

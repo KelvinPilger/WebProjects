@@ -70,7 +70,9 @@ class ClientController extends Controller
     {
         header('Content-Type: application/json; charset=UTF-8');
 
-        $clientData = $_POST;
+        $input = file_get_contents('php://input');
+        $clientData = json_decode($input, true);
+        
         $clientModel = new Client();
 
         try {

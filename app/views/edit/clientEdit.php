@@ -1,4 +1,4 @@
-<form id="clientForm" method="POST" action="<?= $_SERVER['SCRIPT_NAME'] ?>/client/store">
+<form id="clientForm" method="POST" action="<?= BASE_URL ?>/client/store">
     <div class="infoContainer">
         <?php if (!empty($clients)): ?>
             <?php foreach ($clients as $c): ?>
@@ -158,21 +158,59 @@
             form.addEventListener('submit', async (event) => {
                 event.preventDefault();
                 refreshAll();
-                const formData = new FormData(form);
-                formData.set('action', 'edit');
+
+                const typeElements = document.querySelectorAll('.contact-type');
+                const valueElements = document.querySelectorAll('.contact-value');
+                
+                const contacts = [];
+
+                for (let i = 0; i < typeElements.length; i++) {
+                const type = typeElements[i].value.trim();
+                const value = valueElements[i].value.trim();
+
+                if (type && value) {
+                    contacts.push({
+                    type: type,
+                    value: value,
+                    });
+                }
+                }
+
+                const radCpf = document.getElementById('fisica');
+                const radCnpj = document.getElementById('juridica');
+
+                const client = {
+                action: 'edit',
+                id: document.getElementById('id').textContent,
+                name: document.getElementById('name').value.trim(),
+                bornDate: document.getElementById('bornDate').value.trim(),
+                nat_registration: radCpf.checked ? 'F' : 'J',
+                cpf: document.getElementById('cpf').value.trim(),
+                cnpj: document.getElementById('cnpj').value.trim(),
+
+                contact_list: {
+                    contacts: contacts
+                }
+                };
+
+                console.log(JSON.stringify(client));
 
                 try {
-                    const resp = await fetch(`<?= $_SERVER['SCRIPT_NAME'] ?>/client/store`, {
+                    const resp = await fetch(`<?= BASE_URL ?>/client/store`, {
                         method: 'POST',
-                        body: formData
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(client)
                     });
 
                     const json = await resp.json();
-                    console.log('PARSED JSON:', json);
+
+                    console.log(json);
                     if (resp.ok && json.status === 'success') {
                         MessageModal.show('success', json.message);
                         setTimeout(() => {
-                            window.location.href = `<?= $_SERVER['SCRIPT_NAME'] ?>/client/index`;
+                            window.location.href = `<?= BASE_URL ?>/client/index`;
                         }, 2500);
                     } else {
                         MessageModal.show('error', json.message || 'Erro desconhecido ao salvar.');
@@ -186,4 +224,28 @@
             refreshAll();
             alternateCpfCnpj();
         });
+
+        function retirarFormatacao(campoTexto) {
+            campoTexto.value = campoTexto.value.replace(/(\.|\/|\-)/g, "");
+        }
+
+        function mascaraCpf(valor) {
+            return valor.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "\$1.\$2.\$3\-\$4");
+        }
+
+        function mascaraCnpj(valor) {
+            valor = valor.replace(/\D/g, '');
+
+
+            if (valor.length > 14) {
+            valor = valor.substring(0, 14);
+            }
+
+            valor = valor.replace(/^(\d{2})(\d)/, '$1.$2');
+            valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+            valor = valor.replace(/\.(\d{3})(\d)/, '.$1/$2');
+            valor = valor.replace(/(\d{4})(\d)/, '$1-$2');
+
+            return valor;
+        }
 </script>

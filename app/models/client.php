@@ -17,7 +17,6 @@ class Client
     public $cnpj;
     public $born_at;
     public $age;
-    public $email;
     public $nat_registration;
 
     public function findAll(): array
@@ -76,7 +75,7 @@ class Client
     {
         $pdo = Database::getConnection();
 
-        $stmtClient = $pdo->prepare('SELECT id, name, inserted_at, cpf, cnpj, born_at, age, email, nat_registration FROM clients WHERE id = :id;');
+        $stmtClient = $pdo->prepare('SELECT id, name, inserted_at, cpf, cnpj, born_at, age, nat_registration FROM clients WHERE id = :id;');
 
         $stmtContact = $pdo->prepare('SELECT ctt_type, contact FROM CONTACTS WHERE person_id = :id;');
 
@@ -148,7 +147,7 @@ class Client
                 )'
             );
 
-            foreach ($clientObj['contacts'] as $ctt) {
+            foreach ($clientObj['contact_list']['contacts'] as $ctt) {
                 $stmtCtt->execute([
                     'ctt_type'   => $ctt['type'],
                     'contact'    => $ctt['value'],
@@ -186,7 +185,7 @@ class Client
                     )'
                 );
 
-                foreach ($clientObj['contacts'] as $ctt) {
+                foreach ($clientObj['contact_list']['contacts'] as $ctt) {
                     $stmtCtt->execute([
                         'ctt_type'   => $ctt['type'],
                         'contact'    => $ctt['value'],
