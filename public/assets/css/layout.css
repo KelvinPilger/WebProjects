@@ -42,7 +42,7 @@ a {
   padding: 0px;
   min-width: 50px;
   height: 100vh;
-  transition: ease 0.6s;
+  transition: ease 0.4s;
 }
 
 #sidebarNav:hover {
@@ -59,15 +59,22 @@ a {
 }
 
 .navButtons {
-  margin-right: 10px;
-  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
   height: 50px;
-  padding: 8px;
-  margin-right: 2px;
-  transition: 0.6s ease;
+  padding: 8px 12px;
+  border-radius: 8px;
   background-color: rgba(37, 34, 34, 0.999);
+  border: none;
+  transition: 0.6s ease;
   z-index: 1100;
-  filter: none;
+  cursor: pointer;
+  color: #fff;
+  position: relative;
+  text-decoration: none;
 }
 
 .navButtons:hover {
@@ -96,6 +103,104 @@ a {
   color: #000;
 }
 
+.navButtons svg {
+  flex-shrink: 0;
+}
+
+.dropdown {
+  width: 100%;
+  position: relative;
+  display: contents;
+}
+
+.dropdown-toggle {
+  width: 100%;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.btn-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-text:empty~.arrow {
+  display: none;
+}
+
+.arrow {
+  font-size: 12px;
+  transition: transform 0.3s ease;
+  color: #fff;
+  margin-left: auto;
+}
+
+#accessButtons .arrow {
+  display: none;
+  font-size: 12px;
+  margin-left: auto;
+  transition: transform 0.3s ease;
+  color: #fff;
+}
+
+#sidebarNav:hover .arrow {
+  display: inline;
+}
+
+#sidebarNav .navButtons:hover .arrow {
+  color: #000;
+}
+
+.dropdown-menu {
+  display: none;
+  margin-top: 4px;           
+  padding-left: 12px;        
+  box-sizing: border-box;
+  gap: 10px; 
+}
+
+.hidden {
+  display: none;
+}
+
+.dropButtons {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  width: 40px;
+  height: 50px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: rgba(37, 34, 34, 0.999);
+  border: none;
+  transition: 0.6s ease;
+  z-index: 1100;
+  cursor: pointer;
+  color: #fff;
+  position: relative;
+  text-decoration: none;
+}
+
+.dropButtons:hover {
+  color: #000;
+}
+
+.dropdown-menu.show {
+  display: grid;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f0f0f0;
+  color: #000;
+}
+
+.dropdown-menu .dropButtons {
+  width: calc(100% - 12px);  
+  padding-left: 8px;         
+}
+
 #sidebarNav:hover .btn-text {
   font-family: 'Rubik', sans-serif;
   display: inline-block;
@@ -117,7 +222,6 @@ a {
 
 #accessButtons .btn-text {
   display: none;
-  margin-left: px;
   white-space: nowrap;
   font-size: 18px;
 }
@@ -134,13 +238,10 @@ a {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 100%;
-  height: 50px;
   border: none;
   padding: 0 10px;
-  color: #fff;
   cursor: pointer;
-  transition: background-color 0.4s ease;
+  transition: background-color 1s ease;
 }
 
 #main-nav {
