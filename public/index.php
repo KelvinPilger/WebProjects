@@ -8,7 +8,9 @@ use core\Parameters;
 use app\Controllers\Main\ClientController;
 
 
-define('BASE_URL', 'http://servfacil');
+$config = include __DIR__ . '/../config.php';
+
+define('BASE_URL', $config['base_url']);
 
 
 try{

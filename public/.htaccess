@@ -1,8 +1,15 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /
 
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ index.php/$1 [L]
+    # Se o arquivo ou diretório existe, sirva-o e NÃO redirecione pro index.php
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Tudo o resto vai pra index.php
+    RewriteRule ^ index.php [QSA,L]
+
+    AddType text/css .css
+    AddType application/javascript .js
+    Header set X-Content-Type-Options "nosniff"
 </IfModule>
