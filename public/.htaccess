@@ -1,15 +1,22 @@
+# C:\xampp\htdocs\Projeto\public\.htaccess
+
+Options -Indexes
+
 <IfModule mod_rewrite.c>
-    RewriteEngine On
-	RewriteBase /Exemplo API Fipe - Max/
-    # Se o arquivo ou diretório existe, sirva-o e NÃO redirecione pro index.php
-    RewriteCond %{REQUEST_FILENAME} !-f [OR]
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^ index.php [L]
+  RewriteEngine On
 
-    # Tudo o resto vai pra index.php
-    RewriteRule ^ index.php [QSA,L]
+  # Como o domínio já aponta pra /public, não precisa de RewriteBase
+  # RewriteBase /
 
-    AddType text/css .css
-    AddType application/javascript .js
-    Header set X-Content-Type-Options "nosniff"
+  # Se o arquivo ou diretório existe, serve direto
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Todo o resto vai para o index.php
+  RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
 </IfModule>

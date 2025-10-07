@@ -1,52 +1,54 @@
-<?php 
+<?php
 
 namespace App\Models;
 
-use core\Database;
-use Exception;
+use Core\Database;
 use PDO;
-use Throwable;
 
 date_default_timezone_set('America/Sao_Paulo');
 
-class User {
-    public $id;
-    public string $username;
-    public string $password_hash;
-    public string $token;
-    public string $email;
-
-    public function findUsers($user, $password): array {
-        
-        try {
+class User
+{
+    public function findUser(string $user): ?array
+    {
         $pdo = Database::getConnection();
-        $stmt = $pdo->prepare("SELECT * FROM clients WHERE username = :user AND password = :password");
-        $stmt->execute(['user' => $user, 'password' => $password]);
+        $stmt = $pdo->prepare("SELECT id, username, email, password_hash FROM clients WHERE username = :user LIMIT 1");
+        $stmt->execute(['user' => $user]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        } catch (\Throwable $th) {
-            return ['status' => 'warning', 'message' => 'O log-in não foi efetuado com sucesso!'];
-        }
+        return $row ?: null;
     }
 
-    public function createUser($user, $password_hash, $email): array {
-        $token = ''; $message = '';
-
+    public function saveToken(int $userId, string $token): bool
+    {
         $pdo = Database::getConnection();
-        $stmt = $pdo->prepare("INSERT INTO USER_ACCESS (user, password_hash, token, email) VALUES (:user, :password, :token, :email");
+        $stmt = $pdo->prepare("UPDATE clients SET token = :token WHERE id = :id");
+        return $stmt->execute(['token' => $token, 'id' => $userId]);
+    }
 
-        if($stmt->execute(['user' => $user, 'password' => $password_hash,
-        'token' => $token, 'email' => $email])) {
-            $message = 'O usuário foi registrado com sucesso!';
-            return ['message' => $message, 'status' => true];
-        } else {
-            $message = 'Não conseguimos cadastrar o usuário, tente novamente em instantes!';
-            return ['message' => $message, 'status' => true];
-        }
+    public function createUser(string $user, string $password_plain, string $email): array
+    {
+        $pdo = Database::getConnection();
 
-        
+        $hash = password_hash($password_plain, PASSWORD_BCRYPT);
+        $token = bin2hex(random_bytes(16));
+
+        // CORREÇÃO: faltava fechar parêntese no SQL
+        $stmt = $pdo->prepare("
+            INSERT INTO USER_ACCESS (user, password_hash, token, email)
+            VALUES (:user, :password, :token, :email)
+        ");
+
+        $ok = $stmt->execute([
+            'user' => $user,
+            'password' => $hash,
+            'token' => $token,
+            'email' => $email
+        ]);
+
+        return [
+            'status' => $ok ? 'success' : 'error',
+            'message' => $ok ? 'Usuário registrado com sucesso!' : 'Falha ao registrar o usuário.'
+        ];
     }
 }
-
-?>
