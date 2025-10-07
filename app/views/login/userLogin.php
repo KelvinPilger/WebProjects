@@ -1,4 +1,4 @@
-<div>
+<div id="loginDiv">
   <form id="loginForm" autocomplete="on">
     <label for="user">Usuário</label>
     <input type="text" placeholder="Preencha o usuário." id="user" name="user" required>
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const tokenI = document.getElementById('token');
   const respBox= document.getElementById('respBox');
 
-  form.addEventListener('submit', async (e) => {
+  form.addEventListener('submit', async (event) => {
     e.preventDefault();
 
     const user = document.getElementById('user').value.trim();
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = { user, password: pswd, email };
 
     try {
-      const resp = await fetch('http://servfacil/user/login', {
+      const resp = await fetch('<?= BASE_URL ?>/user/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)

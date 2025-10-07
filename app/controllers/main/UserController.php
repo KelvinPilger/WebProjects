@@ -2,7 +2,7 @@
 
 namespace App\Controllers\main;
 
-use App\Models\User; // <-- Corrija o case do namespace
+use App\Models\User;
 use Core\Controller;
 use Exception;
 
@@ -17,11 +17,14 @@ class UserController extends Controller
         $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
         if ($method === 'GET') {
-            $this->renderView('login/userLogin');
+            $this->renderView('login/userLogin', [
+                'style' => [BASE_URL . '/assets/css/userLogin.css']
+            ]);
             return;
         }
 
         if ($method === 'POST') {
+
             header('Content-Type: application/json; charset=utf-8');
 
             $data = json_decode(file_get_contents('php://input'), true) ?? [];
