@@ -52,7 +52,12 @@ class ServiceOrderController extends Controller {
     }
 
     public function create() {
-
+        $this->renderView('edit/serviceOrderCreate', [
+            'products' => null,
+            'style' => [
+                BASE_URL . '/assets/css/serviceOrderCreate.css'
+            ],
+        ]);
     }
 
     public function edit() {

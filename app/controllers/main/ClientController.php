@@ -2,7 +2,7 @@
 
 namespace App\Controllers\main;
 
-use app\models\Client;
+use app\Models\Client;
 use Core\Controller;
 use Error;
 use Throwable;

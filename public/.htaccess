@@ -1,10 +1,10 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-
+	RewriteBase /Exemplo API Fipe - Max/
     # Se o arquivo ou diretório existe, sirva-o e NÃO redirecione pro index.php
-    RewriteCond %{REQUEST_FILENAME} -f [OR]
-    RewriteCond %{REQUEST_FILENAME} -d
-    RewriteRule ^ - [L]
+    RewriteCond %{REQUEST_FILENAME} !-f [OR]
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L]
 
     # Tudo o resto vai pra index.php
     RewriteRule ^ index.php [QSA,L]
